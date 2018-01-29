@@ -1,0 +1,70 @@
+.ng-valid[required],
+.ng-valid.required {
+    border-left: 2px solid #42A948;
+    /* green */
+}
+
+.ng-invalid[form],
+{
+    border-left: 2px solid #a94442;
+    /* red */
+}
+
+.panel {
+    border-radius: 0px !important;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    position: relative;
+    margin-bottom: 30px;
+}
+
+section {
+    display: block;
+}
+
+.corner-flip {
+    position: relative;
+}
+
+.corner-flip .flip {
+    border-bottom-color: #e5e9ec;
+    border-right: 23px solid transparent;
+    border-top: 23px solid #FFF;
+    bottom: 0;
+    position: absolute;
+    right: 0;
+    z-index: 3;
+}
+
+.corner-flip.flip-bg-white .flip {
+    border-bottom-color: #FFF;
+    border-top: 23px solid #e5e9ec;
+}
+
+.corner-flip .flip:after {
+    border-bottom: 23px solid rgba(0, 0, 0, 0.1);
+    border-left: 23px solid transparent;
+    content: "";
+    position: absolute;
+    right: 0;
+    top: -23px;
+}
+
+.corner-flip .flip:before {
+    border-bottom: 28px solid;
+    border-bottom-color: inherit;
+    border-left: 28px solid transparent;
+    bottom: -2px;
+    content: "";
+    position: absolute;
+    right: -25px;
+}
+
+.corner-flip.flip-gray .flip {
+    border-top-color: #CCC;
+}
+
+.panel.corner-flip .flip {
+    border-top-color: #CCC;
+}

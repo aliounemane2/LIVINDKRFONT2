@@ -1,0 +1,50 @@
+<div id="main">
+    <div class="real-border">
+        <div class="row">
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+            <div class="col-xs-1"></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="account-wall">
+            <section class="align-lg-center" style="margin-bottom: 20px">
+                <img src="assets/img/logo-livindakar.png" class="img  img-responsive" style="margin: auto" />
+            </section>
+            <div class="row">
+                <div class="col-lg-8 col-sm-8 col-md-8 col-xs-12 col-lg-offset-2 col-sm-offset-2 col-md-offset-2 align-lg-center">
+
+                    <form #registerForm="ngForm" (ngSubmit)="sendEmail()">
+                        <div class="input-group shadow2">
+                            <input placeholder="Votre email d'inscription" #mail="ngModel" email required [(ngModel)]="email" name="email" type="email" class="form-control col-lg-8 col-sm-8 col-md-8 col-xs-8" style="height: 55px; font-size: 2em">
+                            <span class="input-group-btn">
+                                <button *ngIf="loginOK" class="col-lg-4 col-sm-4 col-md-4 col-xs-4 btn btn-lg btn-theme-inverse btn-block" type="submit" style="height: 55px;">Envoyer</button>
+                                <button *ngIf="!loginOK" disabled class="col-lg-4 col-sm-4 col-md-4 col-xs-4 btn btn-lg btn-theme-inverse btn-block btn-transparent pull-right" style="width: 55px;"><img src="assets/img/Eclipse-1s-200px.svg" /></button>
+                              </span>
+                        </div>
+                        <div *ngIf="!mail.valid && mail.touched" class="align-lg-center" style="margin-top: 5px">
+                            <label class="control-label " style="color:red ; font-size: 2em">Email incorrecte !</label>
+                        </div>
+                    </form>
+
+                    <section class="col-lg-6 col-sm-6 col-md-6 col-xs-12 col-lg-offset-3 col-sm-offset-3 col-md-offset-3" style="margin-top: 30px">
+                        <hr class="shadow1" style="height: 5px" />
+                        <button class="btn btn-lg btn-inverse btn-block shadow1" type="button"> Créer compte </button>
+                        <button class="btn btn-lg btn-theme-inverse btn-block shadow1" type="button"> Connecter </button>
+                        <hr class="shadow1" style="height: 5px" />
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
