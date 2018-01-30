@@ -32,6 +32,7 @@ import { SendemailComponent } from './sendemail/sendemail.component';
 
 import { AppComponent } from './app.component';
 import { ToastOptions } from 'ng2-toastr/src/toast-options';
+import { RedirectService } from './service/redirect.service';
 
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
@@ -47,6 +48,7 @@ export const appRoutes:Routes=[
   {path: 'dashboard',component:DashboardComponent},
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginComponent },
+  {path:'login/:message', component:LoginComponent },
   {path:'register', component:RegisterComponent },
   {path:'updatePassword', component:PassforgetComponent },
   {path:'updatePassword/:email/:password', component:PassforgetComponent },
@@ -81,7 +83,7 @@ export const appRoutes:Routes=[
     ToastModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService, EvenementService, RegisterService, TokenService, ToastOptions,{provide: ToastOptions, useClass: CustomOption}],
+  providers: [UserService, EvenementService, RegisterService, TokenService, ToastOptions,{provide: ToastOptions, useClass: CustomOption}, RedirectService],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],
 
