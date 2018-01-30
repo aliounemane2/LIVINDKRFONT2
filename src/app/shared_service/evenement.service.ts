@@ -70,7 +70,7 @@ export class EvenementService {
 
     //Fetch all institution by user
     getAllInstitutionByUser() {
-        return this.http.get(this.BACKEND_URL+'/institution/InstitutionByUser/')
+        return this.http.get(this.BACKEND_URL+'/institution/InstitutionByUser/', this.options)
           .map(this.extractData)
             .catch(this.handleError);
 
@@ -129,7 +129,7 @@ export class EvenementService {
       let input = new FormData();
       input.append("file", fileToUpload);
 
-      return this.http.post("/api/uploadFile", input); // /Utilisateurs/Mane/.m2
+      return this.http.post("/api/uploadFile", input); // 
     }
 
     
