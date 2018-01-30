@@ -1,0 +1,58 @@
+<nav id="menu">
+    <ul>
+        <li>
+            <a [routerLink]="['../dashboard']"><span><i class="icon  fa fa-laptop"></i> Dashboard</span></a>
+            <!--<ul>
+                <li><a [routerLink]="['institution']"><i class="icon  fa fa-rocket"></i> Institution </a></li>
+        <li><a href="dashboard2.html"><i class="icon  fa fa-th"></i> Dashboard New </a></li>
+    </ul>-->
+        </li>
+        <li><span><i class="icon  fa fa-briefcase"></i> Institutions</span>
+            <ul>
+                <li>
+                    <a [routerLink]="['institution']">
+                        <!--</a><a href="ui.html"> UI </a>-->Creer </a>
+                </li>
+                <li>
+                    <!-- <a href="ui_button.html"> Button </a>-->
+                    <a [routerLink]="['listeInstitution']"> Afficher </a>
+
+                </li>
+                <!-- <li><a href="ui_icon.html"> Fonts Icon</a></li>
+                <li><a href="ui_slide.html"> Slide</a></li>
+                <li><a href="ui_modal.html"> Modal</a></li>
+                <li><a href="ui_panel.html"> Panel</a></li>
+                <li><a href="ui_alert.html"> Alert</a></li>
+                <li><a href="ui_typography.html"> Typography</a></li>
+                <li><a href="ui_nestable.html"> Nestable</a></li>-->
+            </ul>
+        </li>
+
+        <!-- <li><a href="calendar.html"><i class="icon  fa fa-calendar-o"></i> Calendar </a></li>-->
+
+        <li>
+            <span><i class="icon  fa fa-calendar-o"></i> Events</span>
+
+            <ul>
+                <li>
+                    <a [routerLink]="['evenement']">
+                        <!--</a><a href="ui.html"> UI </a>-->Creer </a>
+                </li>
+
+                <li>
+                    <a [routerLink]="['listeEvent']">
+                        <!--</a><a href="ui.html"> UI </a>-->Afficher </a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a [routerLink]="['../dashboard']"><i class="icon  fa fa-bar-chart-o"></i> Statistiques
+            </a>
+
+        </li>
+
+        <!--  class="mm-subopen mm-fullsubopen" <span>  </span> <li><a href="mailBox.html"><i class="icon  fa fa-inbox"></i> Mail</a></li> -->
+        <li><a [routerLink]="['../dashboard']"><i class="icon  fa fa-envelope"></i> Mail</a></li>
+
+    </ul>
+</nav>

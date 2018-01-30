@@ -222,16 +222,16 @@ export class DeleteInstitutionComponent implements OnInit {
       idSousCategory=+json.idSousCategory;
     }
 
-    let institution = new Institution(this.updateInstitution, adresseIns, latitudeIns,longitudeIns,nomIns,this.photo,telephoneIns,descriptionIns,solde,price,idCategory,idSousCategory,idTypeoffre,interestIdInterest);
+    let institution = new Institution(this.updateInstitution, adresseIns, latitudeIns,longitudeIns,nomIns,this.photo,telephoneIns,descriptionIns,solde,price,idCategory,idSousCategory,idTypeoffre,4,interestIdInterest);
     console.log(" COOOOOLLLLLLLLL ");
     console.log(institution);
 
     this.userService.updateInstitutionByUser(institution, institution.idInstitution).subscribe(
       data => {
         this.updateInstitution = data.institution;
-       console.log("BON");
-       this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/dashboard');
 
+       console.log("BON");
         console.log(this.updateInstitution);
         },
       errorCode => {

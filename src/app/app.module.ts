@@ -1,3 +1,6 @@
+import { DashboardComponent } from './Component/dashboard/dashboard.component';
+import { ComponentsModule } from './Component/component.module';
+import { CustomOption } from './service/CustomOption';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -27,26 +30,28 @@ import { TokenService } from './service/token.service';
 import { SendemailComponent } from './sendemail/sendemail.component';
 
 
-
-
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { ToastOptions } from 'ng2-toastr/src/toast-options';
 
 export const appRoutes:Routes=[
-  {path:'institution', component:InstitutionComponent },
-  {path:'evenement', component:EvenementComponent },
-  {path:'listeInstitution', component:ListesInstitutionsComponent },
-  {path:'listeEvent', component:ListeEvenementsComponent },
-  {path:'deleteEvent/:id', component:DeleteEventComponent },
-  {path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
+  {path: 'dashboard', component:DashboardComponent,
+     children: [
+      { path: 'institution', component: InstitutionComponent },
+      {path:'listeInstitution', component:ListesInstitutionsComponent },
+      {path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
+      {path:'evenement', component:EvenementComponent },
+      {path:'listeEvent', component:ListeEvenementsComponent },
+      {path:'deleteEvent/:id', component:DeleteEventComponent },
+    ]
+  },
+  {path: 'dashboard',component:DashboardComponent},
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginComponent },
   {path:'register', component:RegisterComponent },
   {path:'updatePassword', component:PassforgetComponent },
+  {path:'updatePassword/:email/:password', component:PassforgetComponent },
   {path:'sendemail', component:SendemailComponent },
-  {path:'sendemail/:code', component:SendemailComponent },// DashboardComponent
-  {path:'dashboard', component:DashboardComponent },
-
+  {path:'sendemail/:code', component:SendemailComponent }
 
 ]
 
@@ -63,8 +68,7 @@ export const appRoutes:Routes=[
     LoginComponent,
     RegisterComponent,
     PassforgetComponent,
-    SendemailComponent,
-    DashboardComponent
+    SendemailComponent    
   ],
   imports: [
     BrowserModule,
@@ -73,10 +77,11 @@ export const appRoutes:Routes=[
     HttpModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ComponentsModule,
     ToastModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService, EvenementService, RegisterService, TokenService],
+  providers: [UserService, EvenementService, RegisterService, TokenService, ToastOptions,{provide: ToastOptions, useClass: CustomOption}],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],
 

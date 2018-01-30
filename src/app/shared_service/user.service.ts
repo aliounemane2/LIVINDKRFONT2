@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import {Http, Response, Headers, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs/Observable';
-import {TokenService} from '../service/token.service';
-
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/throw';
 // import {User} from '../institution';
 import { Institution } from '../institution/institution';
+import {TokenService} from '../service/token.service';
 
 
 
@@ -17,11 +16,11 @@ export class UserService {
 
   private baseUrl:string = 'http://192.168.1.94:8088';
   public URL_PHOTO = 'http://192.168.1.94:8088/institution/upload/';
-  private headers = new Headers({'Content-Type':'application/json', 'Authorization': this.tokenService.getToken()});
+  private headers = new Headers({'Content-Type':'application/json',   'Authorization': this.tokenService.getToken()
+});
   private options = new RequestOptions({headers:this.headers});
 
   constructor(private _http:Http, private tokenService :TokenService) { }
-
   getInstitutions(){
 
     return this._http.get(this.baseUrl+'/institution', this.options).map((response:Response)=>response.json())
@@ -52,7 +51,7 @@ export class UserService {
 
     //Get Institution By User
     getInstitutionByUser() {
-      return this._http.get(this.baseUrl+'/institution/InstitutionByUser/',this.options)
+      return this._http.get(this.baseUrl+'/institution/InstitutionByUser/', this.options)
         .map(this.extractData)
           .catch(this.handleError);
   
@@ -119,7 +118,7 @@ export class UserService {
 
 
   getEventByUser(){
-    return this._http.get(this.baseUrl+'/event/events_by_user/',this.options)
+    return this._http.get(this.baseUrl+'/event/events_by_user/', this.options)
     .map(this.extractData)
       .catch(this.handleError);
 

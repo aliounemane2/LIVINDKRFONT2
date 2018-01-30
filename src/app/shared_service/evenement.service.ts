@@ -5,7 +5,8 @@ import { Observable } from 'rxjs';
 import { Place } from '../evenement/place';
 import { Evenement } from '../evenement/evenement';
 import { InterestEvent } from '../evenement/interestEvent';
-import { TokenService } from '../service/token.service';
+import {TokenService} from '../service/token.service';
+
 
 @Injectable()
 export class EvenementService {
@@ -129,7 +130,7 @@ export class EvenementService {
       let input = new FormData();
       input.append("file", fileToUpload);
 
-      return this.http.post("/api/uploadFile", input); // 
+      return this.http.post("/api/uploadFile", input);
     }
 
     

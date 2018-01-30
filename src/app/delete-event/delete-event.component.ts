@@ -183,7 +183,7 @@ getEventId(id) {
     }
 
 
-    let evenements = new Evenement(this.updateEvent, nom, desc,date,heuredeb,heurefin,this.idPlace,ins,this.photo,interet,interet);
+    let evenements = new Evenement(this.updateEvent, nom, desc,date,heuredeb,heurefin,this.idPlace,ins,this.photo,interet,4,interet);
     let eventIntrest = new InterestEvent(null,heuredeb,heurefin,interet,null);
     // let evenement : any;
     console.log("EVENEMENT ");
@@ -192,8 +192,9 @@ getEventId(id) {
    this.evenementservice.updateEventByUser(evenements, this.updateEvent).subscribe(
       data => {
         this.updateEvent = data.message;
-        this.router.navigateByUrl('/dashboard');
         console.log(this.updateEvent);
+        this.router.navigateByUrl('/dashboard');
+
         },
       errorCode => {
         this.statusCode = errorCode

@@ -30,7 +30,7 @@ import { Http, Headers,Response,RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 import {RouterModule, Routes} from '@angular/router';
-import {Router} from '@angular/router'
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-evenement',
@@ -147,7 +147,7 @@ export class EvenementComponent implements OnInit {
       let place = +json.place;
       let ins = +json.ins;
       let interet = +json.interet;
-      let evenement= new Evenement(null, nom, desc,date,heuredeb,heurefin,this.idPlace,ins,this.photo,1,interet);
+      let evenement= new Evenement(null, nom, desc,date,heuredeb,heurefin,this.idPlace,ins,this.photo,1,4,interet);
       let eventIntrest = new InterestEvent(null,heuredeb,heurefin,interet,null);
       console.log(evenement); 
       console.log(eventIntrest); 

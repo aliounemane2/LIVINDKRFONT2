@@ -3,6 +3,7 @@ import {Place} from '../institution/place';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Http, Headers,Response,RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import {Router} from '@angular/router';
 
 
 
@@ -12,7 +13,6 @@ import { Observable } from 'rxjs';
 import {User} from '../classes/user';
 import {UserService} from '../shared_service/user.service';
 import { Institution } from '../institution/institution';
-import { Router } from '@angular/router';
 declare var $:any;
 
 
@@ -323,7 +323,7 @@ export class InstitutionComponent implements OnInit {
 
 
 
-      let institution = new Institution(null, adresseIns, latitudeIns,longitudeIns,nomIns,this.photo,telephoneIns,descriptionIns,solde,price,idCategory,idSousCategory,idTypeoffre,interestIdInterest);
+      let institution = new Institution(null, adresseIns, latitudeIns,longitudeIns,nomIns,this.photo,telephoneIns,descriptionIns,solde,price,idCategory,idSousCategory,idTypeoffre,4,interestIdInterest);
       console.log(institution);
       console.log("TEST VALEUR DE SOUS CATEGORIE ");
 
