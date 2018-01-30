@@ -22,12 +22,21 @@ export class SendemailComponent implements OnInit {
     this.route.params.subscribe(params => 
         {
           this.code = params['code']; 
-        });
+        });  
     if(this.code !== undefined){
       this.service.Activer_Compte(this.code).subscribe(
         data => {
-          console.log(data);
-          this.router.navigateByUrl("/login");
+          switch(data["corps"]){
+            case "0" : 
+              alert("Votre compte est déjà activé. Veuillez vous connecter.!");
+              this.connecter();
+            break;
+            case "1" : alert("Vous n'avez pas de compte ou votre mail est incorrecte !"); break;
+            case "2" : alert("Nous n'avons pas vous envoyez le mail de validation. Veuillez reéssayer!"); break;
+            case "3" : 
+             alert("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!");
+            break;
+          }
         },
         error => {
           console.log(error);
@@ -62,10 +71,15 @@ export class SendemailComponent implements OnInit {
       this.loginOK = false;
       this.service.Verifier_Email(this.email,1).subscribe(
         data => {
-          switch(data["status"]){
-            case "1" : alert("Vous n'avez pas de compte ou votre est incorrecte !"); break;
+          switch(data["corps"]){
+            case "1" : alert("Vous n'avez pas de compte ou votre mail est incorrecte !"); break;
             case "2" : alert("Nous n'avons pas vous envoyez le mail de validation. Veuillez reéssayer!"); break;
-            case "3" : alert("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!"); break;
+            case "3" : 
+             alert("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!");
+            break;
+            case "4" : 
+              alert("Votre compte est déjà activé. Veuillez vous connecter.!");
+            break;
           }
           console.log(data);
           this.loginOK = true;
@@ -76,6 +90,14 @@ export class SendemailComponent implements OnInit {
         });
     }
     
+  }
+
+  register(){
+    this.router.navigateByUrl("/register");
+  }
+
+  connecter(){
+    this.router.navigateByUrl("/login");
   }
 
 }

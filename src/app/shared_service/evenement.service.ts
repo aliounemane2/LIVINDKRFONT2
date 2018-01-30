@@ -5,17 +5,16 @@ import { Observable } from 'rxjs';
 import { Place } from '../evenement/place';
 import { Evenement } from '../evenement/evenement';
 import { InterestEvent } from '../evenement/interestEvent';
-import { TokenService } from '../service/token.service';
 
 @Injectable()
 export class EvenementService {
-	private BACKEND_URL = 'http://192.168.1.94:8088';
+	private BACKEND_URL = 'http://213.246.59.111:8080/LIVINDKR_API/';
 	//private BACKEND_URL = 'http://localhost:8080';
-  public URL_PHOTO = 'http://192.168.1.94:8088/event/upload/';
-	private headers = new Headers({'Content-Type': 'application/json', 'Authorization': this.tokenService.getToken()});
+  public URL_PHOTO = 'http://213.246.59.111:8080/LIVINDKR_API/event/upload/';
+	private headers = new Headers({'Content-Type': 'application/json'});
 	private options = new RequestOptions({headers: this.headers});
 
-  constructor(public http: Http, private tokenService :TokenService) { }
+  constructor(public http: Http) { }
 
   /*createEvenement(evenement) {
     let body = JSON.stringify(evenement);
@@ -69,8 +68,8 @@ export class EvenementService {
     }
 
     //Fetch all institution by user
-    getAllInstitutionByUser() {
-        return this.http.get(this.BACKEND_URL+'/institution/InstitutionByUser/')
+    getAllInstitutionByUser(idUser) {
+        return this.http.get(this.BACKEND_URL+'/institution/InstitutionByUser/'+idUser)
           .map(this.extractData)
             .catch(this.handleError);
 
@@ -95,14 +94,14 @@ export class EvenementService {
 
     //Delete Event By User
     deleteEventByUser(idEvent:Number) {
-      return this.http.delete(this.BACKEND_URL+'/event/delete_event/'+idEvent, this.options)
+      return this.http.delete(this.BACKEND_URL+'/event/delete_event/'+idEvent)
         .map(this.extractData)
           .catch(this.handleError);
   
     }
 
-    getEventByUser(){
-      return this.http.get(this.BACKEND_URL+'/event/events_by_user/', this.options)
+    getEventByUser(idUser:Number){
+      return this.http.get(this.BACKEND_URL+'/event/events_by_user/'+idUser)
       .map(this.extractData)
         .catch(this.handleError);
   
@@ -129,7 +128,7 @@ export class EvenementService {
       let input = new FormData();
       input.append("file", fileToUpload);
 
-      return this.http.post("/api/uploadFile", input); // /Utilisateurs/Mane/.m2
+      return this.http.post("/api/uploadFile", input);
     }
 
     

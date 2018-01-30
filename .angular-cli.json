@@ -21,7 +21,21 @@
             "../node_modules/ng2-toastr/bundles/ng2-toastr.min.css",
             "styles.css"
         ],
-        "scripts": [],
+        "scripts": [
+            "../node_modules/jquery/dist/jquery.js",
+            "../node_modules/jquery/dist/jquery.min.js",
+            "../src/assets/js/jquery.ui.min.js",
+            "../src/assets/js/bootstrap.min.js",
+            "../src/assets/js/modernizr.js",
+            "../src/assets/js/jquery.mmenu.js",
+            "../src/assets/js/styleswitch.js",
+            "../src/assets/js/form.js",
+            "../src/assets/js/datetime.js",
+            "../src/assets/js/chart.js",
+            "../src/assets/js/pluginsForBS.js",
+            "../src/assets/js/miscellaneous.js",
+            "../src/assets/js/caplet.custom.js"
+        ],
         "environmentSource": "environments/environment.ts",
         "environments": {
             "dev": "environments/environment.ts",

@@ -3,13 +3,13 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class TokenService {
 
-  // constructor() { }
+  constructor() { }
 
-  setToken (token: string){
+  public setToken (token: string){
     localStorage.setItem("token",token);
   }
 
-  getToken(){
+  public getToken(){
     return localStorage.getItem("token");
   }
 

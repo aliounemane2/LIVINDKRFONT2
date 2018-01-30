@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../shared_service/user.service';
+import { UserService } from 'app/shared_service/user.service';
 import { Http, Headers,Response,RequestOptions } from '@angular/http';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-liste-evenements',
@@ -16,7 +16,7 @@ export class ListeEvenementsComponent implements OnInit {
   statusCode: number;
 
 
-  constructor(private userService : UserService, public http: Http, private router : Router) { }
+  constructor(private userService : UserService, public http: Http) { }
 
   ngOnInit() {
     this.getEventByUser();
@@ -24,7 +24,7 @@ export class ListeEvenementsComponent implements OnInit {
 
   getEventByUser() {
 
-    this.userService.getEventByUser().subscribe(
+    this.userService.getEventByUser(4).subscribe(
       data => {
         this.EventByUser = data.events;
         this.urls = data.urls;

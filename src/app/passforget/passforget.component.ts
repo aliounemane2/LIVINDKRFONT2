@@ -1,6 +1,9 @@
-import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { CustomOption } from './../service/CustomOption';
+import { RegisterService } from './../service/register.service';
+import { Router , ActivatedRoute, ParamMap} from '@angular/router';
+import { Component, OnInit ,ViewContainerRef} from '@angular/core';
 import * as $ from 'jquery';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'app-passforget',
@@ -9,13 +12,43 @@ import * as $ from 'jquery';
 })
 export class PassforgetComponent implements OnInit {
 
-  constructor(private router: Router) { }
+    email: string;
+    password: string;
+    passwordconfirm:string;
+    statusemail:boolean;
+    loginOK:boolean;
+    verifpassword:boolean;
 
-  register(){
-    this.router.navigateByUrl('/login');
+  constructor(private router: Router, private service: RegisterService,private route: ActivatedRoute,public toastr: ToastsManager, vcr: ViewContainerRef) { 
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit() {
+      this.verifpassword = true;
+      this.statusemail = true;
+      this.loginOK = true;
+
+    this.route.params.subscribe(params => 
+        {
+          this.email = params['email']; 
+          this.password = params['password']; 
+        });
+
+        if(this.email != undefined && this.password != undefined){
+            this.service.UpdatePassword(this.email,this.password,1).subscribe(
+                data => {
+                    if(data["corps"] === "0"){
+                        this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
+                        this.router.navigateByUrl("/updatePassword")
+                    }
+                    this.toastr.success(data["status"], 'Information!', CustomOption);
+                    this.register();
+                },
+                error => {
+                    this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
+                });
+        }
+
     $(document).ready(function() {
             //Login animation to center 
             function toCenter() {
@@ -23,9 +56,9 @@ export class PassforgetComponent implements OnInit {
                 var accountH = $(".account-wall").outerHeight();
                 var marginT = (mainH - accountH) / 2;
                 if (marginT > 30) {
-                    $(".account-wall").css("margin-top", marginT - 15);
+                    $(".account-wall").css("margin-top", marginT - 80);
                 } else {
-                    $(".account-wall").css("margin-top", 30);
+                    $(".account-wall").css("margin-top", 110);
                 }
             }
             toCenter();
@@ -37,4 +70,45 @@ export class PassforgetComponent implements OnInit {
         });
   }
 
+ register(){
+    this.router.navigateByUrl('/login');
+  }
+  VerifierEmail(){
+      this.service.Verifier_Email(this.email,0).subscribe(
+        data => {
+            console.log(data);
+            this.statusemail = data["corps"]==="0" ? true : false;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  UpdatePassword(){
+    this.loginOK = false;
+    this.service.UpdatePassword(this.email,this.password,0).subscribe(
+        data => {
+            if(data["corps"] === "0"){
+                this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
+            }else{
+                this.toastr.success(data["corps"]+" "+data["message"], 'Information!', CustomOption);
+                this.email = "";
+                this.password = "";
+                this.passwordconfirm = "";
+            }
+            
+            console.log(data);
+            this.loginOK = true;
+        },
+        error => {
+            this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
+            this.loginOK = true;
+        });
+  }
+
+  VerifierPassword(){
+    this.verifpassword = this.password !== this.passwordconfirm
+                        && this.passwordconfirm != undefined 
+                        && this.password != undefined ? false : true;
+  }
 }
