@@ -33,7 +33,7 @@ export class Institution {
         public idCategory: number,
         public idSousCategory: number,
         public idTypeoffre: number,
-        // public idUser : number,
+        public idUser : number,
         public interestIdInterest: number) {
        
     }

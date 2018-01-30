@@ -83,6 +83,7 @@ export class RegisterComponent implements OnInit {
           this.loginOK = true;
           console.log(JSON.stringify(err));
       });
+      this.loginOK = true;
   }
 
   Verifier_Pseudo(){

@@ -1,200 +1,191 @@
-<div id="main">
-    <div class="real-border">
-        <div class="row">
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-            <div class="col-xs-1"></div>
-        </div>
-    </div>
-    <div>
-            <div class="tools-bar">
-                    <ul class="nav navbar-nav navbar-right tooltip-area shadow2" style="margin-right:5px">
-                     <li><a [routerLink]="[ '/login'] " data-toggle="tooltip" title="Connecter" data-placement="left">Connecter  <i class="fa fa-sign-in fa-align-right"></i></a></li>
-                    </ul>
+<body class="full-lg">
+    <div id="wrapper">
+        <div id="main">
+            <div class="real-border">
+                <div class="row">
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                    <div class="col-xs-1"></div>
+                </div>
             </div>
-            <!-- //tools-bar-->
-            
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12" style="margin: auto">
+            <div>
+                <div class="tools-bar">
+                    <ul class="nav navbar-nav navbar-right tooltip-area shadow2" style="margin-right:5px">
+                        <li><a [routerLink]="[ '/login'] " data-toggle="tooltip" title="Connecter" data-placement="left">Connecter  <i class="fa fa-sign-in fa-align-right"></i></a></li>
+                    </ul>
+                </div>
+                <!-- //tools-bar-->
 
-                <div class="account-wall">
-                    <section class="align-lg-center">
-                        <img src="assets/img/logo-livindakar.png" class="img  img-responsive" style="margin: auto" />
-                    </section>
-                    <div class="row">
-                        <form (ngSubmit)="onSubmit()" #registerForm="ngForm" enctype="multipart/form-data">
-                            <div class="col-lg-10 col-lg-offset-1">
-                                <section class="panel corner-flip">
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12" style="margin: auto">
 
-                                    <div class="real-border shadow1">
-                                        <div class="row">
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                            <div class="col-xs-1"></div>
-                                        </div>
+                        <div class="account-wall">
+                            <section class="align-lg-center">
+                                <img src="assets/img/logo-livindakar.png" class="img img-responsive" style="margin: auto" />
+                            </section>
+                            <div class="row">
+                                <form (ngSubmit)="onSubmit()" #registerForm="ngForm" enctype="multipart/form-data">
+                                    <div class="col-lg-10 col-lg-offset-1">
+                                        <section class="panel corner-flip">
+
+                                            <div class="real-border shadow1">
+                                                <div class="row">
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                    <div class="col-xs-1"></div>
+                                                </div>
+                                            </div>
+
+                                            <div class="panel-body shadow1 shadow2">
+                                                <div class="row">
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                                                        <label class="control-label">Nom</label>
+                                                        <input required #nom="ngModel" [(ngModel)]="utilisateur.nom" name="nom" type="text" class="form-control shadow1" id="nom" formco parsley-required="true " placeholder="Votre nom">
+                                                        <div *ngIf="!nom.valid && nom.touched ">
+                                                            <label class="control-label " style="color:red ">Le nom est obligatoire !</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
+                                                        <label class="control-label ">Prenom</label>
+                                                        <input required #prenom="ngModel" [(ngModel)]="utilisateur.prenom" name="prenom" type="text" class="form-control shadow1" placeholder="Votre prenom ">
+                                                        <div *ngIf="!prenom.valid && prenom.touched ">
+                                                            <label class="control-label " style="color:red ">Le prenom est obligatoire !</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                                                        <label class="control-label ">Pseudo</label>
+                                                        <input #pseudo="ngModel" (change)="Verifier_Pseudo() " required [(ngModel)]="utilisateur.pseudo " name="pseudo" type="text" class="form-control shadow1" placeholder="Votre pseudo">
+                                                        <div *ngIf="status">
+                                                            <label class="control-label " style="color:red ">Pseudo existe déjà !</label>
+                                                        </div>
+                                                        <div *ngIf="!pseudo.valid && pseudo.touched ">
+                                                            <label class="control-label " style="color:red ">Le pseudo est obligatoire !</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                                                        <label class="control-label ">Email</label>
+                                                        <input #email="ngModel" email (change)="Verifier_Email() " required [(ngModel)]="utilisateur.email " type="email " name="email " class="form-control shadow1" placeholder="livindakar@email.com ">
+                                                        <div *ngIf="statusemail ">
+                                                            <label class="controllabel " style="color:red ">Email existe déjà !</label>
+                                                        </div>
+                                                        <div *ngIf="!email.valid && email.touched ">
+                                                            <label class="control-label " style="color:red ">Email incorrecte !</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                                                        <label class="control-label ">Télephone</label>
+                                                        <input name="telephone" [(ngModel)]="utilisateur.telephone" type="text" class="form-control shadow1" placeholder="Votre télephone">
+                                                    </div>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                                                        <label class="control-label ">Date Naissance</label>
+                                                        <input type="date" [(ngModel)]="utilisateur.date_naissance" name="date_naissance" class="form-control shadow1">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-6 col-lg-6 col-md-6">
+
+                                                        <div class="col-xs-6 col-sm-4 col-lg-4 col-md-4">
+                                                            <label>Etes-vous à dakar?</label>
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-1">
+                                                                <select name="isdakar" [(ngModel)]="isdakar" class="bootstrap-select form-control show-menu-arrow dropup ropdown-menu inner shadow1">
+                                                            <option [value]="isdakar" [selected]>Oui</option>
+                                                            <option [value]="!isdakar">Non</option>
+                                                        </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-6 col-sm-4 col-lg-4 col-md-4">
+                                                            <label>Sexe ?</label>
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                                <select name="sexe" [(ngModel)]="sexe" class="bootstrap-select form-control show-menu-arrow dropup ropdown-menu inner shadow1">
+                                                            <option [value]="sexe" [selected]>Homme</option>
+                                                            <option [value]="!sexe">Femme</option>
+                                                        </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="fileinput fileinput-new col-xs-12 col-sm-4 col-lg-4 col-md-4" data-provides="fileinput">
+                                                            <div class="fileinput-preview col-xs-12 col-sm-12 col-lg-12 col-md-12 thumbnail form-control shadow1" data-trigger="fileinput" style="height: 100px;"></div>
+                                                            <div>
+                                                                <span class="btn btn-default shadow1 btn-file btn-success btn-transparent ">
+												    <span class="fileinput-new" style="font-size: 0.93em"><i class="fa fa-camera"></i>Sélectionner</span>
+                                                                <span class="fileinput-exists pull-left "><i class="fa fa-pencil "></i></span>
+                                                                <input type="file" name="file" (change)="fileChange($event)" value="assets/img/avatar_defaut.png">
+                                                                </span>
+                                                                <a href="#" class="shadow1 btn btn-default btn-danger btn-transparent fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-trash-o"></i></a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
+                                                        <label class="control-label">Password</label>
+                                                        <input #password="ngModel" (keyup)="VerifierPassword()" required [(ngModel)]="utilisateur.password" type="password" name="password" class="form-control shadow1">
+                                                        <div *ngIf="!password.valid && password.touched">
+                                                            <label class="control-label" style="color:red">Le password est obligatoire !</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
+                                                        <label class="control-label">Confirmer Password</label>
+                                                        <input (keyup)="VerifierPassword()" required [(ngModel)]="utilisateur.confirmpassword" type="password" name="confirmpassword" class="form-control shadow1">
+                                                        <div *ngIf="!verifpassword">
+                                                            <label class="control-label" style="color:red">mot de passe incorrecte!</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <hr class="shadow1" />
+                                                    <div class="form-group col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                                        <button *ngIf="loginOK" [disabled]="!registerForm.form.valid || status || !verifpassword || statusemail " type="button" type="submit" class="btn btn-lg btn-theme-inverse btn-block btn-transparent shadow1 pull-right">Valider</button>
+                                                        <button *ngIf="!loginOK" disabled class="btn btn-lg btn-theme-inverse btn-block btn-transparent shadow1 pull-right"><img src="assets/img/Eclipse-1s-200px.svg" /></button>
+                                                    </div>
+                                                    <div class="form-group col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                                        <button type="button" class="btn btn-lg btn-theme btn-block btn-danger btn-transparent pull-left shadow1">Annuler</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                        <!-- //panel corner-flip-->
                                     </div>
+                                </form>
 
-                                    <div class="panel-body shadow1">
-                                        <div class="row">
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
-                                                <label class="control-label">Nom</label>
-                                                <input required #nom="ngModel" [(ngModel)]="utilisateur.nom" name="nom" type="text" class="form-control shadow1" id="nom" formco parsley-required="true " placeholder="Votre nom">
-                                                <div *ngIf="!nom.valid && nom.touched ">
-                                                    <label class="control-label " style="color:red ">Le nom est obligatoire !</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                                                <label class="control-label ">Prenom</label>
-                                                <input required #prenom="ngModel" [(ngModel)]="utilisateur.prenom" name="prenom" type="text" class="form-control shadow1" placeholder="Votre prenom ">
-                                                <div *ngIf="!prenom.valid && prenom.touched ">
-                                                    <label class="control-label " style="color:red ">Le prenom est obligatoire !</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
-                                                <label class="control-label ">Pseudo</label>
-                                                <input #pseudo="ngModel" (keyup)="Verifier_Pseudo() " required [(ngModel)]="utilisateur.pseudo " name="pseudo" type="text" class="form-control shadow1" placeholder="Votre pseudo">
-                                                <div *ngIf="status">
-                                                    <label class="control-label " style="color:red ">Pseudo existe déjà !</label>
-                                                </div>
-                                                <div *ngIf="!pseudo.valid && pseudo.touched ">
-                                                    <label class="control-label " style="color:red ">Le pseudo est obligatoire !</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
-                                                <label class="control-label ">Email</label>
-                                                <input #email="ngModel" email (change)="Verifier_Email() " required [(ngModel)]="utilisateur.email " type="email " name="email " class="form-control shadow1"
-                                             placeholder="livindakar@email.com ">
-                                                <div *ngIf="statusemail ">
-                                                    <label class="controllabel " style="color:red ">Email existe déjà !</label>
-                                                </div>
-                                                <div *ngIf="!email.valid && email.touched ">
-                                                    <label class="control-label " style="color:red ">Email incorrecte !</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
-                                                <label class="control-label ">Télephone</label>
-                                                <input name="telephone" type="text" class="form-control shadow1" placeholder="Votre télephone">
-                                            </div>
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
-                                                <label class="control-label ">Date Naissance</label>
-                                                <input type="text" name="email" class="form-control shadow1">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
-
-                                                <div class="col-xs-8 col-sm-4 col-lg-4 col-md-4">
-                                                    <label>Etes-vous à dakar?</label>
-                                                    <div class="col-sm-12">
-                                                        <ul class="iCheck" data-color="red">
-                                                            <li>
-                                                                <input [(ngModel)]="isdakar" type="radio" [value]="isdakar" name="isDakar">
-                                                                <label>Oui</label>
-                                                            </li>
-                                                            <li>
-                                                                <input [(ngModel)]="isdakar" type="radio" [value]="!isdakar" name="isDakar">
-                                                                <label>Non</label>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                                <div class="col-xs-4 col-sm-4 col-lg-4 col-md-4">
-                                                    <label>Sexe ?</label>
-                                                    <div class="col-sm-12">
-                                                        <ul class="iCheck" data-color="red">
-                                                            <li>
-                                                                <input type="radio" [(ngModel)]="sexe" name="sexe" [value]="sexe">
-                                                                <label><i class="fa fa-male"></i></label>
-                                                            </li>
-                                                            <li>
-                                                                <input [(ngModel)]="sexe" type="radio" name="sexe" [value]="!sexe ">
-                                                                <label><i class="fa fa-female"></i></label>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                                <div class="fileinput fileinput-new col-xs-12 col-sm-4 col-lg-4 col-md-4" data-provides="fileinput">
-                                                    <div class="fileinput-preview col-xs-12 col-sm-12 col-lg-12 col-md-12 thumbnail form-control shadow1" data-trigger="fileinput" style="height: 100px;"></div>
-                                                    <div>
-                                                        <span class="btn btn-default shadow1 btn-file btn-success btn-transparent ">
-												    <span class="fileinput-new"><i class="fa fa-camera"></i> Sélectionner</span>
-                                                        <span class="fileinput-exists pull-left "><i class="fa fa-pencil "></i></span>
-                                                        <input type="file" name="file" (change)="fileChange($event)" value="assets/img/avatar_defaut.png">
-                                                        </span>
-                                                        <a href="#" class="shadow1 btn btn-default btn-danger btn-transparent fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-trash-o"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                                                <label class="control-label">Password</label>
-                                                <input #password="ngModel" (keyup)="VerifierPassword()" required [(ngModel)]="utilisateur.password" type="password" name="password" class="form-control shadow1">
-                                                <div *ngIf="!password.valid && password.touched">
-                                                    <label class="control-label" style="color:red">Le password est obligatoire !</label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6">
-                                                <label class="control-label">Confirmer Password</label>
-                                                <input (keyup)="VerifierPassword()" required [(ngModel)]="utilisateur.confirmpassword" type="password" name="confirmpassword" class="form-control shadow1">
-                                                <div *ngIf="!verifpassword">
-                                                    <label class="control-label" style="color:red">mot de passe incorrecte!</label>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <hr class="shadow1" />
-                                            <div class="form-group col-xs-6 col-sm-6 col-lg-6 col-md-6">
-                                                <button *ngIf="loginOK" [disabled]="!registerForm.form.valid || status || !verifpassword || statusemail " type="button" type="submit" class="btn btn-lg btn-theme-inverse btn-block btn-transparent shadow1 pull-right">Valider</button>
-                                                <button *ngIf="!loginOK" disabled class="btn btn-lg btn-theme-inverse btn-block btn-transparent shadow1 pull-right"><img src="assets/img/Eclipse-1s-200px.svg" /></button>
-                                            </div>
-                                            <div class="form-group col-xs-6 col-sm-6 col-lg-6 col-md-6">
-                                                <button type="button" class="btn btn-lg btn-theme btn-block btn-danger btn-transparent pull-left shadow1">Annuler</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                                <!-- //panel corner-flip-->
                             </div>
-                        </form>
+
+
+                        </div>
+                        <!-- //account-wall-->
 
                     </div>
-                   
-
+                    <!-- //col-sm-6 col-md-4 col-md-offset-4-->
                 </div>
-                <!-- //account-wall-->
-
+                <!-- //row-->
             </div>
-            <!-- //col-sm-6 col-md-4 col-md-offset-4-->
-        </div>
-        <!-- //row-->
-    </div>
-    <!-- //container-->
+            <!-- //container-->
 
-</div>
+        </div>
+    </div>
+</body>

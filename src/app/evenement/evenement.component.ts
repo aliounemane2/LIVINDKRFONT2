@@ -110,7 +110,7 @@ export class EvenementComponent implements OnInit {
    }
 
    getAllInstitutionByUser() {
-      this.eventService.getAllInstitutionByUser()
+      this.eventService.getAllInstitutionByUser(4)
       .subscribe(
         data => {
           this.allInst = data.institution;
@@ -147,7 +147,7 @@ export class EvenementComponent implements OnInit {
       let place = +json.place;
       let ins = +json.ins;
       let interet = +json.interet;
-      let evenement= new Evenement(null, nom, desc,date,heuredeb,heurefin,this.idPlace,ins,this.photo,1,interet);
+      let evenement= new Evenement(null, nom, desc,date,heuredeb,heurefin,this.idPlace,ins,this.photo,1,4,interet);
       let eventIntrest = new InterestEvent(null,heuredeb,heurefin,interet,null);
       console.log(evenement); 
       console.log(eventIntrest); 
@@ -166,7 +166,7 @@ export class EvenementComponent implements OnInit {
         .subscribe(successCode => {
                 this.statusCode = successCode;
                 console.log(successCode);
-                this.router.navigateByUrl('/dashboard');
+                this.router.navigateByUrl('');
             
           },
             errorCode => this.statusCode = errorCode);
