@@ -5,16 +5,18 @@ import { Observable } from 'rxjs';
 import { Place } from '../evenement/place';
 import { Evenement } from '../evenement/evenement';
 import { InterestEvent } from '../evenement/interestEvent';
+import {TokenService} from '../service/token.service';
+
 
 @Injectable()
 export class EvenementService {
-	private BACKEND_URL = 'http://213.246.59.111:8080/LIVINDKR_API/';
+	private BACKEND_URL = 'http://192.168.1.94:8088';
 	//private BACKEND_URL = 'http://localhost:8080';
-  public URL_PHOTO = 'http://213.246.59.111:8080/LIVINDKR_API/event/upload/';
-	private headers = new Headers({'Content-Type': 'application/json'});
+  public URL_PHOTO = 'http://192.168.1.94:8088/event/upload/';
+	private headers = new Headers({'Content-Type': 'application/json', 'Authorization': this.tokenService.getToken()});
 	private options = new RequestOptions({headers: this.headers});
 
-  constructor(public http: Http) { }
+  constructor(public http: Http, private tokenService :TokenService) { }
 
   /*createEvenement(evenement) {
     let body = JSON.stringify(evenement);
@@ -68,8 +70,8 @@ export class EvenementService {
     }
 
     //Fetch all institution by user
-    getAllInstitutionByUser(idUser) {
-        return this.http.get(this.BACKEND_URL+'/institution/InstitutionByUser/'+idUser)
+    getAllInstitutionByUser() {
+        return this.http.get(this.BACKEND_URL+'/institution/InstitutionByUser/', this.options)
           .map(this.extractData)
             .catch(this.handleError);
 
@@ -94,14 +96,14 @@ export class EvenementService {
 
     //Delete Event By User
     deleteEventByUser(idEvent:Number) {
-      return this.http.delete(this.BACKEND_URL+'/event/delete_event/'+idEvent)
+      return this.http.delete(this.BACKEND_URL+'/event/delete_event/'+idEvent, this.options)
         .map(this.extractData)
           .catch(this.handleError);
   
     }
 
-    getEventByUser(idUser:Number){
-      return this.http.get(this.BACKEND_URL+'/event/events_by_user/'+idUser)
+    getEventByUser(){
+      return this.http.get(this.BACKEND_URL+'/event/events_by_user/', this.options)
       .map(this.extractData)
         .catch(this.handleError);
   

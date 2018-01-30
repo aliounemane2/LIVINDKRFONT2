@@ -30,7 +30,7 @@ import { Http, Headers,Response,RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs';
 import {RouterModule, Routes} from '@angular/router';
-import {Router} from '@angular/router'
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-evenement',
@@ -110,7 +110,7 @@ export class EvenementComponent implements OnInit {
    }
 
    getAllInstitutionByUser() {
-      this.eventService.getAllInstitutionByUser(4)
+      this.eventService.getAllInstitutionByUser()
       .subscribe(
         data => {
           this.allInst = data.institution;
@@ -166,7 +166,7 @@ export class EvenementComponent implements OnInit {
         .subscribe(successCode => {
                 this.statusCode = successCode;
                 console.log(successCode);
-                this.router.navigateByUrl('');
+                this.router.navigateByUrl('/dashboard');
             
           },
             errorCode => this.statusCode = errorCode);

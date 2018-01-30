@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'app/shared_service/user.service';
+import { UserService } from '../shared_service/user.service';
 import { Http, Headers,Response,RequestOptions } from '@angular/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import { Institution } from 'app/institution/institution';
+import { Institution } from '../institution/institution';
 
 
 @Component({
@@ -21,7 +21,7 @@ export class ListesInstitutionsComponent implements OnInit {
   statusCode: number;
 
 
-  constructor(private userService : UserService, public http: Http) { }
+  constructor(private userService : UserService, public http: Http, private router : Router) { }
 
   ngOnInit() {
     this.getInstitutionByUser();
@@ -30,7 +30,7 @@ export class ListesInstitutionsComponent implements OnInit {
 
   getInstitutionByUser() {
 
-    this.userService.getInstitutionByUser(4).subscribe(
+    this.userService.getInstitutionByUser().subscribe(
       data => {
         this.InstitutionByUser = data.institution;
         this.urls = data.urls;

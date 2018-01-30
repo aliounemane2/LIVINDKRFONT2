@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'app/shared_service/user.service';
+import { UserService } from '../shared_service/user.service';
 import {Http, Response, Headers, RequestOptions } from '@angular/http';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
-import { Institution } from 'app/institution/institution';
+import { Institution } from '../institution/institution';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule,  } from '@angular/forms';
 
 
@@ -155,7 +155,8 @@ export class DeleteInstitutionComponent implements OnInit {
     this.userService.deleteInstitutionByUser(idInstitution).subscribe(
       data => {
         this.deteleInstitution = data.message;
-       
+        this.router.navigateByUrl('/dashboard');
+
         console.log(this.deteleInstitution);
         },
       errorCode => {
@@ -228,6 +229,8 @@ export class DeleteInstitutionComponent implements OnInit {
     this.userService.updateInstitutionByUser(institution, institution.idInstitution).subscribe(
       data => {
         this.updateInstitution = data.institution;
+        this.router.navigateByUrl('/dashboard');
+
        console.log("BON");
         console.log(this.updateInstitution);
         },

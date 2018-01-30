@@ -36,15 +36,15 @@ import { ToastOptions } from 'ng2-toastr/src/toast-options';
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
      children: [
-      { path: 'institution', component: InstitutionComponent }
+      { path: 'institution', component: InstitutionComponent },
+      {path:'listeInstitution', component:ListesInstitutionsComponent },
+      {path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
+      {path:'evenement', component:EvenementComponent },
+      {path:'listeEvent', component:ListeEvenementsComponent },
+      {path:'deleteEvent/:id', component:DeleteEventComponent },
     ]
   },
   {path: 'dashboard',component:DashboardComponent},
-  {path:'evenement', component:EvenementComponent },
-  {path:'listeInstitution', component:ListesInstitutionsComponent },
-  {path:'listeEvent', component:ListeEvenementsComponent },
-  {path:'deleteEvent/:id', component:DeleteEventComponent },
-  {path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginComponent },
   {path:'register', component:RegisterComponent },

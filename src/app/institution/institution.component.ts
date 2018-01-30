@@ -3,6 +3,7 @@ import {Place} from '../institution/place';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Http, Headers,Response,RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs';
+import {Router} from '@angular/router';
 
 
 
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 
 import {User} from '../classes/user';
 import {UserService} from '../shared_service/user.service';
-import { Institution } from 'app/institution/institution';
+import { Institution } from '../institution/institution';
 declare var $:any;
 
 
@@ -57,7 +58,7 @@ export class InstitutionComponent implements OnInit {
 
 });
   
-  constructor(private userService : UserService, public http: Http) {this.valeur_souscategory=false }
+  constructor(private userService : UserService, public http: Http, private router : Router) {this.valeur_souscategory=false }
 
   ngOnInit() {
     this.getAllCategory();
@@ -341,6 +342,8 @@ export class InstitutionComponent implements OnInit {
         .subscribe(successCode => {
                 this.statusCode = successCode;
                 console.log(successCode);
+                this.router.navigateByUrl('/dashboard');
+
           },
             errorCode => this.statusCode = errorCode);
             

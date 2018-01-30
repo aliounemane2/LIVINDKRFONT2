@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   authentification(){
     this.loginOK = false;
     setTimeout(()=>{    
-      this.http.post('http://localhost:8181/login',
+      this.http.post('http://213.246.59.111:8080/LIVINDKR_API3/login',
       new HttpParams().set('pseudo', this.username).set('password', this.password)).subscribe(
       data => {
         
