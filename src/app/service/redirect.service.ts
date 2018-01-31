@@ -23,4 +23,7 @@ export class RedirectService {
     this.router.navigateByUrl('/register');
   }
   
+  redirectToFortgetPassword(){
+    this.router.navigateByUrl("/updatePassword")
+  }
 }

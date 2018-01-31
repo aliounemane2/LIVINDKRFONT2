@@ -79,6 +79,7 @@ export class RegisterComponent implements OnInit {
     this.service.Save_Inscription(this.file, this.utilisateur).subscribe(
       data => {
         let message = data["body"];
+        console.log(message);
         if(message !== undefined){
           this.toastr.success(message["corps"],"Information !", CustomOption);
           switch(message["message"]){
@@ -86,12 +87,12 @@ export class RegisterComponent implements OnInit {
               this.utilisateur = new user();
               setTimeout(()=>{
                 this.redirect.redirectTologin();
-              },1000);
+              },5000);
             break;
             case "1": 
               setTimeout(()=>{
                 this.redirect.redirectToactiverCompte();
-              },1000);
+              },5000);
             break;
           }
           this.loginOK = true;
