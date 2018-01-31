@@ -32,12 +32,10 @@ export class SendemailComponent implements OnInit {
     if(this.code !== undefined){
       this.service.Activer_Compte(this.code).subscribe(
         data => {
-          switch(data["corps"]){
+          console.log(data);
+          switch(data["message"]){
             case "0" : 
-            setTimeout(()=>{
-              this.toastr.warning("Votre compte est déjà activé. Veuillez vous connecter.!","Information!", CustomOption);
-              this.connecter();
-            },5000);
+            this.redirect.redirectTologinForParam("Votre compte est déjà activé. Veuillez vous connecter.!");
             break;
             case "1" :
             setTimeout(()=>{
@@ -70,7 +68,7 @@ export class SendemailComponent implements OnInit {
       var toResize;
       $(window).resize(function(e) {
           clearTimeout(toResize);
-          toResize = setTimeout(toCenter(), 500);
+          toResize = setTimeout(()=>{toCenter()}, 1000);
       });
   });
   }
