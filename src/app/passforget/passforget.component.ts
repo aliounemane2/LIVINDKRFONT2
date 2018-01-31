@@ -71,7 +71,7 @@ export class PassforgetComponent implements OnInit {
             var toResize;
             $(window).resize(function(e) {
                 clearTimeout(toResize);
-                toResize = setTimeout(toCenter(), 500);
+                toResize = setTimeout(()=>{toCenter()}, 500);
             });
         });
   }
