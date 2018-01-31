@@ -6,6 +6,8 @@ import { Component, OnInit, Directive,ViewContainerRef} from '@angular/core';
 import * as $ from 'jquery'; 
 import { EmailValidator } from '@angular/forms';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from '../service/CustomOption';
+import { RedirectService } from '../service/redirect.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 export class RegisterComponent implements OnInit {
 
-  constructor( private http:HttpClient, private service:RegisterService,public toastr: ToastsManager, vcr: ViewContainerRef) { 
+  constructor(private redirect: RedirectService, private http:HttpClient, private service:RegisterService,public toastr: ToastsManager, vcr: ViewContainerRef) { 
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -30,6 +32,7 @@ export class RegisterComponent implements OnInit {
     loginOK : boolean;
 
   ngOnInit() {
+    
     this.utilisateur = new user();
     this.isdakar = true;
     this.sexe = true;
@@ -39,6 +42,7 @@ export class RegisterComponent implements OnInit {
     this.verifpassword = true;
     this.loginOK = true;
     $(document).ready(function() {
+      document.body.classList.add("full-lg");
             //Login animation to center 
             function toCenter() {
                 var mainH = $("#main").outerHeight();
@@ -54,7 +58,7 @@ export class RegisterComponent implements OnInit {
             var toResize;
             $(window).resize(function(e) {
                 clearTimeout(toResize);
-                toResize = setTimeout(toCenter(), 500);
+                toResize = setTimeout(()=>{toCenter()}, 2000);
             });
         });
   }
@@ -71,19 +75,34 @@ export class RegisterComponent implements OnInit {
     this.loginOK = false;
     this.utilisateur.isDakar = this.isdakar;
     this.utilisateur.sexe = this.sexe == true ? "masculin" : "feminin";
+    setTimeout(()=>{
     this.service.Save_Inscription(this.file, this.utilisateur).subscribe(
       data => {
         let message = data["body"];
+        console.log(message);
         if(message !== undefined){
-          this.toastr.success(message["message"]+" "+message["corps"],"Information !");
+          this.toastr.success(message["corps"],"Information !", CustomOption);
+          switch(message["message"]){
+            case "2" :
+              this.utilisateur = new user();
+              setTimeout(()=>{
+                this.redirect.redirectTologin();
+              },5000);
+            break;
+            case "1": 
+              setTimeout(()=>{
+                this.redirect.redirectToactiverCompte();
+              },5000);
+            break;
+          }
           this.loginOK = true;
         }
         },
       (err: HttpErrorResponse) =>{
-          this.loginOK = true;
-          console.log(JSON.stringify(err));
+        this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
+        this.loginOK = true;
       });
-      this.loginOK = true;
+    },500);
   }
 
   Verifier_Pseudo(){

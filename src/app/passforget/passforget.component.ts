@@ -2,6 +2,7 @@ import { CustomOption } from './../service/CustomOption';
 import { RegisterService } from './../service/register.service';
 import { Router , ActivatedRoute, ParamMap} from '@angular/router';
 import { Component, OnInit ,ViewContainerRef} from '@angular/core';
+import { RedirectService } from './../service/redirect.service';
 import * as $ from 'jquery';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
@@ -19,7 +20,7 @@ export class PassforgetComponent implements OnInit {
     loginOK:boolean;
     verifpassword:boolean;
 
-  constructor(private router: Router, private service: RegisterService,private route: ActivatedRoute,public toastr: ToastsManager, vcr: ViewContainerRef) { 
+  constructor(private redirect: RedirectService, private router: Router, private service: RegisterService,private route: ActivatedRoute,public toastr: ToastsManager, vcr: ViewContainerRef) { 
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -39,10 +40,14 @@ export class PassforgetComponent implements OnInit {
                 data => {
                     if(data["corps"] === "0"){
                         this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
-                        this.router.navigateByUrl("/updatePassword")
+                    }else{
+                        setTimeout(()=>{
+                            this.toastr.success(data["status"], 'Information!', CustomOption);
+                            this.register();
+                        },5000);
+                        
                     }
-                    this.toastr.success(data["status"], 'Information!', CustomOption);
-                    this.register();
+                    
                 },
                 error => {
                     this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
@@ -51,6 +56,7 @@ export class PassforgetComponent implements OnInit {
 
     $(document).ready(function() {
             //Login animation to center 
+            document.body.classList.add("full-lg");
             function toCenter() {
                 var mainH = $("#main").outerHeight();
                 var accountH = $(".account-wall").outerHeight();
@@ -71,7 +77,7 @@ export class PassforgetComponent implements OnInit {
   }
 
  register(){
-    this.router.navigateByUrl('/login');
+    this.redirect.redirectTologin();
   }
   VerifierEmail(){
       this.service.Verifier_Email(this.email,0).subscribe(

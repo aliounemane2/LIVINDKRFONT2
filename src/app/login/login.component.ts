@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
             var toResize;
             $(window).resize(function(e) {
                 clearTimeout(toResize);
-                toResize = setTimeout(toCenter(), 1000);
+                toResize = setTimeout(()=>toCenter(), 1000);
             });
 
         });
@@ -67,7 +67,7 @@ export class LoginComponent implements OnInit {
   authentification(){
     this.loginOK = false;
     setTimeout(()=>{    
-      this.http.post('http://213.246.59.111:8080/LIVINDKR_API3/login',
+      this.http.post('http://192.168.1.130:8181/login',
       new HttpParams().set('pseudo', this.username).set('password', this.password)).subscribe(
       data => {
         

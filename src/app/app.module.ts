@@ -37,12 +37,12 @@ import { RedirectService } from './service/redirect.service';
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
      children: [
-      { path: 'institution', component: InstitutionComponent },
-      {path:'listeInstitution', component:ListesInstitutionsComponent },
-      {path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
-      {path:'evenement', component:EvenementComponent },
-      {path:'listeEvent', component:ListeEvenementsComponent },
-      {path:'deleteEvent/:id', component:DeleteEventComponent },
+      {  path: 'institution', component: InstitutionComponent },
+      {  path:'listeInstitution', component:ListesInstitutionsComponent },
+      {  path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
+      {  path:'evenement', component:EvenementComponent },
+      {  path:'listeEvent', component:ListeEvenementsComponent },
+      {  path:'deleteEvent/:id', component:DeleteEventComponent },
     ]
   },
   {path: 'dashboard',component:DashboardComponent},
@@ -53,7 +53,8 @@ export const appRoutes:Routes=[
   {path:'updatePassword', component:PassforgetComponent },
   {path:'updatePassword/:email/:password', component:PassforgetComponent },
   {path:'sendemail', component:SendemailComponent },
-  {path:'sendemail/:code', component:SendemailComponent }
+  {path:'sendemail/:code', component:SendemailComponent },
+  {path:'**', redirectTo:'/login', pathMatch:'full' }
 
 ]
 

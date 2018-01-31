@@ -1,8 +1,12 @@
+import { RedirectService } from './../service/redirect.service';
 import { RegisterService } from './../service/register.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from '../service/CustomOption';
 import 'rxjs/add/operator/switchMap';
 import { Route } from '@angular/router/src/config';
+
 import * as $ from 'jquery'; 
 
 @Component({
@@ -15,7 +19,9 @@ export class SendemailComponent implements OnInit {
   loginOK: boolean;
   email:string;
   code:string;
-  constructor(private service : RegisterService,private route: ActivatedRoute, private router: Router) { }
+  constructor(private redirect: RedirectService, private service : RegisterService,private route: ActivatedRoute,public toastr: ToastsManager, vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
+   }
 
   ngOnInit() {
     this.loginOK = true;
@@ -28,22 +34,28 @@ export class SendemailComponent implements OnInit {
         data => {
           switch(data["corps"]){
             case "0" : 
-              alert("Votre compte est déjà activé. Veuillez vous connecter.!");
+            setTimeout(()=>{
+              this.toastr.warning("Votre compte est déjà activé. Veuillez vous connecter.!","Information!", CustomOption);
               this.connecter();
+            },5000);
             break;
-            case "1" : alert("Vous n'avez pas de compte ou votre mail est incorrecte !"); break;
-            case "2" : alert("Nous n'avons pas vous envoyez le mail de validation. Veuillez reéssayer!"); break;
-            case "3" : 
-             alert("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!");
+            case "1" :
+            setTimeout(()=>{
+              this.toastr.warning("Vous n'avez pas de compte ou votre mail est incorrecte !","Information!", CustomOption); 
+            },5000)
+             break;
+            case "2" : this.toastr.warning("Nous n'avons pas pu vous envoyez le mail de validation. Veuillez reéssayer!","Information!", CustomOption); break;
+            case "3" : this.toastr.success("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!","Information!", CustomOption);
             break;
           }
         },
         error => {
-          console.log(error);
+          this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
         });
     }
     $(document).ready(function() {
       //Login animation to center 
+      document.body.classList.add("full-lg")
       function toCenter() {
           var mainH = $("#main").outerHeight();
           var accountH = $(".account-wall").outerHeight();
@@ -66,26 +78,32 @@ export class SendemailComponent implements OnInit {
   sendEmail(){
 
     if(this.email === undefined ){
-      alert("Veuillez renseigner le mail");
+      this.toastr.info("Veuillez renseigner le mail");
     }else{
       this.loginOK = false;
       this.service.Verifier_Email(this.email,1).subscribe(
         data => {
           switch(data["corps"]){
-            case "1" : alert("Vous n'avez pas de compte ou votre mail est incorrecte !"); break;
-            case "2" : alert("Nous n'avons pas vous envoyez le mail de validation. Veuillez reéssayer!"); break;
+            case "1" : this.toastr.warning("Vous n'avez pas de compte ou votre mail est incorrecte !","Information!", CustomOption); break;
+            case "2" : this.toastr.warning("Nous n'avons pas pu vous envoyez le mail de validation. Veuillez reéssayer!","Information!", CustomOption); break;
             case "3" : 
-             alert("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!");
+            setTimeout(()=>{
+              this.toastr.success("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!","Information!", CustomOption);
+              this.redirect.redirectTologin();
+            },5000);
+            
             break;
             case "4" : 
-              alert("Votre compte est déjà activé. Veuillez vous connecter.!");
+            setTimeout(()=>{
+              this.toastr.success("Votre compte est déjà activé. Veuillez vous connecter.!","Information!", CustomOption);
+              this.redirect.redirectTologin();
+            },5000);
             break;
           }
-          console.log(data);
           this.loginOK = true;
         },
         error => {
-          console.log(error);
+          this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
           this.loginOK = true;
         });
     }
@@ -93,11 +111,11 @@ export class SendemailComponent implements OnInit {
   }
 
   register(){
-    this.router.navigateByUrl("/register");
+    this.redirect.redirectToRegister();
   }
 
   connecter(){
-    this.router.navigateByUrl("/login");
+    this.redirect.redirectTologin();
   }
 
 }
