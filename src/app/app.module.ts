@@ -37,12 +37,12 @@ import { RedirectService } from './service/redirect.service';
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
      children: [
-      { path: 'institution', component: InstitutionComponent },
-      {path:'listeInstitution', component:ListesInstitutionsComponent },
-      {path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
-      {path:'evenement', component:EvenementComponent },
-      {path:'listeEvent', component:ListeEvenementsComponent },
-      {path:'deleteEvent/:id', component:DeleteEventComponent },
+      {  path: 'institution', component: InstitutionComponent },
+      {  path:'listeInstitution', component:ListesInstitutionsComponent },
+      {  path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
+      {  path:'evenement', component:EvenementComponent },
+      {  path:'listeEvent', component:ListeEvenementsComponent },
+      {  path:'deleteEvent/:id', component:DeleteEventComponent },
     ]
   },
   {path: 'dashboard',component:DashboardComponent},
