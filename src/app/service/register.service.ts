@@ -5,6 +5,7 @@ import { HttpClient, HttpParams,HttpErrorResponse, HttpHeaders,HttpRequest } fro
 export class RegisterService {
 
   file: File;
+  url = "http://192.168.1.130:8181";
   
   constructor(private http:HttpClient) { }
 
@@ -17,27 +18,27 @@ export class RegisterService {
       formData.append('file', this.file);
       formData.append('user',userBlob);
 
-      const req = new HttpRequest('POST', 'http://localhost:8181/inscription', formData);
+      const req = new HttpRequest('POST', this.url+'/inscription', formData);
       return this.http.request(req);
     }
 
   Verifier_Pseudo(pseudo){
-    return this.http.get('http://localhost:8181/verifierPseudo/'+pseudo)
+    return this.http.get(this.url+'/verifierPseudo/'+pseudo)
   }
 
   Verifier_Email(email,id){
-    return this.http.get('http://localhost:8181/verifierEmail/'+email+'/'+id);
+    return this.http.get(this.url+'/verifierEmail/'+email+'/'+id);
   }
 
   Activer_Compte(code){
-    return this.http.post('http://localhost:8181/ConfirmationEmail',
+    return this.http.post(this.url+'/ConfirmationEmail',
     new HttpParams().set('code', code));
   }
 
   UpdatePassword(email, password, id){
     return this.http.post(
-       'http://localhost:8181/updatePassword',
-       new HttpParams().set('email', email).set('password', password).set("id", id)) ;
+      this.url+'/updatePassword',
+      new HttpParams().set('email', email).set('password', password).set("id", id)) ;
   }
 
 }

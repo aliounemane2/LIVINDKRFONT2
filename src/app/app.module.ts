@@ -53,7 +53,8 @@ export const appRoutes:Routes=[
   {path:'updatePassword', component:PassforgetComponent },
   {path:'updatePassword/:email/:password', component:PassforgetComponent },
   {path:'sendemail', component:SendemailComponent },
-  {path:'sendemail/:code', component:SendemailComponent }
+  {path:'sendemail/:code', component:SendemailComponent },
+  {path:'**', redirectTo:'/login', pathMatch:'full' }
 
 ]
 

@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
             var toResize;
             $(window).resize(function(e) {
                 clearTimeout(toResize);
-                toResize = setTimeout(toCenter(), 1000);
+                toResize = setTimeout(()=>toCenter(), 1000);
             });
 
         });
