@@ -1,3 +1,4 @@
+import { ProfilService } from './service/profil.service';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
 import { ComponentsModule } from './Component/component.module';
 import { CustomOption } from './service/CustomOption';
@@ -71,7 +72,7 @@ export const appRoutes:Routes=[
     LoginComponent,
     RegisterComponent,
     PassforgetComponent,
-    SendemailComponent    
+    SendemailComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +85,15 @@ export const appRoutes:Routes=[
     ToastModule.forRoot(),
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [UserService, EvenementService, RegisterService, TokenService, ToastOptions,{provide: ToastOptions, useClass: CustomOption}, RedirectService],
+  providers: [
+    UserService, 
+    EvenementService, 
+    RegisterService, 
+    TokenService, 
+    ToastOptions,{provide: ToastOptions, useClass: CustomOption}, 
+    RedirectService,
+    ProfilService
+  ],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],
 

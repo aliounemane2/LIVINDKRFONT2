@@ -32,34 +32,29 @@
         <!-- //avatar-slide-->
 
 
-        <div class="widget-collapse dark">
+        <div class="widget-collapse dark shadow3">
             <header>
-                <a data-toggle="collapse" href="#collapseSummary"><i class="collapse-caret fa fa-angle-up"></i> Historiques hebdomadaires </a>
+                <a data-toggle="collapse" href="#collapseSummary"><i class="collapse-caret fa fa-gears"></i> Paramétres </a>
             </header>
-            <section class="collapse in" id="collapseSummary">
-                <div class="collapse-boby" style="padding:0">
-
-                    <div class="widget-mini-chart align-xs-left">
-                        <div class="pull-right">
-                            <div class="sparkline mini-chart" data-type="bar" data-color="theme" data-bar-width="10" data-height="35">2,3,4,5,7,4,5</div>
-                        </div>
-                        <p>Institutions</p>
-                        <h4>120</h4>
-                    </div>
-                    <!-- //widget-mini-chart -->
-
-                    <div class="widget-mini-chart align-xs-right">
-                        <div class="pull-left">
-                            <div class="sparkline mini-chart" data-type="bar" data-color="warning" data-bar-width="10" data-height="45">2,3,7,5,4,6,6,3</div>
-                        </div>
-                        <p>Evénements</p>
-                        <h4>100 </h4>
-                    </div>
-                    <!-- //widget-mini-chart -->
-
+        </div>
+        <div class="widget-collapse dark shadow3" style="margin-left: 15px">
+            <header>
+                <a data-toggle="modal" href="#md-messages"><i class="collapse-caret fa fa-gears"></i> Données Personnelles </a>
+            </header>
+        </div>
+        <div class="widget-collapse dark shadow3" style="margin-left: 15px">
+            <header>
+                <a data-toggle="collapse" href="#collapseTasks"><i class="collapse-caret fa fa-clock-o"></i> Données Sécurisées  </a>
+            </header>
+            <section class="collapse in" id="collapseTasks">
+                <div class="collapse-boby shadow2" style="padding:0;margin-left: 15px">
+                    <a data-toggle="collapse" href="">
+                        <i class="collapse-caret fa fa-envelope-o"></i> Changer Email </a>
                 </div>
-                <!-- //collapse-boby-->
-
+                <div class="collapse-boby shadow2" style="padding:0;margin-left: 15px">
+                    <a data-toggle="collapse" href="#collapseSummary">
+                        <i class="collapse-caret fa fa-key"></i> Changer Password </a>
+                </div>
             </section>
             <!-- //collapse-->
         </div>

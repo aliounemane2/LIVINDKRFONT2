@@ -279,7 +279,10 @@ ol.rounded-list a:before {
 }
 
 #wrapper {
-    background: #20242b;
+    background-image: url("../img/loading.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #20242b;
     height: 100%;
     left: 0;
     margin-left: 50px;
@@ -527,7 +530,7 @@ a.logo {
 
 body.leftMenu {
     background: url(../img/logo_white_icon.png) no-repeat;
-    background-position: 11px 10px;
+    background-size: 13%;
     background-color: #262a33;
 }
 

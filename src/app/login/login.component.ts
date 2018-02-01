@@ -35,6 +35,8 @@ export class LoginComponent implements OnInit {
     this.loginOK = true;
     $(document).ready(function() {
       document.body.classList.add("full-lg");
+      document.body.classList.remove("leftMenu");
+      document.body.classList.remove("nav-collapse");
             //Login animation to center 
             function toCenter() {
                 var mainH = $("#main").outerHeight();

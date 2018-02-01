@@ -1,0 +1,42 @@
+<div id="md-messages" class="modal fade md-slideRight bg-theme-inverse" tabindex="-1" data-width="450">
+    <div class="modal-header bd-theme-inverse-darken">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h4 class="modal-title"><i class="fa fa-inbox"></i> Données personnelles</h4>
+    </div>
+    <!-- //modal-header-->
+    <div class="modal-body" style="padding:0">
+        <form #formprofil="ngForm" (submit)="UpdateUser()">
+            <div class="widget-im">
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <label class="control-label">Pseudo</label>
+                    <input disabled required #pseudo="ngModel" [(ngModel)]="utilisateur.pseudo" name="pseudo" type="text" class="form-control shadow1" id="pseudo">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Nom</label>
+                    <input required #nom="ngModel" [(ngModel)]="utilisateur.nom" name="nom" type="text" class="form-control shadow1" id="nom">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Prenom</label>
+                    <input required #prenom="ngModel" [(ngModel)]="utilisateur.prenom" name="prenom" type="text" class="form-control shadow1" id="prenom">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Telephone</label>
+                    <input required #telephone="ngModel" [(ngModel)]="utilisateur.telephone" name="telephone" type="text" class="form-control shadow1" id="telephone">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Date Naissance</label>
+                    <input required #dateNaissance="ngModel" [(ngModel)]="utilisateur.dateNaissance" name="dateNaissance" type="date" class="form-control shadow1" id="dateNaissance">
+                </div>
+                <hr class="shadow3">
+                <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <i class="fa fa-plus"></i> Modifier</button>
+                <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <img src="assets/img/Eclipse-1s-200px.svg" />
+                </button>
+            </div>
+        </form>
+
+        <!-- //widget-im-->
+    </div>
+    <!-- //modal-body-->
+</div>
