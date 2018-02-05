@@ -27,4 +27,26 @@ export class TokenService {
     const isAuthorized: boolean = !!localStorage.getItem('token');
     return isAuthorized;
   }
+
+  public setUtilisateurTampon(user: user){
+    localStorage.setItem("tampon", JSON.stringify(user));
+  }
+
+  public getUtilisateurTampon(){
+    return localStorage.getItem("tampon");
+  }
+
+  public removeUtilisateurTampon(){
+    localStorage.removeItem("tampon");
+  }
+
+  public removeUtilisateur(){
+    localStorage.removeItem("user");
+  }
+
+  public removeToken(){
+    localStorage.removeItem("token");
+  }
+
+
 }

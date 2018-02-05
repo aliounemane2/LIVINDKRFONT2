@@ -34,10 +34,13 @@ import { SendemailComponent } from './sendemail/sendemail.component';
 import { AppComponent } from './app.component';
 import { ToastOptions } from 'ng2-toastr/src/toast-options';
 import { RedirectService } from './service/redirect.service';
+import { StatistiqueComponent } from './Component/statistique/statistique.component';
 
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
-     children: [
+    children: [
+      {  path: '', component: StatistiqueComponent },
+      {  path: 'statistique', component: StatistiqueComponent },
       {  path: 'institution', component: InstitutionComponent },
       {  path:'listeInstitution', component:ListesInstitutionsComponent },
       {  path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
@@ -72,7 +75,8 @@ export const appRoutes:Routes=[
     LoginComponent,
     RegisterComponent,
     PassforgetComponent,
-    SendemailComponent
+    SendemailComponent,
+    StatistiqueComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { RedirectService } from './../service/redirect.service';
 import { RegisterService } from './../service/register.service';
 import { Component, OnInit,ViewContainerRef } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap} from '@angular/router';
+import { ActivatedRoute, ParamMap} from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { CustomOption } from '../service/CustomOption';
 import 'rxjs/add/operator/switchMap';

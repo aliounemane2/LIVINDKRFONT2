@@ -6,7 +6,7 @@ import { user } from '../login/user';
 @Injectable()
 export class ProfilService {
 
-  private url = "http://192.168.1.130:8181";
+  private url = "http://localhost:8181";
   private auth = "Authorization";
   private token : string;
   private formData: FormData = new FormData();

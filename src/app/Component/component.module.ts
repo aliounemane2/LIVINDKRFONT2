@@ -1,3 +1,4 @@
+import { StatistiqueComponent } from './statistique/statistique.component';
 import { FormsModule } from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -7,7 +8,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ProfilComponent } from './profil/profil.component';
 
 @NgModule({
   imports: [
@@ -20,15 +20,13 @@ import { ProfilComponent } from './profil/profil.component';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    ProfilComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   exports: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    ProfilComponent,
     DashboardComponent
   ]
 })

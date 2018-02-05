@@ -1,3 +1,6 @@
+import { Userconnect } from './../userconnect';
+import { user } from './../../login/user';
+import { HeaderComponent } from './../header/header.component';
 import { TokenService } from './../../service/token.service';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
@@ -9,6 +12,7 @@ import { RedirectService } from '../../service/redirect.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+
 
   constructor(private tokenservice: TokenService, private redirect: RedirectService) { 
   }
