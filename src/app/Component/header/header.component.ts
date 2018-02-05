@@ -1,6 +1,9 @@
+import { RedirectService } from './../../service/redirect.service';
+import { user } from './../../login/user';
 import { TokenService } from './../../service/token.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,Input } from '@angular/core';
 import * as $ from 'jquery';
+import { Userconnect } from '../userconnect';
 
 @Component({
   selector: 'app-header',
@@ -9,12 +12,10 @@ import * as $ from 'jquery';
 })
 export class HeaderComponent implements OnInit {
 
-  utilisateur: any;
-  urlimage : 'P:\\QualShore\\imageprofil\\';
-  constructor(private tokenservice: TokenService) { }
+
+  constructor(private tokenservice: TokenService, private redirect : RedirectService) { }
 
   ngOnInit() {
-    this.utilisateur = JSON.parse(this.tokenservice.getUtilisateur());
 		//////////     TOGGLE  OPEN LEFT CANVAS MENU      //////////
 	/*	$('body').on("click",".toggle-menu",function( e ) {
 				e.stopImmediatePropagation();
@@ -22,6 +23,12 @@ export class HeaderComponent implements OnInit {
 				$('nav#menu').trigger( 'open.mm' );
 		});*/
 		
+  }
+
+  deconnecter(){
+    this.tokenservice.removeToken();
+    this.tokenservice.removeUtilisateur();
+    this.redirect.redirectTologin();
   }
 
 }

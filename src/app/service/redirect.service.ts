@@ -26,4 +26,11 @@ export class RedirectService {
   redirectToFortgetPassword(){
     this.router.navigateByUrl("/updatePassword")
   }
+  redirectToDashboard(){
+    this.router.navigateByUrl("/dashboard");
+  }
+
+  redirectToDashboardWithMessage(message: string){
+    this.router.navigate(['/dashboard', message]);
+  }
 }

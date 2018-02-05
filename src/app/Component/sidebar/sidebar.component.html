@@ -1,15 +1,16 @@
 <div id="nav">
     <div id="nav-scroll">
         <div class="avatar-slide">
-
-            <span class="easy-chart avatar-chart" data-color="theme-inverse" data-percent="69" data-track-color="rgba(255,255,255,0.1)" data-line-width="5" data-size="118">
-              <span class="percent"></span>
-            <img alt="" src="assets/img/profil.jpg" class="circle">
-            </span>
+            <a (click)="setPhotoProfil()" data-toggle="modal" href="#md-image" onclick="enableClick(event)">
+                <span class="easy-chart avatar-chart" data-color="theme-inverse" data-percent="69" data-track-color="rgba(255,255,255,0.1)" data-line-width="5" data-size="118">
+                <span class="percent"></span>
+                <img alt="" src="assets/img/profil.jpg" class="circle">
+                </span>
+            </a>
             <!-- //avatar-chart-->
 
             <div class="avatar-detail">
-                <p><strong>Admin</strong> Liv'in DKR</p>
+                <p><strong>{{utilisateurTest.nom}}</strong> {{utilisateurTest.prenom}}</p>
                 <p><a href="#">@ admin</a></p>
                 <span>12,110 Institutions</span>
                 <span>106 Evénements</span>
@@ -32,37 +33,221 @@
         <!-- //avatar-slide-->
 
 
-        <div class="widget-collapse dark">
+        <div class="widget-collapse dark shadow3">
             <header>
-                <a data-toggle="collapse" href="#collapseSummary"><i class="collapse-caret fa fa-angle-up"></i> Historiques hebdomadaires </a>
+                <a data-toggle="collapse" href="#collapseSummary"><i class="collapse-caret fa fa-gears"></i> Paramétres </a>
             </header>
-            <section class="collapse in" id="collapseSummary">
-                <div class="collapse-boby" style="padding:0">
-
-                    <div class="widget-mini-chart align-xs-left">
-                        <div class="pull-right">
-                            <div class="sparkline mini-chart" data-type="bar" data-color="theme" data-bar-width="10" data-height="35">2,3,4,5,7,4,5</div>
-                        </div>
-                        <p>Institutions</p>
-                        <h4>120</h4>
-                    </div>
-                    <!-- //widget-mini-chart -->
-
-                    <div class="widget-mini-chart align-xs-right">
-                        <div class="pull-left">
-                            <div class="sparkline mini-chart" data-type="bar" data-color="warning" data-bar-width="10" data-height="45">2,3,7,5,4,6,6,3</div>
-                        </div>
-                        <p>Evénements</p>
-                        <h4>100 </h4>
-                    </div>
-                    <!-- //widget-mini-chart -->
-
+        </div>
+        <div class="widget-collapse dark shadow3" style="margin-left: 15px">
+            <header>
+                <a onclick="enableClick(event)" data-toggle="modal" href="#md-messages"><i class="collapse-caret fa fa-gears"></i> Données Personnelles </a>
+            </header>
+        </div>
+        <div class="widget-collapse dark shadow3" style="margin-left: 15px">
+            <header>
+                <a onclick="enableClick(event)" data-toggle="collapse" href="#collapseTasks"><i class="collapse-caret fa fa-clock-o"></i> Données Sécurisées  </a>
+            </header>
+            <section class="collapse" id="collapseTasks">
+                <div class="widget-collapse dark shadow2" style="padding:0;margin-top: 3px; margin-left: 15px">
+                    <header>
+                        <a onclick="enableClick(event)" data-toggle="modal" href="#md-email">
+                            <i class="collapse-caret fa fa-envelope-o"></i> Changer Email </a>
+                    </header>
                 </div>
-                <!-- //collapse-boby-->
-
+                <div class="widget-collapse dark shadow2" style="padding:0;margin-left: 15px">
+                    <header>
+                        <a onclick="enableClick(event)" data-toggle="modal" href="#md-password">
+                            <i class="collapse-caret fa fa-key"></i> Changer Password </a>
+                    </header>
+                </div>
             </section>
             <!-- //collapse-->
         </div>
     </div>
 
+</div>
+
+<div id="md-messages" class="modal fade md-flipHor bg-theme-inverse" tabindex="-1" data-width="450">
+    <div class="modal-header bd-theme-inverse-darken align-lg-center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h6 class="modal-title"><i class="fa fa-inbox"></i> Données personnelles</h6>
+    </div>
+    <!-- //modal-header-->
+    <div class="modal-body" style="padding:0">
+
+        <form #formprofil="ngForm" (submit)="UpdateUser()">
+            <div class="widget-im">
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <section class="panel shadow2 bg-success" [@heroState]="state" (click)="toggleState()">
+                        <div class="panel-body">
+                            <p>{{message}}</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <label class="control-label">Pseudo</label>
+                    <input disabled required #pseudo="ngModel" [(ngModel)]="utilisateur.pseudo" name="pseudo" type="text" class="form-control shadow1" id="pseudo">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Nom</label>
+                    <input required #nom="ngModel" [(ngModel)]="utilisateur.nom" name="nom" type="text" class="form-control shadow1" id="nom">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Prenom</label>
+                    <input required #prenom="ngModel" [(ngModel)]="utilisateur.prenom" name="prenom" type="text" class="form-control shadow1" id="prenom">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Telephone</label>
+                    <input required #telephone="ngModel" [(ngModel)]="utilisateur.telephone" name="telephone" type="text" class="form-control shadow1" id="telephone">
+                </div>
+                <div class="form-group col-xs-12 col-sm-6 col-lg-6 col-md-6 ">
+                    <label class="control-label">Date Naissance</label>
+                    <input required #dateNaissance="ngModel" [(ngModel)]="utilisateur.dateNaissance" name="dateNaissance" type="date" class="form-control shadow1" id="dateNaissance">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                    <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <i class="fa fa-plus"></i> Modifier</button>
+                    <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <img src="assets/img/Eclipse-1s-200px.svg" />
+                </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- //widget-im-->
+    </div>
+    <!-- //modal-body-->
+</div>
+
+<div id="md-password" class="modal fade md-flipHor bg-theme-inverse" tabindex="-1" data-width="350">
+    <div class="modal-header bd-theme-inverse-darken align-lg-center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h6 class="modal-title"><i class="fa fa-inbox"></i> Données Sécurisées - mot de passe</h6>
+    </div>
+    <!-- //modal-header-->
+    <div class="modal-body" style="padding:0">
+
+        <form #formpassword="ngForm" (submit)="UpdatePassword()">
+            <div class="widget-im">
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <section class="panel shadow2 bg-success" [@heroState]="state" (click)="toggleState()">
+                        <div class="panel-body">
+                            <p>{{message}}</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <label class="control-label">Nouveau mot de passe</label>
+                    <input type="text" class="form-control shadow1">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+                    <label class="control-label">Confirmer mot de passe</label>
+                    <input type="text" class="form-control shadow1">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                    <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <i class="fa fa-plus"></i> Modifier</button>
+                    <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <img src="assets/img/Eclipse-1s-200px.svg" />
+                </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- //widget-im-->
+    </div>
+    <!-- //modal-body-->
+</div>
+
+
+<div id="md-email" class="modal fade md-flipHor bg-theme-inverse" tabindex="-1" data-width="350">
+    <div class="modal-header bd-theme-inverse-darken align-lg-center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h6 class="modal-title"><i class="fa fa-inbox"></i> Données Sécurisées - email</h6>
+    </div>
+    <!-- //modal-header-->
+    <div class="modal-body" style="padding:0">
+
+        <form #formemail="ngForm" (submit)="UpdateEmail()">
+            <div class="widget-im">
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <section class="panel shadow2 bg-success" [@heroState]="state" (click)="toggleState()">
+                        <div class="panel-body">
+                            <p>{{message}}</p>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <label class="control-label">Votre ancien email</label>
+                    <input type="text" class="form-control shadow1">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+                    <label class="control-label">Votre nouveau email</label>
+                    <input type="text" class="form-control shadow1">
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                    <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                        <i class="fa fa-plus"></i> Modifier</button>
+                    <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                        <img src="assets/img/Eclipse-1s-200px.svg" />
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- //widget-im-->
+    </div>
+    <!-- //modal-body-->
+</div>
+
+<div id="md-image" class="modal fade md-flipVer bg-theme-inverse" tabindex="-1" data-width="300">
+    <div class="modal-header bd-theme-inverse-darken align-lg-center">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button>
+        <h6 class="modal-title"><i class="fa fa-inbox"></i> Données Sécurisées - photo de profil</h6>
+    </div>
+    <!-- //modal-header-->
+    <div class="modal-body" style="padding:0">
+
+        <form #formimage="ngForm" (submit)="UpdateImage()">
+            <div class="widget-im">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                    <div class="fileinput fileinput-new col-xs-12 col-sm-12 col-lg-12 col-md-12" data-provides="fileinput">
+                        <div class="fileinput-preview col-xs-12 col-sm-12 col-lg-12 col-md-12 thumbnail form-control shadow1" data-trigger="fileinput" style="height: 100px;"></div>
+                        <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+                            <span class="btn btn-default shadow1 btn-file btn-success btn-transparent ">
+                            <span class="fileinput-new col-xs-12 col-sm-12 col-lg-12 col-md-12"><i class="fa fa-camera"></i>Sélectionner</span>
+                            <span class="fileinput-exists pull-left "><i class="fa fa-pencil "></i></span>
+                            <input type="file" name="file" (change)="fileChange($event)" value="assets/img/avatar_defaut.png">
+                            </span>
+                            <a href="#" onclick="enableClick(event)" class="shadow1 btn btn-default btn-danger btn-transparent fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-trash-o"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
+                    <hr class="shadow1" style="border: 3px #098e83 solid">
+                    <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                            <i class="fa fa-plus"></i> Modifier</button>
+                    <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                            <img src="assets/img/Eclipse-1s-200px.svg" />
+                        </button>
+                </div>
+            </div>
+        </form>
+
+        <!-- //widget-im-->
+    </div>
+    <!-- //modal-body-->
 </div>

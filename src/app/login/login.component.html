@@ -1,67 +1,65 @@
-<body class="full-lg">
-    <div id="wrapper">
-        <div id="main">
-            <div class="real-border">
-                <div class="row">
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                    <div class="col-xs-1"></div>
-                </div>
+<div id="wrapper">
+    <div id="main">
+        <div class="real-border">
+            <div class="row">
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
+                <div class="col-xs-1"></div>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-xs-12">
-
-                        <div class="account-wall">
-                            <section class="">
-                                <img src="/assets/img/logo-livindakar.png" class="img img-responsive" style="margin: auto" />
-                                <!-- <h1 class="login-title"><span>wel</span>come <small> CAPLET   Admin HTML Themes Version 1.1.3</small></h1> -->
-                            </section>
-                            <form #formlogin="ngForm" method="POST" id="form-signin" class="form-signin shadow2" (ngSubmit)="authentification()">
-                                <section>
-                                    <div class="input-group shadow1">
-                                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                        <input type="text" class="form-control" name="username" id="username" required [(ngModel)]="username" placeholder="Pseudo">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-addon"><i class="fa fa-key"></i></div>
-                                        <input type="password" class="form-control" required name="password" id="password" [(ngModel)]="password" placeholder="Mot de passe">
-                                    </div>
-                                    <button *ngIf="loginOK" [disabled]="!formlogin.form.valid" class="btn btn-lg btn-theme-inverse btn-block shadow1" type="submit" id="sign-in">Se connecter</button>
-                                    <button *ngIf="!loginOK" disabled class="btn btn-lg btn-theme-inverse btn-block shadow1"><img src="assets/img/Eclipse-1s-200px.svg" /></button>
-                                </section>
-                                <section class="clearfix">
-                                    <div class="iCheck pull-left" data-color="red">
-                                        <input type="checkbox" checked>
-                                        <label>Se souvenir</label>
-                                    </div>
-                                    <a [routerLink]="['/updatePassword']" class="pull-right help"> Mot de passe oublié ? </a>
-                                </section>
-                                <span class="or" data-text="Ou"></span>
-                                <button (click)="getRegister()" class="btn btn-lg btn-inverse btn-block shadow1" type="button"> Créer compte </button>
-                                <button (click)="activerCompte()" class="btn btn-lg btn-theme-inverse btn-block shadow1" type="button"> Activer mon compte </button>
-                            </form>
-                            <a href="#" class="footer-link">&copy; 2017 by Qualshore </a>
-                        </div>
-                        <!-- //account-wall-->
-
-                    </div>
-                    <!-- //col-sm-6 col-md-4 col-md-offset-4-->
-                </div>
-                <!-- //row-->
-            </div>
-            <!-- //container-->
-
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xs-12">
+
+                    <div class="account-wall">
+                        <section class="">
+                            <img src="/assets/img/logo-livindakar.png" class="img img-responsive" style="margin: auto" />
+                            <!-- <h1 class="login-title"><span>wel</span>come <small> CAPLET   Admin HTML Themes Version 1.1.3</small></h1> -->
+                        </section>
+                        <form #formlogin="ngForm" method="POST" id="form-signin" class="form-signin shadow2" (ngSubmit)="authentification()">
+                            <section>
+                                <div class="input-group shadow1">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <input type="text" class="form-control" name="username" id="username" required [(ngModel)]="username" placeholder="Pseudo">
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-key"></i></div>
+                                    <input type="password" class="form-control" required name="password" id="password" [(ngModel)]="password" placeholder="Mot de passe">
+                                </div>
+                                <button *ngIf="loginOK" [disabled]="!formlogin.form.valid" class="btn btn-lg btn-theme-inverse btn-block shadow1" type="submit" id="sign-in">Se connecter</button>
+                                <button *ngIf="!loginOK" disabled class="btn btn-lg btn-theme-inverse btn-block shadow1"><img src="assets/img/Eclipse-1s-200px.svg" /></button>
+                            </section>
+                            <section class="clearfix">
+                                <div class="iCheck pull-left" data-color="red">
+                                    <input type="checkbox" checked>
+                                    <label>Se souvenir</label>
+                                </div>
+                                <a [routerLink]="['/updatePassword']" class="pull-right help"> Mot de passe oublié ? </a>
+                            </section>
+                            <span class="or" data-text="Ou"></span>
+                            <button (click)="getRegister()" class="btn btn-lg btn-inverse btn-block shadow1" type="button"> Créer compte </button>
+                            <button (click)="activerCompte()" class="btn btn-lg btn-theme-inverse btn-block shadow1" type="button"> Activer mon compte </button>
+                        </form>
+                        <a href="#" class="footer-link">&copy; 2017 by Qualshore </a>
+                    </div>
+                    <!-- //account-wall-->
+
+                </div>
+                <!-- //col-sm-6 col-md-4 col-md-offset-4-->
+            </div>
+            <!-- //row-->
+        </div>
+        <!-- //container-->
+
     </div>
-</body>
+</div>
 <!-- //main-->

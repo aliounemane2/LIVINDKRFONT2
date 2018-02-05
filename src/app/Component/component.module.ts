@@ -1,3 +1,5 @@
+import { StatistiqueComponent } from './statistique/statistique.component';
+import { FormsModule } from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,14 +12,15 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   declarations: [
     FooterComponent,
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    DashboardComponent
+    DashboardComponent,
   ],
   exports: [
     FooterComponent,
