@@ -43,10 +43,12 @@ export class RegisterService {
     new HttpParams().set('code', code).set('type','0'));
   }
 
-  UpdatePassword(email, password, id){
+  UpdatePassword(email, password, id,oldpassword){
     return this.http.post(
       this.url+'/updatePassword',
-      new HttpParams().set('email', email).set('password', password).set("id", id)) ;
+      new HttpParams().set('email', email)
+                      .set('password', password).set("id", id)
+                      .set('oldpassword',oldpassword)) ;
   }
 
 }

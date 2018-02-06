@@ -123,7 +123,13 @@ export class SidebarComponent implements OnInit {
                 location.href = "/login/"+data["message"];
                 //this.redirect.redirectTologinForParam();
               }
-              this.toastr.success(data["corps"]+" "+data["message"], 'Information!', CustomOption);
+              if(data["corps"] == "4"){
+                this.message = "Votre ancien mot de passe est incorrecte";
+              }
+              
+              if(data["corps"] == "2"){
+                this.message = "Veuillez reessayer la modification. Nous avons pas pu vous envoyer le mail de validation.";
+              }
             }
             console.log(data);
             this.profilOk = true;
