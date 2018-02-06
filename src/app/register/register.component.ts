@@ -87,7 +87,7 @@ export class RegisterComponent implements OnInit {
               this.utilisateur = new user();
               setTimeout(()=>{
                 this.redirect.redirectTologin();
-              },5000);
+              },10000);
             break;
             case "1": 
               setTimeout(()=>{

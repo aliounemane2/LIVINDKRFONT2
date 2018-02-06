@@ -18,7 +18,9 @@ export class RegisterService {
       formData.append('file', this.file);
       formData.append('user',userBlob);
 
-      const req = new HttpRequest('POST', this.url+'/inscription', formData);
+      const req = new HttpRequest('POST', this.url+'/inscription', formData,{
+        params: new HttpParams().set("type","0")
+      });
       return this.http.request(req);
     }
 
@@ -26,13 +28,19 @@ export class RegisterService {
     return this.http.get(this.url+'/verifierPseudo/'+pseudo)
   }
 
+  getUtilisateur(pseudo){
+    return this.http.get(this.url+'/userConnect/'+pseudo);
+  }
+
   Verifier_Email(email,id){
-    return this.http.get(this.url+'/verifierEmail/'+email+'/'+id);
+    return this.http.get(this.url+'/verifierEmail/'+email+'/'+id,{
+      params: new HttpParams().set('type','0')
+    });
   }
 
   Activer_Compte(code){
     return this.http.post(this.url+'/ConfirmationEmail',
-    new HttpParams().set('code', code));
+    new HttpParams().set('code', code).set('type','0'));
   }
 
   UpdatePassword(email, password, id){

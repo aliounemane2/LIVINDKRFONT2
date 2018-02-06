@@ -9,6 +9,7 @@ import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { RedirectService } from '../../service/redirect.service';
 import { trigger, state, style, animate,transition, keyframes} from '@angular/animations';
 import * as $ from 'jquery';
+import { RegisterService } from '../../service/register.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -44,14 +45,16 @@ import * as $ from 'jquery';
 })
 export class SidebarComponent implements OnInit {
 
-
-  utilisateur : user;
-  utilisateurTest: user;
+  password : string;
+  passwordConfirm : string;
+  utilisateur : user = new user();
+  utilisateurTest: user = new user();
   profilOk : boolean;
   message: string;
   state:string = 'inactive';
+  verifpassword :boolean;
 
-  constructor(private dashboard: DashboardComponent, private cheader : HeaderComponent, private redirect: RedirectService, private tokenservice: TokenService, private toastr: ToastsManager,vcr: ViewContainerRef, private profil: ProfilService) {
+  constructor(private service: RegisterService, private dashboard: DashboardComponent, private cheader : HeaderComponent, private redirect: RedirectService, private tokenservice: TokenService, private toastr: ToastsManager,vcr: ViewContainerRef, private profil: ProfilService) {
     this.toastr.setRootViewContainerRef(vcr);
    }
 
@@ -60,16 +63,28 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.verifpassword= true;
     this.profilOk = true;
-    console.log(this.tokenservice.getUtilisateur());
-    if(this.tokenservice.getUtilisateur() === null){
-    this.ChangeDetailUser("", "");      
+    if(this.tokenservice.isAuthorized() === false){
       this.redirect.redirectTologinForParam("Veuillez vous connecter pour accéder aux ressources de l'application");
+    }else{
+      let pseudo:string = this.tokenservice.getPseudo();
+      this.service.getUtilisateur(pseudo).subscribe(
+        data => {
+          this.utilisateur = data["user"];
+          this.tokenservice.setUtilisateur(this.utilisateur);
+          this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
+
+          this.tokenservice.removeUtilisateur();
+          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom);
+        },
+        errors =>{
+          console.log(errors);
+        }
+      );
+      
     }
-    this.utilisateur = JSON.parse(this.tokenservice.getUtilisateur());
-    this.utilisateurTest =  JSON.parse(this.tokenservice.getUtilisateur());
-    this.tokenservice.removeUtilisateur();
-    this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom);
+    
   }
 
   setPhotoProfil(){
@@ -79,16 +94,33 @@ export class SidebarComponent implements OnInit {
   }
 
   UpdatePassword(){
-
+    if(this.verifpassword == false){
+      alert("Les mots de passe sont différents.");
+    }else{
+      alert("ok");
+    }
   }
 
   UpdateEmail(){
-
+    this.profilOk = false;
+    this.service.UpdatePassword(this.utilisateur.email,this.password,0).subscribe(
+        data => {
+            if(data["corps"] === "0"){
+                this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
+            }else{
+                this.message = data["message"];
+            }
+            this.profilOk = true;
+        },
+        error => {
+            this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
+            this.profilOk = true;
+        });
   }
 
   UpdateUser(){
     if(this.utilisateur.nom === this.utilisateurTest.nom && this.utilisateur.prenom === this.utilisateurTest.prenom
-    && this.utilisateur.telephone === this.utilisateurTest.telephone && this.utilisateur.date_naissance === this.utilisateurTest.date_naissance){
+    && this.utilisateur.telephone === this.utilisateurTest.telephone && this.utilisateur.dateNaissance === this.utilisateurTest.dateNaissance){
       this.profilOk = false;
       setTimeout(()=>{
         this.profilOk = true;
@@ -133,6 +165,12 @@ export class SidebarComponent implements OnInit {
         $('.nom').html(" "+nom);
         $('.prenom').html(" "+prenom);
       });
+    }
+
+    VerifierPassword(){
+      this.verifpassword = this.password !== this.passwordConfirm
+                          && this.passwordConfirm != undefined 
+                          && this.password != undefined ? false : true;
     }
 
 }
