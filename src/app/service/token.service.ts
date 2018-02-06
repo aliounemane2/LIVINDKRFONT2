@@ -24,12 +24,24 @@ export class TokenService {
   }
 
   public isAuthorized() {
-    const isAuthorized: boolean = !!localStorage.getItem('token');
+    const isAuthorized: boolean = !!localStorage.getItem('token') && !! localStorage.getItem('pseudo');
     return isAuthorized;
   }
 
   public setUtilisateurTampon(user: user){
     localStorage.setItem("tampon", JSON.stringify(user));
+  }
+
+  public getPseudo(){
+    return localStorage.getItem("pseudo");
+  }
+
+  public setPseudo(pseudo: string){
+    localStorage.setItem("pseudo", pseudo);
+  }
+
+  public removePseudo(){
+    localStorage.removeItem("pseudo");
   }
 
   public getUtilisateurTampon(){

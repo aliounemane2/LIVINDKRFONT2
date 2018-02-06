@@ -32,18 +32,16 @@ export class SendemailComponent implements OnInit {
     if(this.code !== undefined){
       this.service.Activer_Compte(this.code).subscribe(
         data => {
-          console.log(data);
-          switch(data["message"]){
-            case "0" : 
-            this.redirect.redirectTologinForParam("Votre compte est déjà activé. Veuillez vous connecter.!");
+          console.log(data["status"]);
+          switch(data["status"]){
+            case 0 : 
+            this.redirect.redirectTologinForParam("Votre compte est déjà activé. Veuillez vous connecter !");
             break;
-            case "1" :
-            setTimeout(()=>{
-              this.toastr.warning("Vous n'avez pas de compte ou votre mail est incorrecte !","Information!", CustomOption); 
-            },5000)
+            case 1 :
+            this.toastr.warning("Vous n'avez pas de compte ou votre mail est incorrecte !","Information!", CustomOption); 
              break;
-            case "2" : this.toastr.warning("Nous n'avons pas pu vous envoyez le mail de validation. Veuillez reéssayer!","Information!", CustomOption); break;
-            case "3" : this.toastr.success("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!","Information!", CustomOption);
+            case 2 : this.toastr.warning("Nous n'avons pas pu vous envoyez le mail de validation. Veuillez reéssayer!","Information!", CustomOption); break;
+            case 3 : this.toastr.success("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!","Information!", CustomOption);
             break;
           }
         },
@@ -81,19 +79,21 @@ export class SendemailComponent implements OnInit {
       this.loginOK = false;
       this.service.Verifier_Email(this.email,1).subscribe(
         data => {
+          console.log(data);
           switch(data["corps"]){
             case "1" : this.toastr.warning("Vous n'avez pas de compte ou votre mail est incorrecte !","Information!", CustomOption); break;
             case "2" : this.toastr.warning("Nous n'avons pas pu vous envoyez le mail de validation. Veuillez reéssayer!","Information!", CustomOption); break;
             case "3" : 
+            this.toastr.success("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!","Information!", CustomOption);
+            
             setTimeout(()=>{
-              this.toastr.success("le mail de validation vous a étè envoyé. Veuillez vérifier votre boite!","Information!", CustomOption);
               this.redirect.redirectTologin();
             },5000);
             
             break;
             case "4" : 
+            this.toastr.success("Votre compte est déjà activé. Veuillez vous connecter.!","Information!", CustomOption);
             setTimeout(()=>{
-              this.toastr.success("Votre compte est déjà activé. Veuillez vous connecter.!","Information!", CustomOption);
               this.redirect.redirectTologin();
             },5000);
             break;

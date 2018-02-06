@@ -8,6 +8,6 @@ export class user{
     public sexe: string;
     public isDakar: boolean;
     public photo:any;
-    public date_naissance : string;
+    public dateNaissance : string;
     public telephone : string;
 }

@@ -145,15 +145,15 @@
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
                     <label class="control-label">Nouveau mot de passe</label>
-                    <input type="text" class="form-control shadow1">
+                    <input (keyup)="VerifierPassword()" required [(ngModel)]="password" name="password" type="password" class="form-control shadow1">
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
                     <label class="control-label">Confirmer mot de passe</label>
-                    <input type="text" class="form-control shadow1">
+                    <input (keyup)="VerifierPassword()" required [(ngModel)]="passwordConfirm" name="passwordConfirm" type="password" class="form-control shadow1">
                 </div>
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
                     <hr class="shadow1" style="border: 3px #098e83 solid">
-                    <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <button [disabled]="!formpassword.valid && !verifpassword" type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
                     <i class="fa fa-plus"></i> Modifier</button>
                     <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
                     <img src="assets/img/Eclipse-1s-200px.svg" />
