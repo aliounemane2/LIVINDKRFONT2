@@ -20,7 +20,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NavbarComponent,
     SidebarComponent,
     HeaderComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   exports: [
     FooterComponent,

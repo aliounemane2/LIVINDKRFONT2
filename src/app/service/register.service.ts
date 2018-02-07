@@ -56,6 +56,20 @@ export class RegisterService {
       new HttpParams().set('code', code).set('type', '0'));
   }
 
+  UpdateEmail(emailold,emailnew,pseudo) {
+    return this.http.post(this.url + '/updateemail',
+      new HttpParams().set('pseudo', pseudo)
+                      .set('emailold', emailold)
+                      .set('emailnew',emailnew));
+  }
+
+  UpdateEmailConfirmation(code,emailold,emailnew) {
+    return this.http.post(this.url + '/updateemailconfirmation',
+      new HttpParams().set('code', code)
+                      .set('emailnew',emailnew)
+                      .set('emailold', emailold));
+  }
+
   UpdatePassword(email, password, id, oldpassword) {
     return this.http.post(
       this.url + '/updatePassword',

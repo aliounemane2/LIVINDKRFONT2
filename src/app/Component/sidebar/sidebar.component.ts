@@ -64,6 +64,7 @@ export class SidebarComponent implements OnInit {
   email:string;
   statusemail : boolean;
   invalidemail : boolean;
+  memeEmail : boolean;
 
   constructor(private service: RegisterService, private dashboard: DashboardComponent, private cheader: HeaderComponent, private redirect: RedirectService, private tokenservice: TokenService, private toastr: ToastsManager, vcr: ViewContainerRef, private profil: ProfilService) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -74,6 +75,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.memeEmail = false;
     this.statusemail = false;
     this.invalidemail = true;
     this.verifpassword = true;
@@ -129,14 +131,17 @@ export class SidebarComponent implements OnInit {
   }
 
   UpdateImage(event){
+    this.profilOk = false;
     if(this.file == null || this.file == undefined){
       this.messageToggle("Vous n'avez pas sélectionné d'image !");
     }else{
       this.service.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
         data =>{
+          this.profilOk = true;
           console.log(data);
         },
         errors =>{
+          this.profilOk = true;
           console.log(errors);
         }
       );
@@ -179,31 +184,57 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  UpdateEmail() {/*
+  UpdateEmail() {
     this.profilOk = false;
-    this.service.UpdatePassword(this.utilisateur.email, this.password, 0).subscribe(
-      data => {
-        if (data["corps"] === "0") {
-          this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
-        } else {
-          this.message = data["message"];
+    if(!this.statusemail || !this.memeEmail){
+        this.service.UpdateEmail(this.email, this.emailnew,this.utilisateur.pseudo).subscribe(
+        data => {
+          this.profilOk = true;          
+          console.log(data);
+        },
+        errors =>{
+          console.log(errors);
         }
-        this.profilOk = true;
-      },
-      error => {
-        this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!', CustomOption);
-        this.profilOk = true;
-      });*/
+      );
+    }
+    
   }
 
   Verifier_Email(){
-    this.service.Verifier_Email(this.utilisateur.email,0).subscribe(
+    if(this.email !== "" && this.email !== this.emailnew){
+      this.service.Verifier_Email(this.emailnew,0).subscribe(
       data => {
         this.statusemail = data["corps"]==="0" ? true : false;
+        this.memeEmail = false;
       },
       error => {
         console.log(error);
       });
+    }else{
+      this.memeEmail = true;
+      this.messageToggle("Les emails sont identiques");
+      this.emailnew = "";
+    }
+    
+  }
+
+  Verifier_Email1(){
+    if(this.email !== "" && this.email === this.emailnew){
+      this.memeEmail = true;
+      this.emailnew = "";
+      this.messageToggle("Les emails sont identiques");
+    }else{
+      this.memeEmail = false;
+    }
+    
+  }
+
+  VerifierExiste(){
+    if(this.email !== this.utilisateur.email){
+      this.messageToggle("Votre email est incorrecte");
+      this.email = "";
+    }
+    
   }
 
   UpdateUser() {
