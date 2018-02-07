@@ -45,6 +45,8 @@ import { RegisterService } from '../../service/register.service';
 })
 export class SidebarComponent implements OnInit {
 
+  file: File;
+  url: string = "http://213.246.59.111/LIV'INDKR/PhotosProfil/";
   password: string;
   passwordConfirm: string;
   oldpassword : string;
@@ -58,6 +60,10 @@ export class SidebarComponent implements OnInit {
   prenom: string;
   telephone: string;
   dateNaissance: string;
+  emailnew: string ;
+  email:string;
+  statusemail : boolean;
+  invalidemail : boolean;
 
   constructor(private service: RegisterService, private dashboard: DashboardComponent, private cheader: HeaderComponent, private redirect: RedirectService, private tokenservice: TokenService, private toastr: ToastsManager, vcr: ViewContainerRef, private profil: ProfilService) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -68,8 +74,12 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.statusemail = false;
+    this.invalidemail = true;
     this.verifpassword = true;
     this.profilOk = true;
+    this.message = "";
+    this.state = 'inactive';
     if (this.tokenservice.isAuthorized() === false) {
       this.redirect.redirectTologinForParam("Veuillez vous connecter pour accéder aux ressources de l'application");
     } else {
@@ -79,12 +89,8 @@ export class SidebarComponent implements OnInit {
           this.utilisateur = data["user"];
           this.tokenservice.setUtilisateur(this.utilisateur);
           this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
-          this.nom = this.utilisateur.nom;
-          this.prenom = this.utilisateur.prenom;
-          this.dateNaissance = this.utilisateur.dateNaissance;
-          this.telephone = this.utilisateur.telephone;
           this.tokenservice.removeUtilisateur();
-          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom);
+          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
         },
         errors => {
           console.log(errors);
@@ -96,17 +102,49 @@ export class SidebarComponent implements OnInit {
   }
 
   setPhotoProfil() {
+    this.getPhotoProfil(this.url);
+  }
+
+  fileChange(event) {
+    console.log(event);
+    let fileList: FileList = event.target.files;
+    if (fileList.length > 0) 
+    {
+      this.file = fileList[0];
+    }
+  }
+
+  getPhotoProfil(photo){
     $(document).ready(function () {
-      $('.fileinput-preview').prepend('<img class="img img-responsive" src="assets/img/avatar_defaut.png" />');
+      $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
     });
+  }
+
+  deleteImage(e){
+    e.preventDefault();
+    let fileList: FileList = e.target.files;
+    fileList = null;
+    this.file = null;  
+    console.log(e);
+  }
+
+  UpdateImage(event){
+    if(this.file == null || this.file == undefined){
+      this.messageToggle("Vous n'avez pas sélectionné d'image !");
+    }else{
+      this.service.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
+        data =>{
+          console.log(data);
+        },
+        errors =>{
+          console.log(errors);
+        }
+      );
+    }
   }
 
   UpdatePassword() {
     this.profilOk = false;
-    alert(this.verifpassword);
-    alert(this.password);
-    alert(this.passwordConfirm);
-
     if (this.verifpassword == false) {
       alert("Les mots de passe sont différents.");
       this.profilOk = true;
@@ -158,6 +196,16 @@ export class SidebarComponent implements OnInit {
       });*/
   }
 
+  Verifier_Email(){
+    this.service.Verifier_Email(this.utilisateur.email,0).subscribe(
+      data => {
+        this.statusemail = data["corps"]==="0" ? true : false;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
   UpdateUser() {
     if (this.utilisateur.nom === this.utilisateurTest.nom && this.utilisateur.prenom === this.utilisateurTest.prenom
       && this.utilisateur.telephone === this.utilisateurTest.telephone && this.utilisateur.dateNaissance === this.utilisateurTest.dateNaissance) {
@@ -177,7 +225,7 @@ export class SidebarComponent implements OnInit {
             this.tokenservice.setUtilisateur(result.user);
             this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
             this.tokenservice.removeUtilisateur();
-            this.ChangeDetailUser(result.user.nom, result.user.prenom);
+            this.ChangeDetailUser(result.user.nom, result.user.prenom,this.utilisateur.photo,this.url);
 
             /*let dashboard = new DashboardComponent(this.tokenservice, this.redirect);
             dashboard.ngOnInit();*/
@@ -203,10 +251,11 @@ export class SidebarComponent implements OnInit {
     }, 5000);
   }
 
-  ChangeDetailUser(nom, prenom) {
+  ChangeDetailUser(nom, prenom,photo, url) {
     $(document).ready(function () {
       $('.nom').html(" " + nom);
       $('.prenom').html(" " + prenom);
+      $('.imageProfil').attr('src', url);
     });
   }
 

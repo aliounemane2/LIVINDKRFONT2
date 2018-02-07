@@ -1,54 +1,67 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams,HttpErrorResponse, HttpHeaders,HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 
 @Injectable()
 export class RegisterService {
 
   file: File;
   url = "http://192.168.1.130:8181";
-  
-  constructor(private http:HttpClient) { }
 
-  Save_Inscription(file,utilisateur) {
+  constructor(private http: HttpClient) { }
 
-      this.file = file;
-      const userBlob = new Blob([JSON.stringify(utilisateur)],{ type: "application/json"});
-      
-      let formData: FormData = new FormData();
-      formData.append('file', this.file);
-      formData.append('user',userBlob);
+  Save_Inscription(file, utilisateur) {
 
-      const req = new HttpRequest('POST', this.url+'/inscription', formData,{
-        params: new HttpParams().set("type","0")
-      });
-      return this.http.request(req);
-    }
+    this.file = file;
+    const userBlob = new Blob([JSON.stringify(utilisateur)], { type: "application/json" });
 
-  Verifier_Pseudo(pseudo){
-    return this.http.get(this.url+'/verifierPseudo/'+pseudo)
+    let formData: FormData = new FormData();
+    formData.append('file', this.file);
+    formData.append('user', userBlob);
+
+    const req = new HttpRequest('POST', this.url + '/inscription', formData, {
+      params: new HttpParams().set("type", "0")
+    });
+    return this.http.request(req);
   }
 
-  getUtilisateur(pseudo){
-    return this.http.get(this.url+'/userConnect/'+pseudo);
+  Update_Photo(file,pseudo) {
+
+    this.file = file;
+    let formData: FormData = new FormData();
+    formData.append('file', this.file);
+
+    const req = new HttpRequest('POST', this.url + '/updatephoto', formData, {
+      params: new HttpParams().set("type", "0").set("pseudo",pseudo)
+    });
+    return this.http.request(req);
   }
 
-  Verifier_Email(email,id){
-    return this.http.get(this.url+'/verifierEmail/'+email+'/'+id,{
-      params: new HttpParams().set('type','0')
+
+  Verifier_Pseudo(pseudo) {
+    return this.http.get(this.url + '/verifierPseudo/' + pseudo)
+  }
+
+  getUtilisateur(pseudo) {
+    return this.http.get(this.url + '/userConnect/' + pseudo);
+  }
+
+  Verifier_Email(email, id) {
+    return this.http.get(this.url + '/verifierEmail/' + email + '/' + id, {
+      params: new HttpParams().set('type', '0')
     });
   }
 
-  Activer_Compte(code){
-    return this.http.post(this.url+'/ConfirmationEmail',
-    new HttpParams().set('code', code).set('type','0'));
+  Activer_Compte(code) {
+    return this.http.post(this.url + '/ConfirmationEmail',
+      new HttpParams().set('code', code).set('type', '0'));
   }
 
-  UpdatePassword(email, password, id,oldpassword){
+  UpdatePassword(email, password, id, oldpassword) {
     return this.http.post(
-      this.url+'/updatePassword',
+      this.url + '/updatePassword',
       new HttpParams().set('email', email)
-                      .set('password', password).set("id", id)
-                      .set('oldpassword',oldpassword)) ;
+        .set('password', password).set("id", id)
+        .set('oldpassword', oldpassword));
   }
 
 }
