@@ -1,3 +1,4 @@
+import { RegisterService } from './../../service/register.service';
 import { HeaderComponent } from './../header/header.component';
 import { DashboardComponent } from './../dashboard/dashboard.component';
 import { ProfilService } from './../../service/profil.service';
@@ -9,7 +10,6 @@ import { ToastsManager } from 'ng2-toastr/src/toast-manager';
 import { RedirectService } from '../../service/redirect.service';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
 import * as $ from 'jquery';
-import { RegisterService } from '../../service/register.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -86,7 +86,7 @@ export class SidebarComponent implements OnInit {
       this.redirect.redirectTologinForParam("Veuillez vous connecter pour accéder aux ressources de l'application");
     } else {
       let pseudo: string = this.tokenservice.getPseudo();
-      this.service.getUtilisateur(pseudo).subscribe(
+      this.profil.getUtilisateur(pseudo).subscribe(
         data => {
           this.utilisateur = data["user"];
           this.tokenservice.setUtilisateur(this.utilisateur);
@@ -140,7 +140,7 @@ export class SidebarComponent implements OnInit {
     if(this.file == null || this.file == undefined){
       this.messageToggle("Vous n'avez pas sélectionné d'image !");
     }else{
-      this.service.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
+      this.profil.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
         data =>{
           if(data["status"] === 1){
             this.messageToggle("votre photo a étè changé.")
@@ -162,7 +162,7 @@ export class SidebarComponent implements OnInit {
       alert("Les mots de passe sont différents.");
       this.profilOk = true;
     } else {
-      this.service.UpdatePassword(this.utilisateurTest.email,this.password,0,this.oldpassword).subscribe(
+      this.profil.UpdatePassword(this.utilisateurTest.email,this.password,0,this.oldpassword).subscribe(
         data => {
             if(data["corps"] === "0"){
                 this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
@@ -195,13 +195,17 @@ export class SidebarComponent implements OnInit {
   UpdateEmail() {
     this.profilOk = false;
     if(!this.statusemail || !this.memeEmail){
-        this.service.UpdateEmail(this.email, this.emailnew,this.utilisateur.pseudo).subscribe(
+        this.profil.UpdateEmail(this.email, this.emailnew,this.utilisateur.pseudo).subscribe(
         data => {
-          this.profilOk = true;          
-          console.log(data);
+          this.profilOk = true; 
+          if(data["status"] === 2){
+            this.messageToggle("Veuillez valider le mail de validation envoyé dans votre nouveau email");
+          } else{
+            this.messageToggle("Erreur de mise à jour. Veuillez reessayer !");
+          }       
         },
         errors =>{
-          console.log(errors);
+          this.messageToggle("Erreur de mise à jour. Veuillez reessayer !");
         }
       );
     }
@@ -257,14 +261,16 @@ export class SidebarComponent implements OnInit {
       this.profilOk = false;
       this.profil.ModifierUtilisateur(this.utilisateur).subscribe(
         data => {
-          let result = JSON.parse(data["_body"]);
-          if (result.status === 0) {
+          console.log(data);
+          let result = data["status"];
+          let user = data["user"];
+          if (result === 0) {
             this.profilOk = true;
             this.messageToggle("Vos données personnées ont étè modifiées");
-            this.tokenservice.setUtilisateur(result.user);
+            this.tokenservice.setUtilisateur(user);
             this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
             this.tokenservice.removeUtilisateur();
-            this.ChangeDetailUser(result.user.nom, result.user.prenom,this.utilisateur.photo,this.url);
+            this.ChangeDetailUser(user.nom, user.prenom,this.utilisateur.photo,this.url);
 
             /*let dashboard = new DashboardComponent(this.tokenservice, this.redirect);
             dashboard.ngOnInit();*/
