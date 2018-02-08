@@ -162,7 +162,7 @@ export class SidebarComponent implements OnInit {
       alert("Les mots de passe sont différents.");
       this.profilOk = true;
     } else {
-      this.profil.UpdatePassword(this.utilisateurTest.email,this.password,0,this.oldpassword).subscribe(
+      this.profil.UpdatePassword(this.utilisateurTest.email,this.password,this.oldpassword).subscribe(
         data => {
             if(data["corps"] === "0"){
                 this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);

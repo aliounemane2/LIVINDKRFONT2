@@ -63,11 +63,10 @@ export class ProfilService {
                     });
   }
 
-  UpdatePassword(email, password, id, oldpassword) {
+  UpdatePassword(email, password,  oldpassword) {
     return this.http.post(
       this.url + '/user/updatePassword',
       new HttpParams().set('email', email)
-        .set('password', password).set("id", id)
         .set('oldpassword', oldpassword),
       {
         headers:this.headers

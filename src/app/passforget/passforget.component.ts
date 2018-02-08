@@ -49,7 +49,8 @@ export class PassforgetComponent implements OnInit {
                     }
                     
                 },
-                error => {
+                errors => {
+                    console.log(errors);
                     this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
                 });
         }
