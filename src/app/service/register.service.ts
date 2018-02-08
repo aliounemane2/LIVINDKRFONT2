@@ -1,3 +1,4 @@
+import { TokenService } from './token.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
 
@@ -5,9 +6,11 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } f
 export class RegisterService {
 
   file: File;
-  url = "http://192.168.1.130:8181";
+  url = "http://192.168.1.69:8181";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenservice: TokenService) { }
+
+  headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});
 
   Save_Inscription(file, utilisateur) {
 
@@ -30,8 +33,9 @@ export class RegisterService {
     let formData: FormData = new FormData();
     formData.append('file', this.file);
 
-    const req = new HttpRequest('POST', this.url + '/updatephoto', formData, {
-      params: new HttpParams().set("type", "0").set("pseudo",pseudo)
+    const req = new HttpRequest('POST', this.url + '/user/updatephoto', formData, {
+      params: new HttpParams().set("type", "0").set("pseudo",pseudo),
+      headers: this.headers
     });
     return this.http.request(req);
   }
@@ -42,7 +46,9 @@ export class RegisterService {
   }
 
   getUtilisateur(pseudo) {
-    return this.http.get(this.url + '/userConnect/' + pseudo);
+    return this.http.get(this.url + '/user/userConnect/' + pseudo,{
+      headers: this.headers
+    });
   }
 
   Verifier_Email(email, id) {
@@ -57,25 +63,33 @@ export class RegisterService {
   }
 
   UpdateEmail(emailold,emailnew,pseudo) {
-    return this.http.post(this.url + '/updateemail',
+    return this.http.post(this.url + '/uer/updateemail',
       new HttpParams().set('pseudo', pseudo)
                       .set('emailold', emailold)
-                      .set('emailnew',emailnew));
+                      .set('emailnew',emailnew),{
+                        headers:this.headers
+                      });
   }
 
   UpdateEmailConfirmation(code,emailold,emailnew) {
-    return this.http.post(this.url + '/updateemailconfirmation',
+    return this.http.post(this.url + '/user/updateemailconfirmation',
       new HttpParams().set('code', code)
                       .set('emailnew',emailnew)
-                      .set('emailold', emailold));
+                      .set('emailold', emailold),
+                    {
+                      headers: this.headers
+                    });
   }
 
   UpdatePassword(email, password, id, oldpassword) {
     return this.http.post(
-      this.url + '/updatePassword',
+      this.url + '/user/updatePassword',
       new HttpParams().set('email', email)
         .set('password', password).set("id", id)
-        .set('oldpassword', oldpassword));
+        .set('oldpassword', oldpassword),
+      {
+        headers:this.headers
+      });
   }
 
 }

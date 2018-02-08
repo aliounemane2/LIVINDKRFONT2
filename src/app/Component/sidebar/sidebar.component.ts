@@ -46,7 +46,7 @@ import { RegisterService } from '../../service/register.service';
 export class SidebarComponent implements OnInit {
 
   file: File;
-  url: string = "http://213.246.59.111/LIV'INDKR/PhotosProfil/";
+  url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
   password: string;
   passwordConfirm: string;
   oldpassword : string;
@@ -93,13 +93,17 @@ export class SidebarComponent implements OnInit {
           this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
           this.tokenservice.removeUtilisateur();
           this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
+          if(this.utilisateur === null || this.utilisateur == undefined){
+            this.redirect.redirectTologinForParam("Veuillez vous connecter à nouveau.");
+          }
         },
         errors => {
           console.log(errors);
         }
       );
-
     }
+
+    
 
   }
 
@@ -118,6 +122,7 @@ export class SidebarComponent implements OnInit {
 
   getPhotoProfil(photo){
     $(document).ready(function () {
+      $(".fileinput-preview img:last-child").remove()
       $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
     });
   }
@@ -137,6 +142,9 @@ export class SidebarComponent implements OnInit {
     }else{
       this.service.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
         data =>{
+          if(data["status"] === 1){
+            this.messageToggle("votre photo a étè changé.")
+          }
           this.profilOk = true;
           console.log(data);
         },
