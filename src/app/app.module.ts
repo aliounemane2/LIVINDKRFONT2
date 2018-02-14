@@ -36,6 +36,7 @@ import { ToastOptions } from 'ng2-toastr/src/toast-options';
 import { RedirectService } from './service/redirect.service';
 import { StatistiqueComponent } from './Component/statistique/statistique.component';
 import { UpdateEmailComponent } from './Component/update-email/update-email.component';
+import { DiscussionComponent } from './discussion/discussion.component';
 
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
@@ -48,6 +49,7 @@ export const appRoutes:Routes=[
       {  path:'evenement', component:EvenementComponent },
       {  path:'listeEvent', component:ListeEvenementsComponent },
       {  path:'deleteEvent/:id', component:DeleteEventComponent },
+      {  path:'discussion', component:DiscussionComponent }
     ]
   },
   {path: 'dashboard',component:DashboardComponent},
@@ -79,7 +81,8 @@ export const appRoutes:Routes=[
     PassforgetComponent,
     SendemailComponent,
     StatistiqueComponent,
-    UpdateEmailComponent
+    UpdateEmailComponent,
+    DiscussionComponent
   ],
   imports: [
     BrowserModule,
