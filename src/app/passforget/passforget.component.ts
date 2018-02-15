@@ -36,20 +36,21 @@ export class PassforgetComponent implements OnInit {
         });
 
         if(this.email != undefined && this.password != undefined){
-            this.service.UpdatePassword(this.email,this.password,1).subscribe(
+            this.service.UpdatePassword(this.email,this.password,1,"").subscribe(
                 data => {
                     if(data["corps"] === "0"){
                         this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);
                     }else{
+                        this.toastr.success("Votre mot de passe est modifié. Veuillez vous connecter !", 'Information!', CustomOption);
                         setTimeout(()=>{
-                            this.toastr.success(data["status"], 'Information!', CustomOption);
                             this.register();
                         },5000);
                         
                     }
                     
                 },
-                error => {
+                errors => {
+                    console.log(errors);
                     this.toastr.error('Serveur non accéssible. Veuillez reesayer.', 'Erreur!',CustomOption);
                 });
         }
@@ -92,7 +93,7 @@ export class PassforgetComponent implements OnInit {
 
   UpdatePassword(){
     this.loginOK = false;
-    this.service.UpdatePassword(this.email,this.password,0).subscribe(
+    this.service.UpdatePassword(this.email,this.password,0,"").subscribe(
         data => {
             if(data["corps"] === "0"){
                 this.toastr.success('Votre email est incorrecte !', 'Information!', CustomOption);

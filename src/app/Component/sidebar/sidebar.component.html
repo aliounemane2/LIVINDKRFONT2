@@ -4,14 +4,14 @@
             <a (click)="setPhotoProfil()" data-toggle="modal" href="#md-image" onclick="enableClick(event)">
                 <span class="easy-chart avatar-chart" data-color="theme-inverse" data-percent="69" data-track-color="rgba(255,255,255,0.1)" data-line-width="5" data-size="118">
                 <span class="percent"></span>
-                <img alt="" src="assets/img/profil.jpg" class="circle">
+                <img alt="" src="{{url}}{{utilisateur.photo}}" style="height:83%" class="img img-responsive circle">
                 </span>
             </a>
             <!-- //avatar-chart-->
 
             <div class="avatar-detail">
                 <p><strong>{{utilisateurTest.nom}}</strong> {{utilisateurTest.prenom}}</p>
-                <p><a href="#">@ admin</a></p>
+                <p><a href="#" onclick="enableClick(event)">@ {{this.utilisateur.pseudo}}</a></p>
                 <span>12,110 Institutions</span>
                 <span>106 Evénements</span>
             </div>
@@ -22,7 +22,7 @@
                 <a class="btn" data-toggle="modal" href="#md-notification" title="Notification">
                     <i class="fa fa-bell-o"></i><em class="green"></em>
                 </a>
-                <a class="btn" data-toggle="modal" href="#md-messages" title="Messages">
+                <a class="btn" [routerLink]="['/dashboard/discussion']" title="Discussion">
                     <i class="fa fa-envelope-o"></i><em class="active"></em>
                 </a>
                 <a class="btn" href="#menu-right" title="Contact List"><i class="fa fa-book"></i></a>
@@ -78,7 +78,7 @@
         <form #formprofil="ngForm" (submit)="UpdateUser()">
             <div class="widget-im">
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-success" [@heroState]="state" (click)="toggleState()">
+                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p>{{message}}</p>
                         </div>
@@ -134,7 +134,7 @@
         <form #formpassword="ngForm" (submit)="UpdatePassword()">
             <div class="widget-im">
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-success" [@heroState]="state" (click)="toggleState()">
+                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p>{{message}}</p>
                         </div>
@@ -144,6 +144,10 @@
                     <hr class="shadow1" style="border: 3px #098e83 solid">
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <label class="control-label">Ancien Mot de passe</label>
+                    <input required [(ngModel)]="oldpassword" name="oldpassword" type="password" class="form-control shadow1">
+                </div>
+                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
                     <label class="control-label">Nouveau mot de passe</label>
                     <input (keyup)="VerifierPassword()" required [(ngModel)]="password" name="password" type="password" class="form-control shadow1">
                 </div>
@@ -151,9 +155,12 @@
                     <label class="control-label">Confirmer mot de passe</label>
                     <input (keyup)="VerifierPassword()" required [(ngModel)]="passwordConfirm" name="passwordConfirm" type="password" class="form-control shadow1">
                 </div>
+                <div *ngIf="!verifpassword" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 shadow2 align-lg-center">
+                    <label class="control-label" style="color:red">mot de passe incorrecte!</label>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
                     <hr class="shadow1" style="border: 3px #098e83 solid">
-                    <button [disabled]="!formpassword.valid && !verifpassword" type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <button [disabled]="!formpassword.valid || !verifpassword" type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
                     <i class="fa fa-plus"></i> Modifier</button>
                     <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
                     <img src="assets/img/Eclipse-1s-200px.svg" />
@@ -178,8 +185,8 @@
 
         <form #formemail="ngForm" (submit)="UpdateEmail()">
             <div class="widget-im">
-                <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-success" [@heroState]="state" (click)="toggleState()">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p>{{message}}</p>
                         </div>
@@ -190,15 +197,19 @@
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
                     <label class="control-label">Votre ancien email</label>
-                    <input type="text" class="form-control shadow1">
+                    <input (change)="VerifierExiste()" required email [(ngModel)]="email" name="email" type="email" class="form-control shadow1">
                 </div>
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
                     <label class="control-label">Votre nouveau email</label>
-                    <input type="text" class="form-control shadow1">
+                    <input (keyup)="Verifier_Email1()" (change)="Verifier_Email()" email required [(ngModel)]="emailnew" name="emailnew" required type="email" class="form-control shadow1">
+                    <div *ngIf="statusemail ">
+                        <label class="controllabel " style="color:red ">Email existe déjà !</label>
+                    </div>
+
                 </div>
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12 ">
                     <hr class="shadow1" style="border: 3px #098e83 solid">
-                    <button type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
+                    <button [disabled]="!formemail.form.valid || statusemail || memeEmail " type="submit" *ngIf="profilOk" class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
                         <i class="fa fa-plus"></i> Modifier</button>
                     <button *ngIf="!profilOk" disabled class="col-xs-12 col-sm-12 col-lg-12 col-md-12 btn btn-theme-inverse btn-transparent btn-lg align-lg-center shadow3">
                         <img src="assets/img/Eclipse-1s-200px.svg" />
@@ -220,8 +231,15 @@
     <!-- //modal-header-->
     <div class="modal-body" style="padding:0">
 
-        <form #formimage="ngForm" (submit)="UpdateImage()">
+        <form #formimage="ngForm" (submit)="UpdateImage($event)" enctype="multipart/form-data">
             <div class="widget-im">
+                <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
+                        <div class="panel-body">
+                            <p style="font-size:0.9em">{{message}}</p>
+                        </div>
+                    </section>
+                </div>
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
                     <hr class="shadow1" style="border: 3px #098e83 solid">
                     <div class="fileinput fileinput-new col-xs-12 col-sm-12 col-lg-12 col-md-12" data-provides="fileinput">
@@ -230,9 +248,9 @@
                             <span class="btn btn-default shadow1 btn-file btn-success btn-transparent ">
                             <span class="fileinput-new col-xs-12 col-sm-12 col-lg-12 col-md-12"><i class="fa fa-camera"></i>Sélectionner</span>
                             <span class="fileinput-exists pull-left "><i class="fa fa-pencil "></i></span>
-                            <input type="file" name="file" (change)="fileChange($event)" value="assets/img/avatar_defaut.png">
+                            <input required type="file" name="file" (change)="fileChange($event)" value="assets/img/avatar_defaut.png">
                             </span>
-                            <a href="#" onclick="enableClick(event)" class="shadow1 btn btn-default btn-danger btn-transparent fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-trash-o"></i></a>
+                            <a href="#" (click)="deleteImage($event)" class="shadow1 btn btn-default btn-danger btn-transparent fileinput-exists pull-right" data-dismiss="fileinput"><i class="fa fa-trash-o"></i></a>
                         </div>
                     </div>
                 </div>

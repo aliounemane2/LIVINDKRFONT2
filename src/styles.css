@@ -29,3 +29,21 @@
     border-left: 5px solid #a94442;
     /* red */
 }
+
+#toast-container>div {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 6px;
+    padding: 15px 15px 15px 50px;
+    width: 400px;
+    border-radius: 3px 3px 3px 3px;
+    background-position: 15px;
+    background-repeat: no-repeat;
+    box-shadow: 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    color: #fff;
+    opacity: .8
+}
+
+.toast-success {
+    background-color: #0aa699
+}

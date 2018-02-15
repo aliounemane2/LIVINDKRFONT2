@@ -299,7 +299,23 @@ ol.rounded-list a:before {
     margin-left: 250px;
     overflow: auto;
     overflow-x: hidden;
-    padding-top: 55px;
+    padding-top: 28px;
+    position: absolute;
+    right: 0;
+    -webkit-transition: -webkit-transform 0.5s, padding-top 0.5s;
+    transition: transform 0.5s, padding-top 0.5s;
+    z-index: 9;
+    -webkit-overflow-scrolling: touch;
+}
+
+.main {
+    background: #e5e9ec;
+    height: 95%;
+    left: 0;
+    margin-left: 0px;
+    overflow: auto;
+    overflow-x: hidden;
+    padding-top: 28px;
     position: absolute;
     right: 0;
     -webkit-transition: -webkit-transform 0.5s, padding-top 0.5s;
@@ -942,7 +958,7 @@ body.leftMenu #mailbox #nav-scroll,
 }
 
 .widget-chat.full-chat .chat-body {
-    bottom: 67px;
+    bottom: 50px;
     top: 45px;
     right: 0;
     left: 0;
@@ -965,10 +981,11 @@ body.leftMenu #mailbox #nav-scroll,
 }
 
 .widget-chat .chat-body {
-    height: 500px;
+    height: 400px;
     margin-right: -17px;
     overflow: scroll;
     overflow-x: hidden;
+    overflow-y: scroll;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -1098,7 +1115,7 @@ body.leftMenu #mailbox #nav-scroll,
 .widget-chat footer>.message-input {
     background-color: #eceff2;
     border-top-color: #eceff2;
-    padding: 15px;
+    padding: 0px;
 }
 
 .widget-chat footer>.message-input input[type=text] {
@@ -1106,23 +1123,24 @@ body.leftMenu #mailbox #nav-scroll,
     -moz-border-radius: 3px 0px 0px 3px;
     -webkit-border-radius: 3px 0px 0px 3px;
     border-radius: 3px 0px 0px 3px;
-    color: #c2c2c2;
+    color: #1b1818;
     float: left;
-    font-size: 11px;
+    font-size: 14px;
+    height: 40px;
     margin: 0;
     padding: 10px;
-    width: 75%;
+    width: 90%;
 }
 
 .widget-chat footer>.message-input button {
     -moz-border-radius: 0px 3px 3px 0px;
     -webkit-border-radius: 0px 3px 3px 0px;
     border-radius: 0px 3px 3px 0px;
-    font-size: 11px;
+    font-size: 14px;
     margin: 0;
     padding: 10px;
     text-transform: uppercase;
-    width: 25%;
+    width: 10%;
 }
 
 
