@@ -46,7 +46,7 @@ import * as $ from 'jquery';
 export class SidebarComponent implements OnInit {
 
   file: File;
-  url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
+  url: string = "http://192.168.1.94/LIV'INDKR/PhotosProfil/";
   password: string;
   passwordConfirm: string;
   oldpassword : string;
@@ -107,12 +107,12 @@ export class SidebarComponent implements OnInit {
 
   }
 
-  setPhotoProfil() {
-    this.getPhotoProfil(this.url);
+  setPhotoProfil(event) {
+    event.preventDefault();
+    this.getPhotoProfil(this.url+this.utilisateurTest.photo);
   }
 
   fileChange(event) {
-    console.log(event);
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) 
     {
@@ -121,39 +121,46 @@ export class SidebarComponent implements OnInit {
   }
 
   getPhotoProfil(photo){
-    $(document).ready(function () {
-      $(".fileinput-preview img:last-child").remove()
-      $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
-    });
+    $(".fileinput-preview img:last-child").remove()
+    $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
   }
 
   deleteImage(e){
     e.preventDefault();
     let fileList: FileList = e.target.files;
     fileList = null;
-    this.file = null;  
-    console.log(e);
+    this.file = null; 
   }
 
   UpdateImage(event){
     this.profilOk = false;
-    if(this.file == null || this.file == undefined){
-      this.messageToggle("Vous n'avez pas sélectionné d'image !");
-    }else{
-      this.profil.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
-        data =>{
-          if(data["status"] === 1){
-            this.messageToggle("votre photo a étè changé.")
+    setTimeout(()=>{
+      if(this.file == null || this.file == undefined){
+            this.messageToggle("Vous n'avez pas sélectionné d'image !");
+          }else{
+            this.profil.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
+              data =>{
+                if(data["body"] !== undefined){
+                  console.log(data["body"]);
+                  let body = data["body"];
+                  let status = body["status"];
+                  let photo = body["photo"];
+                  if(status === '1'){
+                    this.messageToggle("votre photo a étè changé.");
+                    this.utilisateur.photo = photo;
+                    this.ChangeDetailUser(this.utilisateurTest.nom,this.utilisateurTest.prenom,this.utilisateur.photo,this.url);
+                  }
+                }
+                this.profilOk = true;
+              },
+              errors =>{
+                this.profilOk = true;
+                console.log(errors);
+              }
+            );
           }
-          this.profilOk = true;
-          console.log(data);
-        },
-        errors =>{
-          this.profilOk = true;
-          console.log(errors);
-        }
-      );
-    }
+    },1000);
+    
   }
 
   UpdatePassword() {
@@ -300,7 +307,7 @@ export class SidebarComponent implements OnInit {
     $(document).ready(function () {
       $('.nom').html(" " + nom);
       $('.prenom').html(" " + prenom);
-      $('.imageProfil').attr('src', url);
+      $('.imageProfil').attr('src', url+photo);
     });
   }
 
