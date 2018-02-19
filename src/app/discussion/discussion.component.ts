@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
+import { ChatWebsocketService } from '../service/chat-websocket.service';
 
 
 @Component({
@@ -9,9 +10,10 @@ import * as $ from 'jquery';
 })
 export class DiscussionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private chatwebsocket: ChatWebsocketService) { }
 
   ngOnInit() {
+    this.chatwebsocket.connecter();
   }
 
 }

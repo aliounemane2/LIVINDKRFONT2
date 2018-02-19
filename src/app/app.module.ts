@@ -1,3 +1,4 @@
+import { ChatWebsocketService } from './service/chat-websocket.service';
 import { ProfilService } from './service/profil.service';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
 import { ComponentsModule } from './Component/component.module';
@@ -55,6 +56,7 @@ export const appRoutes:Routes=[
   {path: 'dashboard',component:DashboardComponent},
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginComponent },
+  {path:'discussion', component:DiscussionComponent },
   {path:'login/:message', component:LoginComponent },
   {path:'register', component:RegisterComponent },
   {path:'updatePassword', component:PassforgetComponent },
@@ -102,7 +104,8 @@ export const appRoutes:Routes=[
     TokenService, 
     ToastOptions,{provide: ToastOptions, useClass: CustomOption}, 
     RedirectService,
-    ProfilService
+    ProfilService,
+    ChatWebsocketService
   ],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],
