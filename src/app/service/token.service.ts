@@ -28,6 +28,18 @@ export class TokenService {
     return isAuthorized;
   }
 
+  public setDiscussion(message){
+    localStorage.setItem("discussion",message)
+  }
+
+  public getDiscussion(){
+    return localStorage.getItem("discussion");
+  }
+
+  public removeDiscussion(){
+    localStorage.removeItem("discussion");
+  }
+
   public setUtilisateurTampon(user: user){
     localStorage.setItem("tampon", JSON.stringify(user));
   }

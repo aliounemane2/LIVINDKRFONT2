@@ -1,4 +1,5 @@
 export class user{
+    public idUser:string;
     public pseudo:string;
     public nom:string;
     public prenom:string;

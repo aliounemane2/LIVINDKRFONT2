@@ -1,38 +1,37 @@
+import { TokenService } from './token.service';
 import { Injectable } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
+import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } from '@angular/common/http';
+
 
 @Injectable()
 export class ChatWebsocketService {
 
-  private serverUrl = 'http://localhost:8080/chat';
-  private socket = new SockJS(this.serverUrl);;
-  private stompClient = Stomp.over(this.socket);
-  
+  private serverUrl = 'http://localhost:8181/chat';
+  private url = 'http://localhost:8181/discussion';
+    public messages:any;
+  headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});  
+  public socket = new SockJS(this.serverUrl,null,{headers:this.headers});
+  public stompClient = Stomp.over(this.socket);
 
-  constructor() { }
+  constructor(private tokenservice : TokenService,private http: HttpClient) { }
 
   connecter(){
-    this.socket = new SockJS(this.serverUrl);
-    this.stompClient = Stomp.over(this.socket);
-    let that = this;
     this.stompClient.connect({}, function(frame) {
-      that.subscribeToChat();
-      console.log(frame);
     },function(erreur){
       console.log(erreur);
     });
   }
 
   subscribeToChat(){
-    this.stompClient.subscribe("/livindkr/public", (message) => {
-      console.log(message);
-    });
+    this.stompClient.subscribe("/livindkr/public", (message) => {});
   }
 
-  sendMessage(message){
-      this.stompClient.send("/app/chat.sendMessage" , {}, message);
-      console.log(message);
+  getAllMessageByUser(){
+return this.http.get(this.url + '/mesMessage',{
+      headers: this.headers
+    });
   }
 
 }

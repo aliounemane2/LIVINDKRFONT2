@@ -93,6 +93,8 @@ export class SidebarComponent implements OnInit {
           this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
           this.tokenservice.removeUtilisateur();
           this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
+           this.tokenservice.setDiscussion(this.utilisateur.idUser);
+           console.log(this.utilisateur);
           if(this.utilisateur === null || this.utilisateur == undefined){
             this.redirect.redirectTologinForParam("Veuillez vous connecter à nouveau.");
           }
