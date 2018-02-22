@@ -1,7 +1,7 @@
 <div id="nav">
     <div id="nav-scroll">
         <div class="avatar-slide">
-            <a (click)="setPhotoProfil()" data-toggle="modal" href="#md-image" onclick="enableClick(event)">
+            <a (click)="setPhotoProfil($event)" data-toggle="modal" href="#md-image">
                 <span class="easy-chart avatar-chart" data-color="theme-inverse" data-percent="69" data-track-color="rgba(255,255,255,0.1)" data-line-width="5" data-size="118">
                 <span class="percent"></span>
                 <img alt="" src="{{url}}{{utilisateur.photo}}" style="height:83%" class="img img-responsive circle">
@@ -78,7 +78,7 @@
         <form #formprofil="ngForm" (submit)="UpdateUser()">
             <div class="widget-im">
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
+                    <section class="panel shadow2 bg-theme-inverse align-lg-center" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p>{{message}}</p>
                         </div>
@@ -134,7 +134,7 @@
         <form #formpassword="ngForm" (submit)="UpdatePassword()">
             <div class="widget-im">
                 <div class="form-group col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
+                    <section class="panel shadow2 bg-theme-inverse align-lg-center" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p>{{message}}</p>
                         </div>
@@ -186,7 +186,7 @@
         <form #formemail="ngForm" (submit)="UpdateEmail()">
             <div class="widget-im">
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
+                    <section class="panel shadow2 bg-theme-inverse align-lg-center" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p>{{message}}</p>
                         </div>
@@ -234,7 +234,7 @@
         <form #formimage="ngForm" (submit)="UpdateImage($event)" enctype="multipart/form-data">
             <div class="widget-im">
                 <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
-                    <section class="panel shadow2 bg-info" [@heroState]="state" (click)="toggleState()">
+                    <section class="panel shadow2 bg-theme-inverse align-lg-center" [@heroState]="state" (click)="toggleState()">
                         <div class="panel-body">
                             <p style="font-size:0.9em">{{message}}</p>
                         </div>

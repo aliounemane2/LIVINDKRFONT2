@@ -6,7 +6,7 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } f
 export class RegisterService {
 
   file: File;
-  url = "http://192.168.1.69:8181";
+  url = "http://localhost:8181";
 
   constructor(private http: HttpClient, private tokenservice: TokenService) { }
 
