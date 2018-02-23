@@ -34,4 +34,10 @@ return this.http.get(this.url + '/mesMessage',{
     });
   }
 
+  getLesAdmin(){
+    return this.http.get(this.url+'/lesAdmins',{
+      headers: this.headers
+    });
+  }
+
 }

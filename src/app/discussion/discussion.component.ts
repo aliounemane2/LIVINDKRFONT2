@@ -19,10 +19,15 @@ message:string;
 idUtilisateur:number;
 headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});
 private serverUrl = 'http://localhost:8181/chat';
-public socket = new SockJS(this.serverUrl,null,{headers:this.headers});
-public stompClient = Stomp.over(this.socket);
+public socket ;
+public stompClient ;
 public messages:any;
 private pseudo:string;
+private monRole:string;
+private otherPseudo: string;
+private testRole:string = "SUPERADMIN";
+private admins:any;
+private idReceveur:number;
 //headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});
 
   constructor(private chatwebsocket: ChatWebsocketService, private tokenservice : TokenService) { }
@@ -38,17 +43,25 @@ private pseudo:string;
         $('#loading').css('background-position',"");
         $('#loading1').css('opacity',"");
       },5000);
+      
       this.pseudo = this.tokenservice.getPseudo();
-      this.connecter();
       this.getMesMessage();
       this.idUtilisateur = +this.tokenservice.getDiscussion();
+      this.monRole = this.tokenservice.getRole();
+
+      if(this.monRole === "ADMIN"){
+        this.connecter(this.pseudo);
+      }else{
+        this.getAllAdministrateurs();
+      }
+
   }
 
   sendMessage(){
     let dis:discussion = new discussion();
     dis.corps = this.message;
     dis.idEnvoyeur.idUser = this.tokenservice.getDiscussion();
-    dis.idReceveur.idUser = "61";
+    dis.idReceveur.idUser = this.monRole === this.testRole ? this.idReceveur.toString() : "61";
     this.sendMessageChat(dis);
   }
 
@@ -59,29 +72,50 @@ private pseudo:string;
       });
   }
 
-  connecter(){
+  connecter(toUser:string){
+    this.socket = new SockJS(this.serverUrl,null,{headers:this.headers});
+    this.stompClient = Stomp.over(this.socket);
+    this.otherPseudo = toUser;
     let that = this;
     this.stompClient.connect({}, function(frame) {
-      that.subscribeToChat();
+      that.subscribeToChat(that.otherPseudo);
     },function(erreur){
-      console.log(erreur);
+      setTimeout(()=>{
+        that.connecter(that.otherPseudo);
+      },2000);
     });
   }
 
-  subscribeToChat(){
-    this.stompClient.subscribe("/livindkr/"+this.pseudo, (message) => {
-      console.log(message.body);
+  subscribeToChat(toUser:string){
+    if(this.monRole === this.testRole){
+      this.pseudo = toUser;
+    }
+    
+      this.stompClient.subscribe("/livindkr/"+this.pseudo, (message) => {
       this.messages.push(JSON.parse(message.body));
-      console.log("-------------Data---------------");
-      console.log(this.messages);
     });
   }
 
   sendMessageChat(message){
     if(!this.stompClient.connected){
-      this.connecter();
+      this.connecter("");
     }
     this.stompClient.send("/app/chat.sendMessage" , {}, JSON.stringify(message));
+  }
+
+  connecterAvec7Admin(pseudo:string, idReceveur:number){
+    this.idReceveur = idReceveur;
+    this.connecter(pseudo);
+  }
+
+  getAllAdministrateurs(){
+    this.chatwebsocket.getLesAdmin().subscribe(
+    data =>{
+      this.admins = data;
+    },
+    error =>{
+
+    });
   }
 
 }

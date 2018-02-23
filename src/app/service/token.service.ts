@@ -72,5 +72,19 @@ export class TokenService {
     localStorage.removeItem("token");
   }
 
+  public setRole(role){
+    localStorage.setItem("role",role);
+  }
+
+  public getRole(){
+    return localStorage.getItem("role");
+  }
+
+  /**
+   * removeRole
+   */
+  public removeRole() {
+    localStorage.removeItem("role");
+  }
 
 }
