@@ -1,7 +1,16 @@
 <div class="main">
-    <div *ngIf="monRole==testRole" class="col-lg-2 col-md-2 col-sm-2">
-        <label>Les administrateurs connectés</label>
-        <button *ngFor="let adminis of admins" (click)="connecterAvec7Admin(adminis.pseudo, adminis.idUser)" class="col-lg-12 col-md-12 col-sm-12 btn btn-block btn-theme-inverse">{{adminis.pseudo}}</button>
+    <div id="connection" *ngIf="monRole==testRole" class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <section *ngFor="let adminis of admins" (click)="connecterAvec7Admin(adminis.pseudo, adminis.idUser)" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 panel corner-flip btn">
+            <header class="panel-heading no-borders bg-lightseagreen">
+                <div class="mail-title align-lg-right">
+                    <section>
+                        <div class="mail-thumbnail "><img alt="" src="assets/img/avatar2.png" class="circle">
+
+                        </div><em>{{adminis.pseudo}} </em>
+                    </section>
+                </div>
+            </header>
+        </section>
     </div>
     <div class="widget-chat full-chat" id="loading">
         <header>
@@ -16,7 +25,7 @@
                     </dd>
                     <dd *ngIf="message.idReceveur.idUser == idUtilisateur" class="from">
                         <p>{{message.corps}}</p>
-                        <img alt="" src="assets/img/avatar2.png" class="avatar circle">
+                        <img alt="" src="{{url}}{{message.idReceveur.photo}}" class="avatar circle">
                     </dd>
                 </div>
                 <dd>

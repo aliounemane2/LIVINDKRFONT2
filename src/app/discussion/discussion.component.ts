@@ -31,6 +31,8 @@ private idReceveur:number;
 public discuter:string;
 public sub:any;
 public tabSub:any[] = [];
+public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
+
 //headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});
 
   constructor(private chatwebsocket: ChatWebsocketService, private tokenservice : TokenService) { }
@@ -77,7 +79,7 @@ public tabSub:any[] = [];
         $('#loading').css('background-repeat',"");
         $('#loading').css('background-position',"");
         $('#loading1').css('opacity',"");
-        $(".chat").scrollTo = $(".chat").scrollHeight;
+        $(".chat-body").scrollTo = $(".chat-body").scrollHeight;
       });
   }
 

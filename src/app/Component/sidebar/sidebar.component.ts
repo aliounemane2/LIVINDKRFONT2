@@ -112,7 +112,7 @@ export class SidebarComponent implements OnInit {
   }
 
   setPhotoProfil() {
-    this.getPhotoProfil(this.url);
+    this.getPhotoProfil(this.url,this.utilisateur.photo);
   }
 
   fileChange(event) {
@@ -124,10 +124,10 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  getPhotoProfil(photo){
+  getPhotoProfil(url,photo){
     $(document).ready(function () {
       $(".fileinput-preview img:last-child").remove()
-      $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
+      $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+url+photo+'" />');
     });
   }
 
@@ -141,22 +141,34 @@ export class SidebarComponent implements OnInit {
 
   UpdateImage(event){
     this.profilOk = false;
-    if(this.file == null || this.file == undefined){
-      this.messageToggle("Vous n'avez pas sélectionné d'image !");
-    }else{
-      this.profil.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
-        data =>{
-          if(data["status"] === 1){
-            this.messageToggle("votre photo a étè changé.")
+    setTimeout(()=>{
+      if(this.file == null || this.file == undefined){
+            this.messageToggle("Vous n'avez pas sélectionné d'image !");
+          }else{
+            this.profil.Update_Photo(this.file,this.utilisateur.pseudo).subscribe(
+              data =>{
+                if(data["body"] !== undefined){
+                  console.log(data["body"]);
+                  let body = data["body"];
+                  let status = body["status"];
+                  let photo = body["photo"];
+                  if(status === '1'){
+                    this.messageToggle("votre photo a étè changé.");
+                    this.utilisateur.photo = photo;
+                    this.ChangeDetailUser(this.utilisateurTest.nom,this.utilisateurTest.prenom,this.utilisateur.photo,this.url);
+                  }
+                }
+                
+                this.profilOk = true;
+              },
+              errors =>{
+                this.profilOk = true;
+                console.log(errors);
+              }
+            );
           }
-          this.profilOk = true;
-        },
-        errors =>{
-          this.profilOk = true;
-          console.log(errors);
-        }
-      );
-    }
+    },1000);
+    
   }
 
   UpdatePassword() {
@@ -303,7 +315,7 @@ export class SidebarComponent implements OnInit {
     $(document).ready(function () {
       $('.nom').html(" " + nom);
       $('.prenom').html(" " + prenom);
-      $('.imageProfil').attr('src', url);
+      $('.imageProfil').attr('src', url+photo);
     });
   }
 

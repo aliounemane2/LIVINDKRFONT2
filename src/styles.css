@@ -47,3 +47,11 @@
 .toast-success {
     background-color: #0aa699
 }
+
+#connection{
+    height:400px;
+    overflow: scroll;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    top:20px;
+}
