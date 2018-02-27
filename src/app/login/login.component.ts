@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
             setTimeout(()=>{
              this.tokenservice.setToken(data["key"]);
              this.tokenservice.setPseudo(data["user"].pseudo)
+            
              //this.toastr.success('ok', 'Information!', CustomOption);
              location.href = "/dashboard";
             },100);

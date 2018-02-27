@@ -1,16 +1,20 @@
 <div class="main">
-    <div class="widget-chat full-chat">
+    <div *ngIf="monRole==testRole" class="col-lg-2 col-md-2 col-sm-2">
+        <label>Les administrateurs connectés</label>
+        <button *ngFor="let adminis of admins" (click)="connecterAvec7Admin(adminis.pseudo, adminis.idUser)" class="col-lg-12 col-md-12 col-sm-12 btn btn-block btn-theme-inverse">{{adminis.pseudo}}</button>
+    </div>
+    <div class="widget-chat full-chat" id="loading">
         <header>
-            <h4 class="online"> Chatting with Mayane</h4>
+            <h4 class="online">{{discuter}}</h4>
         </header>
-        <div class="chat-body">
+        <div class="chat-body" id="loading1">
             <dl class="chat">
                 <div *ngFor="let message of messages">
-                    <dt><strong>Yesterday</strong> </dt>
-                    <dd class="to" *ngIf="message.idEnvoyeur.idUser==userconnect.idUser">
+                    <dt><strong>{{message.dateMessage}}</strong></dt>
+                    <dd *ngIf="message.idEnvoyeur.idUser == idUtilisateur" class="to">
                         <p>{{message.corps}}</p>
                     </dd>
-                    <dd class="from" *ngIf="message.idEnvoyeur.idUser!=userconnect.idUser">
+                    <dd *ngIf="message.idReceveur.idUser == idUtilisateur" class="from">
                         <p>{{message.corps}}</p>
                         <img alt="" src="assets/img/avatar2.png" class="avatar circle">
                     </dd>
@@ -26,9 +30,8 @@
         </div>
         <footer>
             <form class="message-input">
-                <input [(ngModel)]="message" name="message" class="form-control" type="text" placeholder="Enter your message" />
-                <button (click)="sendMessage()" type="button" class="btn btn-theme">Send</button>
-                <button (click)="addUser()" type="button" class="btn btn-theme">Send</button>
+                <input name="message" [(ngModel)]="message" class="form-control" type="text" placeholder="Entrer votre message" />
+                <button (click)="sendMessage()" type="button" class="btn btn-theme">Envoyer</button>
             </form>
         </footer>
     </div>

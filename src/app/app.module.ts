@@ -1,5 +1,4 @@
-import { ChatwebsocketService } from './service/chatwebsocket.service';
-import { DiscussionService } from './service/discussion.service';
+import { ChatWebsocketService } from './service/chat-websocket.service';
 import { ProfilService } from './service/profil.service';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
 import { ComponentsModule } from './Component/component.module';
@@ -46,6 +45,7 @@ export const appRoutes:Routes=[
       {  path: '', component: StatistiqueComponent },
       {  path: 'statistique', component: StatistiqueComponent },
       {  path: 'institution', component: InstitutionComponent },
+       {path:'discussion', component:DiscussionComponent },
       {  path:'listeInstitution', component:ListesInstitutionsComponent },
       {  path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
       {  path:'evenement', component:EvenementComponent },

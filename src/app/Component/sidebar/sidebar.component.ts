@@ -88,14 +88,18 @@ export class SidebarComponent implements OnInit {
       let pseudo: string = this.tokenservice.getPseudo();
       this.profil.getUtilisateur(pseudo).subscribe(
         data => {
-          this.utilisateur = data["user"];
+          let body = data["user"];
+          this.utilisateur = body;
           this.tokenservice.setUtilisateur(this.utilisateur);
           this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
           this.tokenservice.removeUtilisateur();
-          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
           if(this.utilisateur === null || this.utilisateur == undefined){
             this.redirect.redirectTologinForParam("Veuillez vous connecter à nouveau.");
           }
+
+          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
+          this.tokenservice.setDiscussion(this.utilisateur.idUser);
+          this.tokenservice.setRole(body.idUserProfil.nom);
         },
         errors => {
           console.log(errors);
@@ -159,8 +163,14 @@ export class SidebarComponent implements OnInit {
               }
             );
           }
-    },1000);
-    
+          this.profilOk = true;
+        },
+        errors =>{
+          this.profilOk = true;
+          console.log(errors);
+        }
+      );
+    }
   }
 
   UpdatePassword() {
