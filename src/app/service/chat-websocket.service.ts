@@ -28,9 +28,10 @@ export class ChatWebsocketService {
     this.stompClient.subscribe("/livindkr/public", (message) => {});
   }
 
-  getAllMessageByUser(){
+  getAllMessageByUser(idUserConnecte){
 return this.http.get(this.url + '/mesMessage',{
-      headers: this.headers
+      headers: this.headers,
+      params: new HttpParams().set("id",idUserConnecte)
     });
   }
 

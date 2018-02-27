@@ -5,12 +5,12 @@
     </div>
     <div class="widget-chat full-chat" id="loading">
         <header>
-            <h4 class="online"> Chatting with Mayane</h4>
+            <h4 class="online">{{discuter}}</h4>
         </header>
         <div class="chat-body" id="loading1">
             <dl class="chat">
                 <div *ngFor="let message of messages">
-                    <dt><strong>Yesterday</strong> 7:45 PM</dt>
+                    <dt><strong>{{message.dateMessage}}</strong></dt>
                     <dd *ngIf="message.idEnvoyeur.idUser == idUtilisateur" class="to">
                         <p>{{message.corps}}</p>
                     </dd>
@@ -30,8 +30,8 @@
         </div>
         <footer>
             <form class="message-input">
-                <input name="message" [(ngModel)]="message" class="form-control" type="text" placeholder="Enter your message" />
-                <button (click)="sendMessage()" type="button" class="btn btn-theme">Send</button>
+                <input name="message" [(ngModel)]="message" class="form-control" type="text" placeholder="Entrer votre message" />
+                <button (click)="sendMessage()" type="button" class="btn btn-theme">Envoyer</button>
             </form>
         </footer>
     </div>
