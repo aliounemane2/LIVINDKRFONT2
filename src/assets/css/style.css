@@ -983,7 +983,7 @@ body.leftMenu #mailbox #nav-scroll,
 
 .widget-chat .chat-body {
     height: 400px;
-    margin-right: 1px;
+    margin-right: 0px;
     overflow: scroll;
     overflow-x: hidden;
     overflow-y: scroll;
