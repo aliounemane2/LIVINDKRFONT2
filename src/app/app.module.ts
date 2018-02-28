@@ -54,6 +54,8 @@ export const appRoutes:Routes=[
       {  path:'discussion', component:DiscussionComponent }
     ]
   },
+  {  path:'discussion', component:DiscussionComponent },
+  
   {path: 'dashboard',component:DashboardComponent},
   {path:'', redirectTo:'/login', pathMatch:'full'},
   {path:'login', component:LoginComponent },
@@ -105,7 +107,8 @@ export const appRoutes:Routes=[
     ToastOptions,{provide: ToastOptions, useClass: CustomOption}, 
     RedirectService,
     ProfilService,
-    ChatWebsocketService
+    DiscussionService,
+    ChatwebsocketService
   ],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],

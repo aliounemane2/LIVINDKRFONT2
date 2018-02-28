@@ -19,10 +19,11 @@
 
                 <div *ngFor="let ev of EventByUser">
 
-                    <div>
+                    <div class="col-lg-2">
                         {{ev.nomEvent}}
+                        <a [routerLink]="['../deleteEvent', ev.idEvent]"><img src="{{urls}}/{{ev.photoEvent}}" style="width:40%" /></a>
                     </div>
-                    <a [routerLink]="['../deleteEvent', ev.idEvent]"><img src="{{urls}}/{{ev.photoEvent}}" style="width:40%" /></a>
+
 
                 </div>
             </div>

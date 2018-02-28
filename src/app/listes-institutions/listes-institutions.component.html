@@ -19,11 +19,12 @@
 
                 <div *ngFor="let ui of InstitutionByUser">
 
-                    <div>
+                    <div class="col-lg-2">
                         {{ui.nomIns}}
+                        <a [routerLink]="['../deleteInstitution', ui.idInstitution]"><img src="{{urls}}/{{ui.photoIns}}" style="width:40%" /></a>
+
                     </div>
 
-                    <a [routerLink]="['../deleteInstitution', ui.idInstitution]"><img src="{{urls}}/{{ui.photoIns}}" style="width:40%" /></a>
 
                 </div>
             </div>
@@ -35,3 +36,4 @@
 </div>
 
 <!-- //modal-->
+<a [routerLink]="['../deleteInstitution', ui.idInstitution]"><img src="{{urls}}/{{ui.photoIns}}" style="width:40%" /></a>

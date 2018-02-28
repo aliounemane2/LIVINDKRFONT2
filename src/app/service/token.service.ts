@@ -52,6 +52,18 @@ export class TokenService {
     localStorage.setItem("pseudo", pseudo);
   }
 
+  public setIdentification(identifiant:any){
+    localStorage.setItem("identification",identifiant);
+  }
+
+  public getIdentification(){
+    return localStorage.getItem("identification");
+  }
+
+  public removeIdentification(){
+    localStorage.removeItem("identification");
+  }
+
   public removePseudo(){
     localStorage.removeItem("pseudo");
   }

@@ -1,3 +1,8 @@
+import { ChatwebsocketService } from './../service/chatwebsocket.service';
+import { TokenService } from './../service/token.service';
+import { ProfilService } from './../service/profil.service';
+import { user } from './../login/user';
+import { DiscussionService } from './../service/discussion.service';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { ChatWebsocketService } from '../service/chat-websocket.service';
