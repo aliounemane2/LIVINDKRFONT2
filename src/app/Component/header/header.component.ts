@@ -28,6 +28,8 @@ export class HeaderComponent implements OnInit {
   deconnecter(){
     this.tokenservice.removeToken();
     this.tokenservice.removePseudo();
+    this.tokenservice.removeDiscussion();
+    this.tokenservice.removeRole();
     this.redirect.redirectTologin();
   }
 

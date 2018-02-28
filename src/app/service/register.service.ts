@@ -6,7 +6,8 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } f
 export class RegisterService {
 
   file: File;
-  url = "http://localhost:8181";
+  url = "http://localhost:8181/register";
+  url1 = "http://localhost:8181/user";
 
   constructor(private http: HttpClient, private tokenservice: TokenService) { }
 
@@ -21,7 +22,7 @@ export class RegisterService {
     formData.append('file', this.file);
     formData.append('user', userBlob);
 
-    const req = new HttpRequest('POST', this.url + '/inscription', formData, {
+    const req = new HttpRequest('POST', this.url, formData, {
       params: new HttpParams().set("type", "0")
     });
     return this.http.request(req);
@@ -33,7 +34,7 @@ export class RegisterService {
     let formData: FormData = new FormData();
     formData.append('file', this.file);
 
-    const req = new HttpRequest('POST', this.url + '/user/updatephoto', formData, {
+    const req = new HttpRequest('POST', this.url1 + '/updatephoto', formData, {
       params: new HttpParams().set("type", "0").set("pseudo",pseudo),
       headers: this.headers
     });
@@ -46,7 +47,7 @@ export class RegisterService {
   }
 
   getUtilisateur(pseudo) {
-    return this.http.get(this.url + '/user/userConnect/' + pseudo,{
+    return this.http.get(this.url1 + '/userConnect/' + pseudo,{
       headers: this.headers
     });
   }
@@ -63,7 +64,7 @@ export class RegisterService {
   }
 
   UpdateEmail(emailold,emailnew,pseudo) {
-    return this.http.post(this.url + '/uer/updateemail',
+    return this.http.post(this.url1 + '/updateemail',
       new HttpParams().set('pseudo', pseudo)
                       .set('emailold', emailold)
                       .set('emailnew',emailnew),{
@@ -72,7 +73,7 @@ export class RegisterService {
   }
 
   UpdateEmailConfirmation(code,emailold,emailnew) {
-    return this.http.post(this.url + '/user/updateemailconfirmation',
+    return this.http.post(this.url1 + '/updateemailconfirmation',
       new HttpParams().set('code', code)
                       .set('emailnew',emailnew)
                       .set('emailold', emailold),

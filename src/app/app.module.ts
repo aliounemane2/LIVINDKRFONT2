@@ -1,5 +1,5 @@
-import { ChatwebsocketService } from './service/chatwebsocket.service';
 import { DiscussionService } from './service/discussion.service';
+import { ChatWebsocketService } from './service/chat-websocket.service';
 import { ProfilService } from './service/profil.service';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
 import { ComponentsModule } from './Component/component.module';
@@ -128,7 +128,7 @@ export const appRoutes:Routes=[
     RedirectService,
     ProfilService,
     DiscussionService,
-    ChatwebsocketService
+    ChatWebsocketService
   ],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],

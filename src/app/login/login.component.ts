@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
   authentification(){
     this.loginOK = false;
     setTimeout(()=>{    
-      this.http.post('http://192.168.1.94:8088/login',
+      this.http.post('http://localhost:8181/login',
       new HttpParams().set('pseudo', this.username).set('password', this.password)).subscribe(
       data => {
         
@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
             setTimeout(()=>{
              this.tokenservice.setToken(data["key"]);
              this.tokenservice.setPseudo(data["user"].pseudo)
+            
              //this.toastr.success('ok', 'Information!', CustomOption);
              location.href = "/dashboard";
             },100);

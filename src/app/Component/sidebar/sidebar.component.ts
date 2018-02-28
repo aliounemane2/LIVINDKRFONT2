@@ -46,7 +46,6 @@ import * as $ from 'jquery';
 export class SidebarComponent implements OnInit {
 
   file: File;
-  url: string = "http://192.168.1.94/LIV'INDKR/PhotosProfil/";
   password: string;
   passwordConfirm: string;
   oldpassword : string;
@@ -65,6 +64,8 @@ export class SidebarComponent implements OnInit {
   statusemail : boolean;
   invalidemail : boolean;
   memeEmail : boolean;
+  public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
+  
 
   constructor(private service: RegisterService, private dashboard: DashboardComponent, private cheader: HeaderComponent, private redirect: RedirectService, private tokenservice: TokenService, private toastr: ToastsManager, vcr: ViewContainerRef, private profil: ProfilService) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -75,6 +76,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.memeEmail = false;
     this.statusemail = false;
     this.invalidemail = true;
@@ -88,14 +90,18 @@ export class SidebarComponent implements OnInit {
       let pseudo: string = this.tokenservice.getPseudo();
       this.profil.getUtilisateur(pseudo).subscribe(
         data => {
-          this.utilisateur = data["user"];
+          let body = data["user"];
+          this.utilisateur = body;
           this.tokenservice.setUtilisateur(this.utilisateur);
           this.utilisateurTest = JSON.parse(this.tokenservice.getUtilisateur());
           this.tokenservice.removeUtilisateur();
-          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
           if(this.utilisateur === null || this.utilisateur == undefined){
             this.redirect.redirectTologinForParam("Veuillez vous connecter à nouveau.");
           }
+
+          this.ChangeDetailUser(this.utilisateur.nom, this.utilisateur.prenom,this.utilisateur.photo,this.url);
+          this.tokenservice.setDiscussion(this.utilisateur.idUser);
+          this.tokenservice.setRole(body.idUserProfil.nom);
         },
         errors => {
           console.log(errors);
@@ -109,10 +115,11 @@ export class SidebarComponent implements OnInit {
 
   setPhotoProfil(event) {
     event.preventDefault();
-    this.getPhotoProfil(this.url+this.utilisateurTest.photo);
+    this.getPhotoProfil(this.url,this.utilisateurTest.photo);
   }
 
   fileChange(event) {
+    console.log(event);
     let fileList: FileList = event.target.files;
     if (fileList.length > 0) 
     {
@@ -120,15 +127,19 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  getPhotoProfil(photo){
-    $(".fileinput-preview img:last-child").remove()
-    $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
+  getPhotoProfil(url,photo){
+    $(document).ready(function () {
+      $(".fileinput-preview img:last-child").remove()
+      $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+url+photo+'" />');
+    });
   }
 
   deleteImage(e){
     e.preventDefault();
     let fileList: FileList = e.target.files;
     fileList = null;
+    this.file = null;  
+    console.log(e);
     this.file = null; 
   }
 
