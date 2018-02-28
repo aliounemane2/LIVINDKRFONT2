@@ -954,8 +954,10 @@ body.leftMenu #mailbox #nav-scroll,
 }
 
 .widget-chat.full-chat {
-    height: 90%;
-    top: 20px;
+    height: 80%;
+    top: 6px;
+    width: 80%;
+    margin: auto;
 }
 
 .widget-chat.full-chat .chat-body {
@@ -980,9 +982,11 @@ body.leftMenu #mailbox #nav-scroll,
     bottom: 0;
     z-index: 150;
 }
-
-.widget-chat .chat-body {
+.chat-body{
     height: 400px;
+}
+.widget-chat .chat-body {
+    
     margin-right: 1px;
     overflow: scroll;
     overflow-x: hidden;

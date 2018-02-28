@@ -1,16 +1,16 @@
-import { ChatwebsocketService } from './../service/chatwebsocket.service';
 import { TokenService } from './../service/token.service';
 import { ProfilService } from './../service/profil.service';
 import { user } from './../login/user';
 import { DiscussionService } from './../service/discussion.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import * as $ from 'jquery';
 import { ChatWebsocketService } from '../service/chat-websocket.service';
-import { TokenService } from './../service/token.service';
 import { discussion } from './discussion';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { HttpHeaders} from '@angular/common/http';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { CustomOption } from './../service/CustomOption';
 
 
 @Component({
@@ -36,12 +36,18 @@ private idReceveur:number;
 public discuter:string;
 public sub:any;
 public tabSub:any[] = [];
+public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
+public idSuperAdmin : number;
+
 //headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});
 
-  constructor(private chatwebsocket: ChatWebsocketService, private tokenservice : TokenService) { }
+  constructor(private chatwebsocket: ChatWebsocketService, private tokenservice : TokenService, private discussion: DiscussionService ,public toastr: ToastsManager, vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
+   }
 
   ngOnInit() {
-       
+      
+      this.getIdSuperAdmin();
       this.pseudo = this.tokenservice.getPseudo();
       
       this.idUtilisateur = +this.tokenservice.getDiscussion();
@@ -58,12 +64,27 @@ public tabSub:any[] = [];
 
   }
 
+  getIdSuperAdmin(){
+    this.discussion.getTheSuperAdmin().subscribe(
+      data =>{
+        this.idSuperAdmin = +data;
+        if(this.idSuperAdmin === 0){
+          this.toastr.success("La discussion avec le super admin n'est pas possible pour le moment!","",CustomOption);
+        }
+      },
+      error =>{
+        this.toastr.success("La discussion avec le super admin n'est pas possible pour le moment!","",CustomOption);
+        this.idSuperAdmin = 0; 
+      }
+    );
+  }
+
   sendMessage(){
-    if(this.message !== undefined && this.message !== ""){
+    if(this.message !== undefined && this.message !== "" && this.idSuperAdmin !== 0){
       let dis:discussion = new discussion();
       dis.corps = this.message;
-      dis.idEnvoyeur.idUser = this.tokenservice.getDiscussion();
-      dis.idReceveur.idUser = this.monRole === this.testRole ? this.idReceveur.toString() : "61";
+      dis.idEnvoyeur.idUser = +this.tokenservice.getDiscussion();
+      dis.idReceveur.idUser = +(this.monRole === this.testRole ? this.idReceveur.toString() : this.idSuperAdmin);
       this.sendMessageChat(dis);
       this.message = "";
     }
@@ -82,7 +103,7 @@ public tabSub:any[] = [];
         $('#loading').css('background-repeat',"");
         $('#loading').css('background-position',"");
         $('#loading1').css('opacity',"");
-        $(".chat").scrollTo = $(".chat").scrollHeight;
+        $(".chat-body").scrollTo = $(".chat-body").scrollHeight;
       });
   }
 
@@ -92,14 +113,17 @@ public tabSub:any[] = [];
     
     this.otherPseudo = toUser;
     let that = this;
-
-    this.stompClient.connect({}, function(frame) {
-      that.subscribeToChat(that.otherPseudo);
-    },function(erreur){
-      setTimeout(()=>{
-        that.connecter(that.otherPseudo);
-      },2000);
-    });
+   console.log(this.checkSubcribe(this.otherPseudo));
+    if(this.checkSubcribe(this.otherPseudo) === false){
+      this.stompClient.connect({}, function(frame) {
+          that.subscribeToChat(that.otherPseudo);
+        },function(erreur){
+          setTimeout(()=>{
+            that.connecter(that.otherPseudo);
+          },2000);
+        });
+    }
+    
   }
 
   subscribeToChat(toUser:string){
@@ -109,7 +133,7 @@ public tabSub:any[] = [];
     let sub = this.stompClient.subscribe("/livindkr/"+this.pseudo, (message) => {
       this.messages.push(JSON.parse(message.body));
     }, {id : toUser});
-    this.tabSub.push(sub);
+      this.tabSub.push(sub);
   }
 
   sendMessageChat(message){
@@ -117,7 +141,6 @@ public tabSub:any[] = [];
   }
 
   connecterAvec7Admin(pseudo:string, idReceveur:number){
-    this.checkSubcribe(pseudo);
     this.idReceveur = idReceveur;
     this.connecter(pseudo);
     this.getMesMessage(idReceveur);
@@ -134,13 +157,16 @@ public tabSub:any[] = [];
     });
   }
 
-  checkSubcribe(pseudo){
+  checkSubcribe(pseudo) : boolean{
+    console.log(this.tabSub);
+    let ok:number = 0;
     this.tabSub.forEach(sub => {
-      if (sub.id === pseudo) {
-        sub.unsubscribe();
-        this.tabSub.splice(sub);
+      if (sub.id == pseudo) {
+        ok++;
+        return;
       }
     });
+    return ok == 0 ? false : true;
   }
 
 }

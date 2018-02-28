@@ -15,7 +15,7 @@ import { RedirectService } from '../../service/redirect.service';
 export class DashboardComponent implements OnInit {
 
 
-  constructor(private tokenservice: TokenService, private redirect: RedirectService, private chatwebsocket: ChatWebsocketService) { 
+  constructor(private tokenservice: TokenService, private redirect: RedirectService) { 
   }
     
   ngOnInit() {
@@ -26,5 +26,4 @@ export class DashboardComponent implements OnInit {
         this.redirect.redirectTologinForParam("Veuillez vous connecter pour accéder aux ressources de l'application");
     }
   }
-
 }

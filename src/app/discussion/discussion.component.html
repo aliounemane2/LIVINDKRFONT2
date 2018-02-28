@@ -1,8 +1,23 @@
 <div class="main">
-    <div *ngIf="monRole==testRole" class="col-lg-2 col-md-2 col-sm-2">
-        <label>Les administrateurs connectés</label>
-        <button *ngFor="let adminis of admins" (click)="connecterAvec7Admin(adminis.pseudo, adminis.idUser)" class="col-lg-12 col-md-12 col-sm-12 btn btn-block btn-theme-inverse">{{adminis.pseudo}}</button>
+    <div id="connection" class="row" *ngIf="monRole==testRole">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <section *ngFor="let adminis of admins" (click)="connecterAvec7Admin(adminis.pseudo, adminis.idUser)" class="col-lg-2 col-md-3 col-sm-3 col-xs-4 panel corner-flip btn">
+                <header class="align-lg-center panel-heading no-borders bg-white-darken">
+                    <div class="mail-title">
+                        <section class="align-lg-center">
+                            <div class="mail-thumbnail align-lg-left"><img alt="" src="assets/img/avatar2.png" class="circle">
+                                <div class="align-lg-right">
+                                    <em>{{adminis.pseudo}} </em>
+                                </div>
+                            </div>
+
+                        </section>
+                    </div>
+                </header>
+            </section>
+        </div>
     </div>
+
     <div class="widget-chat full-chat" id="loading">
         <header>
             <h4 class="online">{{discuter}}</h4>
@@ -16,7 +31,7 @@
                     </dd>
                     <dd *ngIf="message.idReceveur.idUser == idUtilisateur" class="from">
                         <p>{{message.corps}}</p>
-                        <img alt="" src="assets/img/avatar2.png" class="avatar circle">
+                        <img alt="" src="{{url}}{{message.idReceveur.photo}}" class="avatar circle">
                     </dd>
                 </div>
                 <dd>
@@ -30,8 +45,8 @@
         </div>
         <footer>
             <form class="message-input">
-                <input name="message" [(ngModel)]="message" class="form-control" type="text" placeholder="Entrer votre message" />
-                <button (click)="sendMessage()" type="button" class="btn btn-theme">Envoyer</button>
+                <input name="message" [(ngModel)]="message" class="form-control col-lg-8" type="text" placeholder="Entrer votre message" />
+                <button (click)="sendMessage()" type="button" class="btn btn-theme col-lg-4"><i class="glyphicon glyphicon-send"></i></button>
             </form>
         </footer>
     </div>

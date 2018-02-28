@@ -1,0 +1,9 @@
+diff a/src/app/Component/sidebar/sidebar.component.ts b/src/app/Component/sidebar/sidebar.component.ts	(rejected hunks)
+@@ -147,7 +147,6 @@
+     e.preventDefault();
+     let fileList: FileList = e.target.files;
+     fileList = null;
+-    this.file = null;  
+     this.file = null; 
+   }
+ 
