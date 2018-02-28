@@ -346,9 +346,6 @@ export class InstitutionComponent implements OnInit {
 
           },
             errorCode => this.statusCode = errorCode);
-            
-            
-    
    }
  
    //Perform preliminary processing configurations

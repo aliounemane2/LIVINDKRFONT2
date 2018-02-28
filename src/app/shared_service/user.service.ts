@@ -8,6 +8,8 @@ import 'rxjs/add/observable/throw';
 // import {User} from '../institution';
 import { Institution } from '../institution/institution';
 import {TokenService} from '../service/token.service';
+import { Publicite } from '../publicite/publicite';
+import { Article } from '../article/article';
 
 
 
@@ -16,6 +18,8 @@ export class UserService {
 
   private baseUrl:string = 'http://192.168.1.94:8088';
   public URL_PHOTO = 'http://192.168.1.94:8088/institution/upload/';
+  public URL_PHOTO2 = 'http://192.168.1.94:8088/publicite/upload/';
+
   private headers = new Headers({'Content-Type':'application/json',   'Authorization': this.tokenService.getToken()
 });
   private options = new RequestOptions({headers:this.headers});
@@ -40,6 +44,54 @@ export class UserService {
     return this._http.post(this.baseUrl+'/institution/saveInstitution/', JSON.stringify(institution), this.options).map((response:Response)=>response.json())
     .catch(this.errorHandler);
   }
+
+
+
+  // Creation d'un article
+  createArticle(article:Article){
+
+    return this._http.post(this.baseUrl+'/articles/create_articles', JSON.stringify(article), this.options).map((response:Response)=>response.json())
+    .catch(this.errorHandler);
+  }
+
+
+// Récupérer les articles que l'utilisateur a crée
+  getArticlesByUser(){
+
+    return this._http.get(this.baseUrl+'/articles/list_articles_by_user', this.options).map((response:Response)=>response.json())
+    .catch(this.errorHandler);
+  }
+
+
+  // Récupérer l'article que l'utilisateur a cre2e en fonction en son IDENTIFIANT
+  getOneArticleByUser(id:Number){
+
+    return this._http.get(this.baseUrl+'/articles/getArticle/'+id, this.options).map((response:Response)=>response.json())
+    .catch(this.errorHandler);
+  }
+
+
+    //Delete Article By User
+    deleteArticleyUser(idArticle:Number) {
+      return this._http.delete(this.baseUrl+'/articles/delete_article/'+idArticle, this.options)
+        .map(this.extractData)
+          .catch(this.handleError);
+  
+    }
+
+
+
+    //Update Artcile By User
+    updateArticleByUser(article:Article, idArticle:Number) {
+      console.log("idArticle");
+      console.log(idArticle);
+      return this._http.put(this.baseUrl+'/articles/update_institution_by_user/'+idArticle, JSON.stringify(article), this.options)
+        .map(this.extractData)
+          .catch(this.handleError);
+  
+    }
+
+
 
   //Fetch all Category
   getAllCategory() {
@@ -68,6 +120,17 @@ export class UserService {
 
 
 
+
+         //Get FindInstitutionById 
+     getTagDecouvertes() {
+      return this._http.get(this.baseUrl+'/tagDecouverte/list_tag_decouverte')
+        .map(this.extractData)
+          .catch(this.handleError);
+  
+    }
+
+
+
     //Delete Institution By User
     deleteInstitutionByUser(idInstitution:Number) {
       return this._http.delete(this.baseUrl+'/institution/delete_institution/'+idInstitution, this.options)
@@ -87,6 +150,54 @@ export class UserService {
           .catch(this.handleError);
   
     }
+
+
+    //Update Publicite By User   
+    // , this.options
+    updatePubliciteByUser(idPublicite:number, publicite:Publicite) {
+      return this._http.put(this.baseUrl+'/publicite/updatePublicite/'+idPublicite, JSON.stringify(publicite), this.options)
+        .map(this.extractData)
+          .catch(this.handleError);
+  
+    }
+
+
+
+    // Create Publicite by User
+    createPublicite(publicite:Publicite){
+
+      return this._http.post(this.baseUrl+'/publicite/createPublicite', JSON.stringify(publicite), this.options).map((response:Response)=>response.json())
+      .catch(this.errorHandler);
+    }
+
+
+    //Get Publicite By User
+    getPubliciteByUser() {
+      return this._http.get(this.baseUrl+'/publicite/listPublicite', this.options)
+        .map(this.extractData)
+          .catch(this.handleError);
+  
+    }
+
+
+
+
+  getPubliciteByIdUser(id:Number){
+
+    return this._http.get(this.baseUrl+'/publicite/getIdPublicite/'+id, this.options).map((response:Response)=>response.json())
+    .catch(this.errorHandler);
+  }
+
+
+
+       //Delete Publicite By User
+       deletePubliciteByUser(idPublicite:Number) {
+        return this._http.delete(this.baseUrl+'/publicite/deletePublicite/'+idPublicite, this.options)
+          .map(this.extractData)
+            .catch(this.handleError);
+    
+      }
+
 
 
     //Fetch all Category By Souscategory

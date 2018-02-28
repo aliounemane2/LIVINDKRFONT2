@@ -39,6 +39,12 @@ import { RedirectService } from './service/redirect.service';
 import { StatistiqueComponent } from './Component/statistique/statistique.component';
 import { UpdateEmailComponent } from './Component/update-email/update-email.component';
 import { DiscussionComponent } from './discussion/discussion.component';
+import { PubliciteComponent } from './publicite/publicite.component';
+import { ArticleComponent } from './article/article.component';
+import { ListePubliciteComponent } from './liste-publicite/liste-publicite.component';
+import { DeletePubliciteComponent } from './delete-publicite/delete-publicite.component';
+import { ListeArticlesComponent } from './liste-articles/liste-articles.component';
+import { DeleteArticleComponent } from './delete-article/delete-article.component';
 
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
@@ -46,13 +52,20 @@ export const appRoutes:Routes=[
       {  path: '', component: StatistiqueComponent },
       {  path: 'statistique', component: StatistiqueComponent },
       {  path: 'institution', component: InstitutionComponent },
-       {path:'discussion', component:DiscussionComponent },
-      {  path:'listeInstitution', component:ListesInstitutionsComponent },
-      {  path:'deleteInstitution/:id', component:DeleteInstitutionComponent },
-      {  path:'evenement', component:EvenementComponent },
-      {  path:'listeEvent', component:ListeEvenementsComponent },
-      {  path:'deleteEvent/:id', component:DeleteEventComponent },
-      {  path:'discussion', component:DiscussionComponent }
+      {  path: 'listeInstitution', component:ListesInstitutionsComponent },
+      {  path: 'deleteInstitution/:id', component:DeleteInstitutionComponent },
+      {  path: 'evenement', component:EvenementComponent },
+      {  path: 'listeEvent', component:ListeEvenementsComponent },
+      {  path: 'deleteEvent/:id', component:DeleteEventComponent },
+      {  path: 'discussion', component:DiscussionComponent },
+      {  path: 'publicite', component:PubliciteComponent },
+      {  path: 'listePublicite', component:ListePubliciteComponent },
+      {  path: 'deletePublicite/:id', component:DeletePubliciteComponent },
+      {  path: 'article', component:ArticleComponent },
+      {  path: 'listeArticle', component:ListeArticlesComponent }
+
+
+
     ]
   },
   {  path:'discussion', component:DiscussionComponent },
@@ -87,7 +100,13 @@ export const appRoutes:Routes=[
     SendemailComponent,
     StatistiqueComponent,
     UpdateEmailComponent,
-    DiscussionComponent
+    DiscussionComponent,
+    PubliciteComponent,
+    ArticleComponent,
+    ListePubliciteComponent,
+    DeletePubliciteComponent,
+    ListeArticlesComponent,
+    DeleteArticleComponent
   ],
   imports: [
     BrowserModule,
