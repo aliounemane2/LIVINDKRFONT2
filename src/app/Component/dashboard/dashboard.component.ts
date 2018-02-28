@@ -15,7 +15,7 @@ import { RedirectService } from '../../service/redirect.service';
 export class DashboardComponent implements OnInit {
 
 
-  constructor(private tokenservice: TokenService, private redirect: RedirectService, private chatwebsocket: ChatWebsocketService) { 
+  constructor(private tokenservice: TokenService, private redirect: RedirectService) { 
   }
     
   ngOnInit() {

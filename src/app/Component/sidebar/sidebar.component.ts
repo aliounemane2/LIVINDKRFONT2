@@ -64,6 +64,8 @@ export class SidebarComponent implements OnInit {
   statusemail : boolean;
   invalidemail : boolean;
   memeEmail : boolean;
+  public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
+  
 
   constructor(private service: RegisterService, private dashboard: DashboardComponent, private cheader: HeaderComponent, private redirect: RedirectService, private tokenservice: TokenService, private toastr: ToastsManager, vcr: ViewContainerRef, private profil: ProfilService) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -111,14 +113,9 @@ export class SidebarComponent implements OnInit {
 
   }
 
-<<<<<<< HEAD
-  setPhotoProfil() {
-    this.getPhotoProfil(this.url,this.utilisateur.photo);
-=======
   setPhotoProfil(event) {
     event.preventDefault();
-    this.getPhotoProfil(this.url+this.utilisateurTest.photo);
->>>>>>> 9ac424aa40cf5523a0c46e9c63052ab2a5989224
+    this.getPhotoProfil(this.url,this.utilisateurTest.photo);
   }
 
   fileChange(event) {
@@ -130,17 +127,11 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
   getPhotoProfil(url,photo){
     $(document).ready(function () {
       $(".fileinput-preview img:last-child").remove()
       $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+url+photo+'" />');
     });
-=======
-  getPhotoProfil(photo){
-    $(".fileinput-preview img:last-child").remove()
-    $('.fileinput-preview').prepend('<img class="img img-responsive" src="'+photo+'" />');
->>>>>>> 9ac424aa40cf5523a0c46e9c63052ab2a5989224
   }
 
   deleteImage(e){
@@ -171,10 +162,6 @@ export class SidebarComponent implements OnInit {
                     this.ChangeDetailUser(this.utilisateurTest.nom,this.utilisateurTest.prenom,this.utilisateur.photo,this.url);
                   }
                 }
-<<<<<<< HEAD
-                
-=======
->>>>>>> 9ac424aa40cf5523a0c46e9c63052ab2a5989224
                 this.profilOk = true;
               },
               errors =>{

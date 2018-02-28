@@ -1,3 +1,4 @@
+import { DiscussionService } from './service/discussion.service';
 import { ChatWebsocketService } from './service/chat-websocket.service';
 import { ProfilService } from './service/profil.service';
 import { DashboardComponent } from './Component/dashboard/dashboard.component';
@@ -108,7 +109,7 @@ export const appRoutes:Routes=[
     RedirectService,
     ProfilService,
     DiscussionService,
-    ChatwebsocketService
+    ChatWebsocketService
   ],
   bootstrap: [AppComponent],
   exports: [ RouterModule ],
