@@ -1,0 +1,37 @@
+<div class="tabbable">
+
+    <div class="tab-content">
+        <!--div class="col-lg-6"-->
+        <section class="panel corner-flip">
+            <header class="panel-heading sm" data-color="theme-inverse">
+                <h2><strong> Listes Publicités </strong></h2>
+                <label class="color"><strong><em></em></strong> </label>
+            </header>
+            <div class="panel-tools color" align="right" data-toolscolor="#4EA582">
+                <ul class="tooltip-area">
+                    <li><a href="javascript:void(0)" class="btn btn-collapse" title="Collapse"><i class="fa fa-sort-amount-asc"></i></a></li>
+                    <li><a href="javascript:void(0)" class="btn btn-reload" title="Reload"><i class="fa fa-retweet"></i></a></li>
+                    <li><a href="javascript:void(0)" class="btn btn-close" title="Close"><i class="fa fa-times"></i></a></li>
+                </ul>
+            </div>
+
+            <div class="panel-body">
+
+                <div *ngFor="let pb of PubliciteByUser">
+
+                    <div class="col-lg-2">
+                        {{pb.nomEvent}}
+                        <a [routerLink]="['../deletePublicite', pb.idPublicite]"><img src="{{urls}}/{{pb.photoPublicite}}" style="width:40%" /></a>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </section>
+
+    </div>
+
+</div>
+
+<!-- //modal-->
