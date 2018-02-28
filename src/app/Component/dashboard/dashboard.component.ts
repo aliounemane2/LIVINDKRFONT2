@@ -26,5 +26,4 @@ export class DashboardComponent implements OnInit {
         this.redirect.redirectTologinForParam("Veuillez vous connecter pour accéder aux ressources de l'application");
     }
   }
-
 }

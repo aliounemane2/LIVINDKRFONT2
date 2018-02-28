@@ -79,7 +79,8 @@ public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
         $('#loading').css('background-repeat',"");
         $('#loading').css('background-position',"");
         $('#loading1').css('opacity',"");
-        $(".chat-body").scrollTo = $(".chat-body").scrollHeight;
+        $(".chat-body").scrollTo = 100;
+        $(".widget-chat").scrollTo = 100;
       });
   }
 
@@ -89,14 +90,17 @@ public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
     
     this.otherPseudo = toUser;
     let that = this;
-
-    this.stompClient.connect({}, function(frame) {
-      that.subscribeToChat(that.otherPseudo);
-    },function(erreur){
-      setTimeout(()=>{
-        that.connecter(that.otherPseudo);
-      },2000);
-    });
+   console.log(this.checkSubcribe(this.otherPseudo));
+    if(this.checkSubcribe(this.otherPseudo) === false){
+      this.stompClient.connect({}, function(frame) {
+          that.subscribeToChat(that.otherPseudo);
+        },function(erreur){
+          setTimeout(()=>{
+            that.connecter(that.otherPseudo);
+          },2000);
+        });
+    }
+    
   }
 
   subscribeToChat(toUser:string){
@@ -106,7 +110,8 @@ public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
     let sub = this.stompClient.subscribe("/livindkr/"+this.pseudo, (message) => {
       this.messages.push(JSON.parse(message.body));
     }, {id : toUser});
-    this.tabSub.push(sub);
+      this.tabSub.push(sub);
+    console.log(this.tabSub);
   }
 
   sendMessageChat(message){
@@ -114,7 +119,6 @@ public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
   }
 
   connecterAvec7Admin(pseudo:string, idReceveur:number){
-    this.checkSubcribe(pseudo);
     this.idReceveur = idReceveur;
     this.connecter(pseudo);
     this.getMesMessage(idReceveur);
@@ -131,13 +135,16 @@ public url: string = "http://213.246.59.111/LIVINDKR/PhotosProfil/";
     });
   }
 
-  checkSubcribe(pseudo){
+  checkSubcribe(pseudo) : boolean{
+    console.log(this.tabSub);
+    let ok:number = 0;
     this.tabSub.forEach(sub => {
-      if (sub.id === pseudo) {
-        sub.unsubscribe();
-        this.tabSub.splice(sub);
+      if (sub.id == pseudo) {
+        ok++;
+        return;
       }
     });
+    return ok == 0 ? false : true;
   }
 
 }

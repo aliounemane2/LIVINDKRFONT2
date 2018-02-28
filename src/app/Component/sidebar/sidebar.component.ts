@@ -75,6 +75,7 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.memeEmail = false;
     this.statusemail = false;
     this.invalidemail = true;
