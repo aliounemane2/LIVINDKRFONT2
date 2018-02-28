@@ -103,8 +103,7 @@ public idSuperAdmin : number;
         $('#loading').css('background-repeat',"");
         $('#loading').css('background-position',"");
         $('#loading1').css('opacity',"");
-        $(".chat-body").scrollTo = 100;
-        $(".widget-chat").scrollTo = 100;
+        $(".chat-body").scrollTo = $(".chat-body").scrollHeight;
       });
   }
 
@@ -135,7 +134,6 @@ public idSuperAdmin : number;
       this.messages.push(JSON.parse(message.body));
     }, {id : toUser});
       this.tabSub.push(sub);
-    console.log(this.tabSub);
   }
 
   sendMessageChat(message){
