@@ -2,6 +2,7 @@ import { Userconnect } from './../userconnect';
 import { user } from './../../login/user';
 import { HeaderComponent } from './../header/header.component';
 import { TokenService } from './../../service/token.service';
+import { ChatWebsocketService } from './../../service/chat-websocket.service';
 import { Component, OnInit } from '@angular/core';
 import * as $ from 'jquery';
 import { RedirectService } from '../../service/redirect.service';
@@ -25,5 +26,4 @@ export class DashboardComponent implements OnInit {
         this.redirect.redirectTologinForParam("Veuillez vous connecter pour accéder aux ressources de l'application");
     }
   }
-
 }
