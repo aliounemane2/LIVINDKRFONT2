@@ -17,16 +17,19 @@ export class Article {
     idUser : number;
     interestIdInterest: number;
     */
-  
+ 
+ 
+    // #0f5b76 vert 
+    // #c81437 Rouge 
   
     constructor(
-        public id_article:number,
-        public contenu_article:string,
-        public date_article:Date,
-        public nb_lecteur:number,
-        public titre_article:string,
-        public id_category:number,
-        public id_tag_decouverte:number,
+        public idArticle:number,
+        public contenuArticle:string,
+        public dateArticle:string,
+        public nbLecteur:number,
+        public titreArticle:string,
+        public idCategory:number,
+        public idTagDecouverte:number,
         public image:string
     ) {
        

@@ -20,8 +20,8 @@
                 <div *ngFor="let art of ArticleByUser">
 
                     <div class="col-lg-2">
-                        {{art.nomEvent}}
-                        <a [routerLink]="['../deletePublicite', art.idArticle]"><img src="{{urls}}/{{art.photoPublicite}}" style="width:40%" /></a>
+                        <!--  {{art.titreArticle}} -->
+                        <a [routerLink]="['../deleteArticle', art.idArticle]"><img src="{{urls}}/{{art.image}}" style="width:40%" /></a>
                     </div>
                 </div>
 

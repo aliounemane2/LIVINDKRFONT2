@@ -45,6 +45,7 @@ import { ListePubliciteComponent } from './liste-publicite/liste-publicite.compo
 import { DeletePubliciteComponent } from './delete-publicite/delete-publicite.component';
 import { ListeArticlesComponent } from './liste-articles/liste-articles.component';
 import { DeleteArticleComponent } from './delete-article/delete-article.component';
+import { EventsToComeComponent } from './events-to-come/events-to-come.component';
 
 export const appRoutes:Routes=[
   {path: 'dashboard', component:DashboardComponent,
@@ -62,7 +63,9 @@ export const appRoutes:Routes=[
       {  path: 'listePublicite', component:ListePubliciteComponent },
       {  path: 'deletePublicite/:id', component:DeletePubliciteComponent },
       {  path: 'article', component:ArticleComponent },
-      {  path: 'listeArticle', component:ListeArticlesComponent }
+      {  path: 'listeArticle', component:ListeArticlesComponent },
+      {  path: 'deleteArticle/:id', component:DeleteArticleComponent },
+
 
 
 
@@ -106,7 +109,8 @@ export const appRoutes:Routes=[
     ListePubliciteComponent,
     DeletePubliciteComponent,
     ListeArticlesComponent,
-    DeleteArticleComponent
+    DeleteArticleComponent,
+    EventsToComeComponent
   ],
   imports: [
     BrowserModule,

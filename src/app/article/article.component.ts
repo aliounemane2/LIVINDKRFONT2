@@ -59,9 +59,13 @@ export class ArticleComponent implements OnInit {
       let contenu_article = json.contenu_article;
       let titre_article = json.titre_article;
       let id_tag_decouverte = +json.id_tag_decouverte;
+
+      let date = new Date();
+      let dateArticle = date.getFullYear()+ '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+
       
 
-      let article = new Article(null, contenu_article, new Date(),0,titre_article,1,id_tag_decouverte, this.photo);
+      let article = new Article(null, contenu_article, dateArticle,0,titre_article,1,id_tag_decouverte, this.photo);
       console.log(article);
       console.log("TEST VALEUR DE SOUS CATEGORIE ");
 
