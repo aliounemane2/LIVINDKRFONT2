@@ -57,9 +57,12 @@ export class PubliciteComponent implements OnInit {
  
       let titrePublicite = json.titrePublicite;
       let typePublicite = json.typePublicite;
+      let date = new Date();
+      let datePublicite = date.getFullYear()+ '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 
+      // alert(datePublicite);
 
-      let publicite = new Publicite(null, new Date(), titrePublicite,typePublicite,this.photo);
+      let publicite = new Publicite(null, datePublicite, titrePublicite,typePublicite,this.photo);
       console.log(publicite);
       console.log("TEST VALEUR DE SOUS CATEGORIE ");
 

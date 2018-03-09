@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
   authentification(){
     this.loginOK = false;
     setTimeout(()=>{    
-      this.http.post('http://192.168.1.94:8088/login',
+      this.http.post('http://213.246.59.111:8080/LIVINDKR6/login',
       new HttpParams().set('pseudo', this.username).set('password', this.password)).subscribe(
       data => {
         

@@ -61,7 +61,10 @@ h6,
 }
 
 a {
+    /*
     color: #098e83;
+    */
+    color: #c81437;
 }
 
 a:hover {
@@ -127,7 +130,10 @@ ol.rounded-list a:before {
 
 #header {
     background: white;
+    border-bottom: 5px #c81437 solid;
+    /*
     border-bottom: 5px #0aa699 solid;
+    */
     height: 55px;
     left: 0;
     position: absolute;
@@ -172,7 +178,10 @@ ol.rounded-list a:before {
 }
 
 #header .tools-bar a.icon-toolsbar {
+    /*
     color: #08897e;
+    */
+    color: #c81437;
     font-size: 21px;
     padding: 0 25px;
 }

@@ -16,9 +16,10 @@ import { Article } from '../article/article';
 @Injectable()
 export class UserService {
 
-  private baseUrl:string = 'http://192.168.1.94:8088';
-  public URL_PHOTO = 'http://192.168.1.94:8088/institution/upload/';
-  public URL_PHOTO2 = 'http://192.168.1.94:8088/publicite/upload/';
+  private baseUrl:string = 'http://213.246.59.111:8080/LIVINDKR6';
+  public URL_PHOTO = 'http://213.246.59.111:8080/LIVINDKR6/institution/upload/';
+  public URL_PHOTO2 = 'http://213.246.59.111:8080/LIVINDKR6/publicite/upload/';
+  public URL_PHOTO3 = 'http://213.246.59.111:8080/LIVINDKR6/articles/upload/';
 
   private headers = new Headers({'Content-Type':'application/json',   'Authorization': this.tokenService.getToken()
 });
@@ -44,6 +45,17 @@ export class UserService {
     return this._http.post(this.baseUrl+'/institution/saveInstitution/', JSON.stringify(institution), this.options).map((response:Response)=>response.json())
     .catch(this.errorHandler);
   }
+
+
+
+
+  getEventsToCome(){
+
+    return this._http.get(this.baseUrl+'/event/events_by_user_after/', this.options).map((response:Response)=>response.json())
+    .catch(this.errorHandler);
+  }
+
+
 
 
 
@@ -85,7 +97,7 @@ export class UserService {
     updateArticleByUser(article:Article, idArticle:Number) {
       console.log("idArticle");
       console.log(idArticle);
-      return this._http.put(this.baseUrl+'/articles/update_institution_by_user/'+idArticle, JSON.stringify(article), this.options)
+      return this._http.put(this.baseUrl+'/articles/update_articles/'+idArticle, JSON.stringify(article), this.options)
         .map(this.extractData)
           .catch(this.handleError);
   

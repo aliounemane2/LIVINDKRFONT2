@@ -10,9 +10,9 @@ import {TokenService} from '../service/token.service';
 
 @Injectable()
 export class EvenementService {
-	private BACKEND_URL = 'http://192.168.1.94:8088';
+	private BACKEND_URL = 'http://213.246.59.111:8080/LIVINDKR6';
 	//private BACKEND_URL = 'http://localhost:8080';
-  public URL_PHOTO = 'http://192.168.1.94:8088/event/upload/';
+  public URL_PHOTO = 'http://213.246.59.111:8080/LIVINDKR6/event/upload/';
 	private headers = new Headers({'Content-Type': 'application/json', 'Authorization': this.tokenService.getToken()});
 	private options = new RequestOptions({headers: this.headers});
 

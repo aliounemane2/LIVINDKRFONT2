@@ -20,11 +20,11 @@ export class Publicite {
   
   
     constructor(
-        public id_publicite:number,
-        public datepublicite:Date,
-        public titre_publicite:string,
-        public typepublicite:string,
-        public photopublicite:string) {
+        public idPublicite:number,
+        public datePublicite:string,
+        public titrePublicite:string,
+        public typePublicite:string,
+        public photoPublicite:string) {
        
     }
 
