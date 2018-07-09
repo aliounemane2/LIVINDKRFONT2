@@ -7,7 +7,7 @@ import * as SockJS from 'sockjs-client';
 @Injectable()
 export class ChatwebsocketService {
 cons
-  socket = new SockJS('http://localhost:8080/ws');
+  socket = new SockJS('http://192.168.1.26:8088/ws');
   ws = Stomp.over(this.socket);
 
   constructor(private tokenservice : TokenService) { }

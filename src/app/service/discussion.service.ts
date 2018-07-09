@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class DiscussionService {
 
-  url = "http://localhost:8181/discussion";
+  url = "http://192.168.1.26:8088/discussion";
 
   constructor(private http: HttpClient) { }
 

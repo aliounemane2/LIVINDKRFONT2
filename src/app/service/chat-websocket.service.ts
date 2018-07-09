@@ -8,8 +8,8 @@ import { HttpClient, HttpParams, HttpErrorResponse, HttpHeaders, HttpRequest } f
 @Injectable()
 export class ChatWebsocketService {
 
-  private serverUrl = 'http://localhost:8181/chat';
-  private url = 'http://localhost:8181/discussion';
+  private serverUrl = 'http://192.168.1.26:8088/chat';
+  private url = 'http://192.168.1.26:8088/discussion';
     public messages:any;
   headers = new HttpHeaders({'Authorization':this.tokenservice.getToken()});  
   public socket = new SockJS(this.serverUrl,null,{headers:this.headers});

@@ -9,7 +9,7 @@ import { user } from '../login/user';
 export class ProfilService {
 
   file: File;
-  url = "http://localhost:8181";
+  url = "http://192.168.1.26:8088";
 
   constructor(private http: HttpClient, private tokenservice: TokenService) { 
     
