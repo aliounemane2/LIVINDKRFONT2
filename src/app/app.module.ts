@@ -65,10 +65,6 @@ export const appRoutes:Routes=[
       {  path: 'article', component:ArticleComponent },
       {  path: 'listeArticle', component:ListeArticlesComponent },
       {  path: 'deleteArticle/:id', component:DeleteArticleComponent },
-
-
-
-
     ]
   },
   {  path:'discussion', component:DiscussionComponent },

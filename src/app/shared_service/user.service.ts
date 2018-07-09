@@ -16,10 +16,10 @@ import { Article } from '../article/article';
 @Injectable()
 export class UserService {
 
-  private baseUrl:string = 'http://213.246.59.111:8080/LIVINDKR6';
-  public URL_PHOTO = 'http://213.246.59.111:8080/LIVINDKR6/institution/upload/';
-  public URL_PHOTO2 = 'http://213.246.59.111:8080/LIVINDKR6/publicite/upload/';
-  public URL_PHOTO3 = 'http://213.246.59.111:8080/LIVINDKR6/articles/upload/';
+  private baseUrl:string = 'http://192.168.1.26:8088';
+  public URL_PHOTO = 'http://192.168.1.26:8088/institution/upload/';
+  public URL_PHOTO2 = 'http://192.168.1.26:8088/publicite/upload/';
+  public URL_PHOTO3 = 'http://192.168.1.26:8088/articles/upload/';
 
   private headers = new Headers({'Content-Type':'application/json',   'Authorization': this.tokenService.getToken()
 });
